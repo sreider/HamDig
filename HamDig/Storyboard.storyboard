@@ -149,10 +149,10 @@
                                     <navigationItem title="New Level Form" id="oGo-Hh-B64">
                                         <barButtonItem key="leftBarButtonItem" id="3An-N8-iZE">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ADB-qS-Mgg">
-                                                <rect key="frame" x="16" y="7" width="35" height="30"/>
+                                                <rect key="frame" x="16" y="7" width="38" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
-                                                <state key="normal" title="Back"/>
+                                                <state key="normal" title="Menu"/>
                                                 <connections>
                                                     <segue destination="IyE-ME-f2T" kind="modal" id="kU9-Bc-nPb"/>
                                                 </connections>
@@ -225,7 +225,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Depths" id="4o3-lx-giv">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="FUT-ud-bPf">
+                                        <barButtonItem key="leftBarButtonItem" title="Menu" id="FUT-ud-bPf">
                                             <connections>
                                                 <segue destination="IyE-ME-f2T" kind="modal" id="zhg-2b-pmg"/>
                                             </connections>
@@ -266,7 +266,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Recovered Cultural Materials" id="Rv8-lC-AqN">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="MyX-pk-pjI">
+                                        <barButtonItem key="leftBarButtonItem" title="Menu" id="MyX-pk-pjI">
                                             <connections>
                                                 <segue destination="IyE-ME-f2T" kind="modal" id="STT-dR-1Zd"/>
                                             </connections>
@@ -345,7 +345,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Narrative" id="rLp-rg-yXG">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="lYB-mU-ERa">
+                                        <barButtonItem key="leftBarButtonItem" title="Menu" id="lYB-mU-ERa">
                                             <connections>
                                                 <segue destination="IyE-ME-f2T" kind="modal" id="Bgz-8D-Gzj"/>
                                             </connections>
@@ -394,6 +394,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zhg-2b-pmg"/>
+        <segue reference="Bgz-8D-Gzj"/>
     </inferredMetricsTieBreakers>
 </document>
