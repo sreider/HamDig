@@ -127,7 +127,7 @@
         <!--View Controller - I. Provenience Data-->
         <scene sceneID="Cvq-SK-Boh">
             <objects>
-                <viewController id="5kN-2r-fNm" sceneMemberID="viewController">
+                <viewController id="5kN-2r-fNm" customClass="HDViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zYY-RO-dal"/>
                         <viewControllerLayoutGuide type="bottom" id="hOH-Mw-aZW"/>
@@ -188,6 +188,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="GGQ-M4-pKi"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S5O-qO-GAp">
                                 <rect key="frame" x="108" y="159" width="93" height="30"/>
@@ -246,6 +249,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="I. Provenience Data" id="I1s-Pe-aSw"/>
+                    <connections>
+                        <outlet property="stratumTextField" destination="Mb5-VK-EfX" id="NvJ-TD-rSf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azc-WD-RKs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -388,7 +394,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vi3-yX-sGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1271" y="-3218"/>
+            <point key="canvasLocation" x="-1271" y="-3210"/>
         </scene>
         <!--View Controller - IV. Narrative-->
         <scene sceneID="zbd-us-A7K">
