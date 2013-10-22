@@ -16,6 +16,10 @@
 
 @synthesize stratum = _stratum;
 
+@synthesize stratumLevel = _stratumLevel;
+@synthesize level = _level;
+@synthesize totalOfLevels = _totalOfLevels;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -44,6 +48,18 @@
         
         [theTextField resignFirstResponder];
         // Closes the keyboard when user hits return
+    }
+    else if (theTextField == self.stratumLevelTextField) {
+        
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.levelTextField) {
+        
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.totalOfLevelsTextField) {
+        
+        [theTextField resignFirstResponder];
     }
     
     return YES;
