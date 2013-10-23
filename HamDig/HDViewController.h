@@ -34,4 +34,8 @@
 
 @property (strong, nonatomic) NSArray *areaNumArray;
 
+@property (strong, nonatomic) NSMutableDictionary *dict;
+
+
+
 @end

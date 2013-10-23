@@ -23,6 +23,8 @@
 @synthesize areaNum = _areaNum;
 @synthesize areaNumPickerView = _areaNumPickerView;
 
+@synthesize dict = _dict;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -37,7 +39,16 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view.
-
+    
+    //create dictionary. Don't need to set the amount of values but I just did this for testing
+    // this should happen when the user clicks "New Form", not here... but again just wanted to test
+    self.dict = [[NSMutableDictionary alloc] initWithCapacity:20];
+    //initialize keys for dictionary
+    [self.dict setObject:@"test" forKey:@"stratum"];
+    [self.dict setObject:@"test" forKey:@"stratumLevel"];
+    [self.dict setObject:@"test" forKey:@"level"];
+    [self.dict setObject:@"test" forKey:@"totalOfLevels"];
+    
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
 }
 
@@ -50,20 +61,25 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     
     if (theTextField == self.stratumTextField) {
-        
+
         [theTextField resignFirstResponder];
         // Closes the keyboard when user hits return
     }
     else if (theTextField == self.stratumLevelTextField) {
-        
+        //EXAMPLE USE OF DICTIONARY
+        // save user text
+        self.stratum = self.stratumLevelTextField.text;
+        // place value in dictionary corresponding to key: stratum
+        [self.dict setObject: self.stratum forKey:@"stratum"];
+        // display value in the stratum field
+        self.stratumTextField.text = [self.dict objectForKey:@"stratum"];
         [theTextField resignFirstResponder];
     }
     else if (theTextField == self.levelTextField) {
-        
         [theTextField resignFirstResponder];
     }
     else if (theTextField == self.totalOfLevelsTextField) {
-        
+        self.totalOfLevelsTextField.text = [self.dict objectForKey:@"stratumLevel"];
         [theTextField resignFirstResponder];
     }
     else if (theTextField == self.areaTypeTextField) {
@@ -97,7 +113,6 @@
 {
     self.areaNumTextField.text = [self.areaNumArray objectAtIndex:row];
     //[self.areaNumTextField resignFirstResponder];
-
     self.areaNumPickerView.hidden = YES;
     self.areaNumTextField.selected = NO;
     
@@ -109,6 +124,11 @@
     
 
 }
+
+
+
+
+
 
 
 @end
