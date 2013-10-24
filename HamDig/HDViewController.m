@@ -7,8 +7,17 @@
 //
 
 #import "HDViewController.h"
+#import "HDPopovers.h"
 
 @interface HDViewController ()
+
+@property (nonatomic, strong) UIPopoverController *barButtonItemPopover;
+
+@property (nonatomic, strong) UIPopoverController *detailViewPopover;
+@property (nonatomic, strong) id lastTappedButton;
+
+@property (nonatomic, strong) UIPopoverController *masterPopoverController;
+
 
 @end
 
@@ -32,6 +41,18 @@
         // Custom initialization
     }
     return self;
+}
+
+//popover controlls... lets see if this works -Jen
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.lastTappedButton = nil;
+}
+- (IBAction)showPopover:(id)sender
+{
+    UIButton *tappedButton = (UIButton *)sender;
+    [self.detailViewPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
 }
 
 - (void)viewDidLoad

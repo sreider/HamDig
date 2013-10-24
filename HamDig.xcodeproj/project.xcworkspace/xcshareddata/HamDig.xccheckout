@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6764A425-9F96-4FD6-B28A-BFEC7E4D0B63</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HamDig</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C8509462-428D-4F12-BFAE-D4F0D71559AC</key>
+		<string>https://github.com/sreider/HamDig.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>HamDig.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C8509462-428D-4F12-BFAE-D4F0D71559AC</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/sreider/HamDig.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C8509462-428D-4F12-BFAE-D4F0D71559AC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C8509462-428D-4F12-BFAE-D4F0D71559AC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HamDig</string>
+		</dict>
+	</array>
+</dict>
+</plist>

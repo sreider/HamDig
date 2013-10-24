@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface HDViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface HDViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stratumTextField;
 @property (copy, nonatomic) NSString *stratum;
 
