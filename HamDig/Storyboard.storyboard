@@ -410,10 +410,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="473" y="-3964"/>
         </scene>
-        <!--View Controller - III. Cultural Materials-->
+        <!--New Form View Controller - III. Cultural Materials-->
         <scene sceneID="wqZ-Xx-7nx">
             <objects>
-                <viewController id="Ycl-Te-LtR" customClass="HDViewController" sceneMemberID="viewController">
+                <viewController id="Ycl-Te-LtR" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="J89-PO-aak"/>
                         <viewControllerLayoutGuide type="bottom" id="dms-kn-mk0"/>
@@ -492,10 +492,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="41" y="-2792"/>
         </scene>
-        <!--View Controller - A. Artifacts-->
+        <!--New Form View Controller - A. Artifacts-->
         <scene sceneID="4wU-4g-tyK">
             <objects>
-                <viewController title="A. Artifacts" modalPresentationStyle="pageSheet" id="B4i-0D-3Tl" customClass="HDViewController" sceneMemberID="viewController">
+                <viewController title="A. Artifacts" modalPresentationStyle="pageSheet" id="B4i-0D-3Tl" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ujm-fj-qT2"/>
                         <viewControllerLayoutGuide type="bottom" id="hFL-OT-eK4"/>
@@ -632,10 +632,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="-851" y="-1619"/>
         </scene>
-        <!--View Controller - B. Features-->
+        <!--New Form View Controller - B. Features-->
         <scene sceneID="dsp-p8-NtW">
             <objects>
-                <viewController title="B. Features" modalPresentationStyle="pageSheet" id="Foy-nC-5iR" customClass="HDViewController" sceneMemberID="viewController">
+                <viewController title="B. Features" modalPresentationStyle="pageSheet" id="Foy-nC-5iR" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Sk2-ZN-mOx"/>
                         <viewControllerLayoutGuide type="bottom" id="sJ7-0k-XT3"/>
