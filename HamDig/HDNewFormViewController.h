@@ -1,5 +1,5 @@
 //
-//  HDViewController.h
+//  HDNewFormViewController.h
 //  HamDig
 //
 //  Created by Sampson Reider on 10/20/13.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface HDViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface HDNewFormViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stratumTextField;
 @property (copy, nonatomic) NSString *stratum;
 
@@ -36,6 +36,7 @@
 
 @property (strong, nonatomic) NSMutableDictionary *dict;
 
+- (IBAction)saveForm:(id)sender;
 
 
 @end

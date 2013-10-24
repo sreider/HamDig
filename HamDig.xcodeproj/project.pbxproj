@@ -20,7 +20,7 @@
 		5803CFA81802195A00ABDE8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5803CFA61802195A00ABDE8E /* InfoPlist.strings */; };
 		5803CFAA1802195A00ABDE8E /* HamDigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5803CFA91802195A00ABDE8E /* HamDigTests.m */; };
 		5803CFB418021BB200ABDE8E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5803CFB318021BB200ABDE8E /* Storyboard.storyboard */; };
-		580D887E1814A0C6000A5240 /* HDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 580D887D1814A0C6000A5240 /* HDViewController.m */; };
+		580D887E1814A0C6000A5240 /* HDNewFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 580D887D1814A0C6000A5240 /* HDNewFormViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +51,8 @@
 		5803CFA71802195A00ABDE8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5803CFA91802195A00ABDE8E /* HamDigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HamDigTests.m; sourceTree = "<group>"; };
 		5803CFB318021BB200ABDE8E /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		580D887C1814A0C6000A5240 /* HDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDViewController.h; sourceTree = "<group>"; };
-		580D887D1814A0C6000A5240 /* HDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDViewController.m; sourceTree = "<group>"; };
+		580D887C1814A0C6000A5240 /* HDNewFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDNewFormViewController.h; sourceTree = "<group>"; };
+		580D887D1814A0C6000A5240 /* HDNewFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDNewFormViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,8 +114,8 @@
 			children = (
 				5803CF931802195A00ABDE8E /* HDAppDelegate.h */,
 				5803CFB318021BB200ABDE8E /* Storyboard.storyboard */,
-				580D887C1814A0C6000A5240 /* HDViewController.h */,
-				580D887D1814A0C6000A5240 /* HDViewController.m */,
+				580D887C1814A0C6000A5240 /* HDNewFormViewController.h */,
+				580D887D1814A0C6000A5240 /* HDNewFormViewController.m */,
 				5803CF941802195A00ABDE8E /* HDAppDelegate.m */,
 				5803CF961802195A00ABDE8E /* Images.xcassets */,
 				5803CF8B1802195A00ABDE8E /* Supporting Files */,
@@ -252,7 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				580D887E1814A0C6000A5240 /* HDViewController.m in Sources */,
+				580D887E1814A0C6000A5240 /* HDNewFormViewController.m in Sources */,
 				5803CF951802195A00ABDE8E /* HDAppDelegate.m in Sources */,
 				5803CF911802195A00ABDE8E /* main.m in Sources */,
 			);

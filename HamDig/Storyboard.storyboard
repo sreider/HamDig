@@ -124,10 +124,10 @@
             </objects>
             <point key="canvasLocation" x="-2219" y="-1666"/>
         </scene>
-        <!--View Controller - I. Provenience Data-->
+        <!--New Form View Controller - I. Provenience Data-->
         <scene sceneID="Cvq-SK-Boh">
             <objects>
-                <viewController id="5kN-2r-fNm" customClass="HDViewController" sceneMemberID="viewController">
+                <viewController id="5kN-2r-fNm" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zYY-RO-dal"/>
                         <viewControllerLayoutGuide type="bottom" id="hOH-Mw-aZW"/>
@@ -152,9 +152,20 @@
                                                 </connections>
                                             </button>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Save" id="aoc-1y-07V">
+                                            <connections>
+                                                <action selector="saveForm:" destination="5kN-2r-fNm" id="UfA-qo-wPk"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="are-EL-k2Y">
+                                <rect key="frame" x="16" y="7" width="38" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="14"/>
+                                <state key="normal" title="Menu"/>
+                            </button>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="kDo-r3-ydK">
                                 <rect key="frame" x="260" y="44" width="255" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -369,10 +380,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1393" y="-3964"/>
         </scene>
-        <!--View Controller - II. Plan Drawing-->
+        <!--New Form View Controller - II. Plan Drawing-->
         <scene sceneID="pfX-2f-0ov">
             <objects>
-                <viewController id="kte-Qs-VuI" sceneMemberID="viewController">
+                <viewController id="kte-Qs-VuI" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fDa-Zf-r0T"/>
                         <viewControllerLayoutGuide type="bottom" id="xyh-aJ-GZE"/>
@@ -825,6 +836,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="zhg-2b-pmg"/>
+        <segue reference="kU9-Bc-nPb"/>
     </inferredMetricsTieBreakers>
 </document>
