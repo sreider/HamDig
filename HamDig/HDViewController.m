@@ -15,7 +15,6 @@
 @implementation HDViewController
 
 @synthesize stratum = _stratum;
-
 @synthesize stratumLevel = _stratumLevel;
 @synthesize level = _level;
 @synthesize totalOfLevels = _totalOfLevels;
@@ -48,7 +47,17 @@
     [self.dict setObject:@"test" forKey:@"stratumLevel"];
     [self.dict setObject:@"test" forKey:@"level"];
     [self.dict setObject:@"test" forKey:@"totalOfLevels"];
-    
+    [self.dict setObject:@"test" forKey:@"areaType"];
+    [self.dict setObject:@"test" forKey:@"areaNum"];
+    [self.dict setObject:@"test" forKey:@"easting"];
+    [self.dict setObject:@"test" forKey:@"northing"];
+    // can have multiple excavators
+    [self.dict setObject:@"test" forKey:@"excavator(s)"];
+    [self.dict setObject:@"test" forKey:@"date"];
+    [self.dict setObject:@"test" forKey:@"verticalDatumID"];
+    [self.dict setObject:@"test" forKey:@"datumStringElevation"];
+    [self.dict setObject:@"test" forKey:@"excavationInterval"];
+    [self.dict setObject:@"test" forKey:@"northing"];
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
 }
 
