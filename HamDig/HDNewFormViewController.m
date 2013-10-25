@@ -13,7 +13,7 @@
 @end
 
 @implementation HDNewFormViewController
-
+// provenience data
 @synthesize stratum = _stratum;
 @synthesize stratumLevel = _stratumLevel;
 @synthesize level = _level;
@@ -21,7 +21,19 @@
 @synthesize areaType = _areaType;
 @synthesize areaNum = _areaNum;
 @synthesize areaNumPickerView = _areaNumPickerView;
+@synthesize datePicker = _datePicker;
+@synthesize date = _date;
+@synthesize eastingTextField = _eastingTextField;
+@synthesize easting = _easting;
+@synthesize northingTextField = _northingTextField;
+@synthesize northing = _northing;
 
+// narrative
+/*@synthesize bTextField = _bTextField;
+@synthesize bText = _bText;
+@synthesize cTextField = _cTextField;
+@synthesize cText = _cText;
+*/
 @synthesize dict = _dict;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -137,10 +149,15 @@
         self.totalOfLevelsTextField.text = [self.dict objectForKey:@"totalOfLevels"];
         self.levelTextField.text = [self.dict objectForKey:@"level"];
         self.stratumLevelTextField.text = [self.dict objectForKey:@"stratumLevel"];
-        self.stratumTextField.text = [self.dict objectForKey:@"stratum"];
+        self.stratumTextField.text = [self.dict objectForKey:@"date"];
         [theTextField resignFirstResponder];
     }
-
+    else if (theTextField == self.eastingTextField){
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.northingTextField){
+        [theTextField resignFirstResponder];
+    }
     return YES;
     
 }
@@ -182,16 +199,37 @@
 
 - (IBAction)saveForm:(id)sender {
     // save user text fields
-    self.stratum = self.stratumTextField.text;
-    self.stratumLevel = self.stratumLevelTextField.text;
-    self.level = self.levelTextField.text;
-    self.totalOfLevels = self.totalOfLevelsTextField.text;
+    
+    // provenience data
+    _stratum = _stratumTextField.text;
+    _stratumLevel = _stratumLevelTextField.text;
+    _level = _levelTextField.text;
+    _totalOfLevels = _totalOfLevelsTextField.text;
+    _areaType = _areaTypeTextField.text;
+    _areaNum = _areaNumTextField.text;
+    _date = _datePicker.date.description;
+    _easting = _eastingTextField.text;
+    _northing = _northingTextField.text;
+    
+    // narrative
+    //_bText = _bTextField.text;
+    
     
     // place value in dictionary corresponding to key: stratum
-    [self.dict setObject: self.stratum forKey:@"stratum"];
-    [self.dict setObject: self.stratumLevel forKey:@"stratumLevel"];
-    [self.dict setObject: self.level forKey:@"level"];
-    [self.dict setObject: self.totalOfLevels forKey:@"totalOfLevels"];
+
+    // provenience data
+    [_dict setObject: _stratum forKey:@"stratum"];
+    [_dict setObject: _stratumLevel forKey:@"stratumLevel"];
+    [_dict setObject: _level forKey:@"level"];
+    [_dict setObject: _totalOfLevels forKey:@"totalOfLevels"];
+    [_dict setObject: _areaType forKey:@"areaType"];
+    [_dict setObject: _areaNum forKey:@"areaNum"];
+    [_dict setObject:_date forKey:@"date"];
+    [_dict setObject:_easting forKey:@"easting"];
+    [_dict setObject:_northing forKey:@"northing"];
+    
+    // narrative
+    //[_dict setObject:_bText forKey:@"bText"];
 }
 
 
