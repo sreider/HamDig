@@ -1,5 +1,5 @@
 //
-//  HDViewController.h
+//  HDNewFormViewController.h
 //  HamDig
 //
 //  Created by Sampson Reider on 10/20/13.
@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 
 
-@interface HDViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
+@interface HDNewFormViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stratumTextField;
-@property (copy, nonatomic) NSString *stratum;
+@property (copy, nonatomic) NSString *stratum; 
 
 @property (weak, nonatomic) IBOutlet UITextField *stratumLevelTextField;
 @property (copy, nonatomic) NSString *stratumLevel;
+
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (copy, nonatomic) NSString *date;
 
 @property (weak, nonatomic) IBOutlet UITextField *levelTextField;
 @property (copy, nonatomic) NSString *level;
@@ -31,10 +34,21 @@
 @property (strong, nonatomic) IBOutlet UIPickerView *areaNumPickerView;
 
 - (IBAction)areaNumTextFieldDataEntry:(id)sender;
-
 @property (strong, nonatomic) NSArray *areaNumArray;
 
+@property (strong, nonatomic) IBOutlet UITextField *eastingTextField;
+@property (strong, nonatomic) NSString *easting;
+
+@property (strong, nonatomic) IBOutlet UITextField *northingTextField;
+@property (strong, nonatomic) NSString *northing;
+
 @property (strong, nonatomic) NSMutableDictionary *dict;
+
+- (IBAction)saveForm:(id)sender;
+
+
+
+
 
 
 

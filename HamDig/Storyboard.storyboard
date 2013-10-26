@@ -124,10 +124,10 @@
             </objects>
             <point key="canvasLocation" x="-2219" y="-1666"/>
         </scene>
-        <!--View Controller - I. Provenience Data-->
+        <!--New Form View Controller - I. Provenience Data-->
         <scene sceneID="Cvq-SK-Boh">
             <objects>
-                <viewController id="5kN-2r-fNm" customClass="HDViewController" sceneMemberID="viewController">
+                <viewController id="5kN-2r-fNm" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zYY-RO-dal"/>
                         <viewControllerLayoutGuide type="bottom" id="hOH-Mw-aZW"/>
@@ -151,6 +151,11 @@
                                                     <segue destination="IyE-ME-f2T" kind="modal" id="kU9-Bc-nPb"/>
                                                 </connections>
                                             </button>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Save" id="61R-cg-yIB">
+                                            <connections>
+                                                <action selector="saveForm:" destination="5kN-2r-fNm" id="3if-wm-hxx"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -286,6 +291,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="73p-s3-2vn"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="E," lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBX-We-MCt">
                                 <rect key="frame" x="441" y="456" width="16" height="21"/>
@@ -304,6 +312,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="8c9-fg-NGh"/>
+                                </connections>
                             </textField>
                             <pickerView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j9j-fS-qSx">
                                 <rect key="frame" x="113" y="490" width="159" height="216"/>
@@ -321,7 +332,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="areaNumPickerView" destination="j9j-fS-qSx" id="yCr-RX-A0J"/>
                         <outlet property="areaNumTextField" destination="ckF-cm-DKT" id="pG8-AW-RUQ"/>
                         <outlet property="areaTypeTextField" destination="KBu-Ih-zaz" id="7nT-xS-8qc"/>
+                        <outlet property="datePicker" destination="kDo-r3-ydK" id="ASa-vi-fw3"/>
+                        <outlet property="eastingTextField" destination="MUR-O7-fBE" id="ZL8-qw-Vtt"/>
                         <outlet property="levelTextField" destination="k2I-Cu-3CR" id="mIa-bB-DhD"/>
+                        <outlet property="northingTextField" destination="AVX-lR-mu5" id="aRq-kn-11h"/>
                         <outlet property="stratumLevelTextField" destination="S5O-qO-GAp" id="uKZ-uV-STW"/>
                         <outlet property="stratumTextField" destination="Mb5-VK-EfX" id="NvJ-TD-rSf"/>
                         <outlet property="totalOfLevelsTextField" destination="uTL-rl-Oer" id="Pgi-A0-isv"/>
@@ -331,10 +345,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="-463" y="-3964"/>
         </scene>
-        <!--View Controller - Camera Screen-->
+        <!--New Form View Controller - Camera Screen-->
         <scene sceneID="9nW-9U-6MC">
             <objects>
-                <viewController id="ys6-j7-pBv" sceneMemberID="viewController">
+                <viewController id="ys6-j7-pBv" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Oc-Wi-WBI"/>
                         <viewControllerLayoutGuide type="bottom" id="e35-1U-Los"/>
@@ -369,10 +383,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="1393" y="-3964"/>
         </scene>
-        <!--View Controller - II. Plan Drawing-->
+        <!--New Form View Controller - II. Plan Drawing-->
         <scene sceneID="pfX-2f-0ov">
             <objects>
-                <viewController id="kte-Qs-VuI" sceneMemberID="viewController">
+                <viewController id="kte-Qs-VuI" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fDa-Zf-r0T"/>
                         <viewControllerLayoutGuide type="bottom" id="xyh-aJ-GZE"/>
@@ -754,10 +768,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="-1271" y="-3210"/>
         </scene>
-        <!--View Controller - IV. Narrative-->
+        <!--New Form View Controller - IV. Narrative-->
         <scene sceneID="zbd-us-A7K">
             <objects>
-                <viewController id="zDr-k8-2a5" sceneMemberID="viewController">
+                <viewController id="zDr-k8-2a5" customClass="HDNewFormViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8yt-50-mUH"/>
                         <viewControllerLayoutGuide type="bottom" id="hgW-5L-ijQ"/>
@@ -767,20 +781,20 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1. What was excavated on this level?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c3V-eC-Q2t">
-                                <rect key="frame" x="58" y="207" width="284" height="21"/>
+                                <rect key="frame" x="58" y="68" width="284" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2. Sediment description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0S-dV-m4u">
-                                <rect key="frame" x="58" y="453" width="188" height="21"/>
+                                <rect key="frame" x="58" y="304" width="188" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3. Other Narrative:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4NP-7Z-eAC">
-                                <rect key="frame" x="58" y="694" width="141" height="21"/>
+                                <rect key="frame" x="58" y="529" width="141" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
@@ -799,21 +813,21 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </items>
                             </navigationBar>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="dbS-78-dfo">
-                                <rect key="frame" x="58" y="236" width="653" height="183"/>
+                                <rect key="frame" x="58" y="104" width="653" height="183"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.89434018339999999" green="0.89434018339999999" blue="0.89434018339999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="5dB-Mq-C5z">
-                                <rect key="frame" x="58" y="482" width="653" height="176"/>
+                                <rect key="frame" x="58" y="339" width="653" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.89434018339999999" green="0.89434018339999999" blue="0.89434018339999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" translatesAutoresizingMaskIntoConstraints="NO" id="xsQ-Ue-qeb">
-                                <rect key="frame" x="58" y="723" width="653" height="168"/>
+                                <rect key="frame" x="58" y="564" width="653" height="168"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.89434018342391308" green="0.89434018342391308" blue="0.89434018342391308" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -839,6 +853,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="STT-dR-1Zd"/>
+        <segue reference="Bgz-8D-Gzj"/>
     </inferredMetricsTieBreakers>
 </document>
