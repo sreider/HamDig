@@ -12,12 +12,9 @@
 @interface HDNewFormViewController ()
 
 @property (nonatomic, strong) UIPopoverController *barButtonItemPopover;
-
 @property (nonatomic, strong) UIPopoverController *detailViewPopover;
 @property (nonatomic, strong) id lastTappedButton;
-
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
-
 
 @end
 
@@ -28,9 +25,8 @@
 @synthesize stratumLevel = _stratumLevel;
 @synthesize level = _level;
 @synthesize totalOfLevels = _totalOfLevels;
-@synthesize areaType = _areaType;
-@synthesize areaNum = _areaNum;
-@synthesize areaNumPickerView = _areaNumPickerView;
+@synthesize area = _area;
+@synthesize areaPickerView = _areaPickerView;
 @synthesize datePicker = _datePicker;
 @synthesize date = _date;
 @synthesize eastingTextField = _eastingTextField;
@@ -137,6 +133,7 @@
 
     
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
+    self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,7 +145,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
     
     if (theTextField == self.stratumTextField) {
-
         [theTextField resignFirstResponder];
         // Closes the keyboard when user hits return
     }
@@ -169,11 +165,12 @@
         //self.totalOfLevelsTextField.text = [self.dict objectForKey:@"stratumLevel"];
         [theTextField resignFirstResponder];
     }
-    else if (theTextField == self.areaTypeTextField) {
-        self.totalOfLevelsTextField.text = [self.dict objectForKey:@"totalOfLevels"];
-        self.levelTextField.text = [self.dict objectForKey:@"level"];
-        self.stratumLevelTextField.text = [self.dict objectForKey:@"stratumLevel"];
-        self.stratumTextField.text = [self.dict objectForKey:@"date"];
+    else if (theTextField == self.areaTextField) {
+        //WHY ARE THESE HERE??? I'm pretty sure they aren't supposed to be...
+        //self.totalOfLevelsTextField.text = [self.dict objectForKey:@"totalOfLevels"];
+        //self.levelTextField.text = [self.dict objectForKey:@"level"];
+        //self.stratumLevelTextField.text = [self.dict objectForKey:@"stratumLevel"];
+        //self.stratumTextField.text = [self.dict objectForKey:@"date"];
         [theTextField resignFirstResponder];
     }
     else if (theTextField == self.eastingTextField){
@@ -190,33 +187,49 @@
 // returns the number of 'columns' to display.
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    return 1;
+    if (pickerView == self.areaPickerView)
+        return 2;
+    else
+        return 1;
 }
 
 // returns the # of rows in each component..
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
+    if (pickerView == self.areaPickerView){
+        if (component == 0)
+            return [self.areaTypeArray count];
+        else
+           return [self.areaNumArray count];
+    }
     return 6;
     
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [self.areaNumArray objectAtIndex:row];
+    if (pickerView == self.areaPickerView){
+        if (component == 0)
+            return [self.areaTypeArray objectAtIndex:row];
+        else
+            return [self.areaNumArray objectAtIndex:row];
+    }
+    return @"";
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.areaNumTextField.text = [self.areaNumArray objectAtIndex:row];
+    //Needs to allow for both choices in one picker.  
+    self.areaTextField.text = [NSString stringWithFormat: @"%@, %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
     //[self.areaNumTextField resignFirstResponder];
-    self.areaNumPickerView.hidden = YES;
-    self.areaNumTextField.selected = NO;
+    self.areaPickerView.hidden = YES;
+    self.areaTextField.selected = NO;
     
 }
 - (IBAction)areaNumTextFieldDataEntry:(id)sender {
     
-    self.areaNumPickerView.hidden = NO;
-    [self.areaNumTextField endEditing:YES];
+    self.areaPickerView.hidden = NO;
+    [self.areaTextField endEditing:YES];
     
 
 }
@@ -232,8 +245,7 @@
     _stratumLevel = _stratumLevelTextField.text;
     _level = _levelTextField.text;
     _totalOfLevels = _totalOfLevelsTextField.text;
-    _areaType = _areaTypeTextField.text;
-    _areaNum = _areaNumTextField.text;
+    _area = _areaTextField.text;
     _date = _datePicker.date.description;
     _easting = _eastingTextField.text;
     _northing = _northingTextField.text;
@@ -249,8 +261,7 @@
     [_dict setObject: _stratumLevel forKey:@"stratumLevel"];
     [_dict setObject: _level forKey:@"level"];
     [_dict setObject: _totalOfLevels forKey:@"totalOfLevels"];
-    [_dict setObject: _areaType forKey:@"areaType"];
-    [_dict setObject: _areaNum forKey:@"areaNum"];
+    [_dict setObject: _area forKey:@"area"];
     [_dict setObject:_date forKey:@"date"];
     [_dict setObject:_easting forKey:@"easting"];
     [_dict setObject:_northing forKey:@"northing"];

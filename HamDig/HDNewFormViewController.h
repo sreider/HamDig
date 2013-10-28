@@ -25,16 +25,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *totalOfLevelsTextField;
 @property (copy, nonatomic) NSString *totalOfLevels;
 
-@property (weak, nonatomic) IBOutlet UITextField *areaTypeTextField;
-@property (copy, nonatomic) NSString *areaType;
+@property (strong, nonatomic) IBOutlet UIPickerView *areaPickerView;
 
-@property (strong, nonatomic) IBOutlet UITextField *areaNumTextField;
-@property (copy, nonatomic) NSString *areaNum;
-
-@property (strong, nonatomic) IBOutlet UIPickerView *areaNumPickerView;
+@property (strong, nonatomic) IBOutlet UITextField *areaTextField;
+@property (copy, nonatomic) NSString *area;
 
 - (IBAction)areaNumTextFieldDataEntry:(id)sender;
 @property (strong, nonatomic) NSArray *areaNumArray;
+@property (strong, nonatomic) NSArray *areaTypeArray;
 
 @property (strong, nonatomic) IBOutlet UITextField *eastingTextField;
 @property (strong, nonatomic) NSString *easting;
