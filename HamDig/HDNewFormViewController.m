@@ -33,6 +33,18 @@
 @synthesize easting = _easting;
 @synthesize northingTextField = _northingTextField;
 @synthesize northing = _northing;
+@synthesize unitSizeWidthTextField = _unitSizeWidthTextField;
+@synthesize unitSizeWidth = _unitSizeWidth;
+@synthesize unitSizeHeightTextField = _unitSizeHeightTextField;
+@synthesize unitSizeHeight = _unitSizeHeight;
+@synthesize verticalDatumIdTextField = _verticalDatumIdTextField;
+@synthesize verticalDatumId = _verticalDatumId;
+@synthesize datumStringElevationTextField = _datumStringElevationTextField;
+@synthesize datumStringElevation = _datumStringElevation;
+@synthesize excavationIntervalTextField = _excavationIntervalTextField;
+@synthesize excavationInterval = _excavationInterval;
+@synthesize screenSizeTextField = _screenSizeTextField;
+@synthesize screenSize = _screenSize;
 
 // narrative
 /*@synthesize bTextField = _bTextField;
@@ -83,10 +95,12 @@
     [self.dict setObject:@"test" forKey:@"areaNum"];
     [self.dict setObject:@"test" forKey:@"easting"];
     [self.dict setObject:@"test" forKey:@"northing"];
+    [self.dict setObject:@"test" forKey:@"unitSizeWidth"];
+    [self.dict setObject:@"test" forKey:@"unitSizeHeight"];
     // can have multiple excavators
     [self.dict setObject:@"test" forKey:@"excavator(s)"];
     [self.dict setObject:@"test" forKey:@"date"];
-    [self.dict setObject:@"test" forKey:@"verticalDatumID"];
+    [self.dict setObject:@"test" forKey:@"verticalDatumId"];
     [self.dict setObject:@"test" forKey:@"datumStringElevation"];
     [self.dict setObject:@"test" forKey:@"excavationInterval"];
     [self.dict setObject:@"test" forKey:@"screenSize"];
@@ -166,17 +180,37 @@
         [theTextField resignFirstResponder];
     }
     else if (theTextField == self.areaTextField) {
-        //WHY ARE THESE HERE??? I'm pretty sure they aren't supposed to be...
-        //self.totalOfLevelsTextField.text = [self.dict objectForKey:@"totalOfLevels"];
-        //self.levelTextField.text = [self.dict objectForKey:@"level"];
-        //self.stratumLevelTextField.text = [self.dict objectForKey:@"stratumLevel"];
-        //self.stratumTextField.text = [self.dict objectForKey:@"date"];
+        
         [theTextField resignFirstResponder];
     }
     else if (theTextField == self.eastingTextField){
+        /* THANK YOU for not deleting and just commenting out. This won't be here in the end. It's only for testing if the values are being saved properly. I'll comment out before each push/commit.
+         self.totalOfLevelsTextField.text = [self.dict objectForKey:@"totalOfLevels"];
+        self.levelTextField.text = [self.dict objectForKey:@"level"];
+        self.stratumLevelTextField.text = [self.dict objectForKey:@"stratumLevel"];
+        self.stratumTextField.text = [self.dict objectForKey:@"date"];
+        self.unitSizeHeightTextField.text = [self.dict objectForKey:@"unitSizeWidth"]; */
         [theTextField resignFirstResponder];
     }
     else if (theTextField == self.northingTextField){
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.unitSizeWidthTextField){
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.unitSizeHeightTextField){
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.verticalDatumIdTextField){
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.datumStringElevationTextField){
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.excavationIntervalTextField){
+        [theTextField resignFirstResponder];
+    }
+    else if (theTextField == self.screenSizeTextField){
         [theTextField resignFirstResponder];
     }
 
@@ -249,6 +283,14 @@
     _date = _datePicker.date.description;
     _easting = _eastingTextField.text;
     _northing = _northingTextField.text;
+    _unitSizeWidth = _unitSizeWidthTextField.text;
+    _unitSizeHeight = _unitSizeHeightTextField.text;
+    _verticalDatumId  = _verticalDatumIdTextField.text;
+    _datumStringElevation = _datumStringElevationTextField.text;
+    _excavationInterval = _excavationIntervalTextField.text;
+    _screenSize = _screenSizeTextField.text;
+    
+    
     
     // narrative
     //_bText = _bTextField.text;
@@ -265,7 +307,12 @@
     [_dict setObject:_date forKey:@"date"];
     [_dict setObject:_easting forKey:@"easting"];
     [_dict setObject:_northing forKey:@"northing"];
-    
+    [_dict setObject:_unitSizeWidth forKey:@"unitSizeWidth"];
+    [_dict setObject:_unitSizeHeight forKey:@"unitSizeHeight"];
+    [_dict setObject:_verticalDatumId forKey:@"verticalDatumId"];
+    [_dict setObject:_datumStringElevation forKey:@"datumStringElevation"];
+    [_dict setObject:_excavationInterval forKey:@"excavationInterval"];
+    [_dict setObject:_screenSize forKey:@"screenSize"];
     // narrative
     //[_dict setObject:_bText forKey:@"bText"];
 

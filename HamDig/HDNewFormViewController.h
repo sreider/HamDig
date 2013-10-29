@@ -40,6 +40,24 @@
 @property (strong, nonatomic) IBOutlet UITextField *northingTextField;
 @property (strong, nonatomic) NSString *northing;
 
+@property (strong, nonatomic) IBOutlet UITextField *unitSizeWidthTextField;
+@property (strong, nonatomic) NSString *unitSizeWidth;
+
+@property (strong, nonatomic) IBOutlet UITextField *unitSizeHeightTextField;
+@property (strong, nonatomic) NSString *unitSizeHeight;
+
+@property (strong, nonatomic) IBOutlet UITextField *verticalDatumIdTextField;
+@property (strong, nonatomic) NSString *verticalDatumId;
+
+@property (strong, nonatomic) IBOutlet UITextField *datumStringElevationTextField;
+@property (strong, nonatomic) NSString *datumStringElevation;
+
+@property (strong, nonatomic) IBOutlet UITextField *excavationIntervalTextField;
+@property (strong, nonatomic) NSString *excavationInterval;
+
+@property (strong, nonatomic) IBOutlet UITextField *screenSizeTextField;
+@property (strong, nonatomic) NSString *screenSize;
+
 @property (strong, nonatomic) NSMutableDictionary *dict;
 
 - (IBAction)saveForm:(id)sender;

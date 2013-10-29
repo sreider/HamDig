@@ -327,12 +327,18 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="B57-QI-kMx"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nGR-ra-G6V">
                                 <rect key="frame" x="444" y="508" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="nOT-YM-8IZ"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(m)  X" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpG-Ea-7ah">
                                 <rect key="frame" x="389" y="512" width="44" height="21"/>
@@ -374,6 +380,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="vBh-VY-6sO"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Datum String Elevation: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zC0-W6-qjp">
                                 <rect key="frame" x="343" y="734" width="186" height="21"/>
@@ -404,18 +413,27 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="wFW-w6-dQc"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WzJ-3J-pYd">
                                 <rect key="frame" x="206" y="821" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="POV-f5-3wu"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jb5-XD-tLg">
                                 <rect key="frame" x="515" y="821" width="97" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5kN-2r-fNm" id="JQG-HI-OdZ"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Screen Size:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ur7-ul-Gql">
                                 <rect key="frame" x="411" y="825" width="96" height="21"/>
@@ -431,12 +449,18 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="areaPickerView" destination="j9j-fS-qSx" id="bSh-Fj-ckl"/>
                         <outlet property="areaTextField" destination="ckF-cm-DKT" id="9xC-Be-itT"/>
                         <outlet property="datePicker" destination="kDo-r3-ydK" id="ASa-vi-fw3"/>
+                        <outlet property="datumStringElevationTextField" destination="hfd-2j-2JD" id="ovo-u7-NQ3"/>
                         <outlet property="eastingTextField" destination="MUR-O7-fBE" id="ZL8-qw-Vtt"/>
+                        <outlet property="excavationIntervalTextField" destination="WzJ-3J-pYd" id="NrJ-k6-dph"/>
                         <outlet property="levelTextField" destination="k2I-Cu-3CR" id="mIa-bB-DhD"/>
                         <outlet property="northingTextField" destination="AVX-lR-mu5" id="aRq-kn-11h"/>
+                        <outlet property="screenSizeTextField" destination="Jb5-XD-tLg" id="f6D-Pa-uJs"/>
                         <outlet property="stratumLevelTextField" destination="S5O-qO-GAp" id="uKZ-uV-STW"/>
                         <outlet property="stratumTextField" destination="Mb5-VK-EfX" id="NvJ-TD-rSf"/>
                         <outlet property="totalOfLevelsTextField" destination="uTL-rl-Oer" id="Pgi-A0-isv"/>
+                        <outlet property="unitSizeHeightTextField" destination="nGR-ra-G6V" id="Fug-yp-WgX"/>
+                        <outlet property="unitSizeWidthTextField" destination="zWF-CC-pLI" id="pGT-gK-Rcy"/>
+                        <outlet property="verticalDatumIdTextField" destination="iAN-xC-km1" id="j4E-az-f6a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azc-WD-RKs" userLabel="First Responder" sceneMemberID="firstResponder"/>
