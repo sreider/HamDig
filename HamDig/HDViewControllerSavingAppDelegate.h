@@ -1,11 +1,10 @@
 //
-//  HDAppDelegate.h
+//  HDViewControllerSavingAppDelegate.h
 //  HamDig
 //
-//  Created by Sampson Reider on 10/6/13.
+//  Created by Leah Wolf on 10/29/13.
 //  Copyright (c) 2013 Hamilton College. All rights reserved.
 //
-
 #import <UIKit/UIKit.h>
 #import "HDAppDelegateProtocol.h"
 #import "HDNarrativeViewController.h"
@@ -14,23 +13,22 @@
 
 @class HDLevelFormObject;
 
-@interface HDAppDelegate : NSObject <UIApplicationDelegate, HDAppDelegateProtocol>
+@interface HDViewControllerSavingAppDelegate : NSObject <UIApplicationDelegate, HDAppDelegateProtocol>
 {
-
-    UIWindow *window;
+    
     UINavigationController *navigationController;
-	HDLevelFormObject* theLevelFormObject;
-	IBOutlet HDNarrativeViewController* theNarrativeViewController;
+    HDLevelFormObject* theLevelFormObject;
+    IBOutlet HDNarrativeViewController* theNarrativeViewController;
     IBOutlet HDCulturalMaterialsViewController* theCulturalMaterialsViewController;
     IBOutlet HDPlanDrawingViewController* thePlanDrawingViewController;
-
 }
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+
+
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 
 @property (nonatomic, retain) HDLevelFormObject* theLevelFormObject;
 @property (nonatomic, retain) IBOutlet HDNarrativeViewController* theNarrativeViewController;
 @property (nonatomic, retain) IBOutlet HDCulturalMaterialsViewController* theCulturalMaterialsViewController;
-@property (nonatomic, retain) IBOutlet HDPlanDrawingViewController* thePlanDrawingController;
+@property (nonatomic, retain) IBOutlet HDPlanDrawingViewController* thePlanDrawingViewController;
 
 @end

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		244B60871820A2DD0043C0B5 /* HDCulturalMaterialsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244B60861820A2DD0043C0B5 /* HDCulturalMaterialsViewController.m */; };
+		244B608B1820A9E40043C0B5 /* HDPlanDrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 244B608A1820A9E40043C0B5 /* HDPlanDrawingViewController.m */; };
+		24E311BE18204BA400549078 /* HDLevelFormObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E311BD18204BA400549078 /* HDLevelFormObject.m */; };
+		24E311C11820521500549078 /* HDProvenienceDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E311C01820521500549078 /* HDProvenienceDataViewController.m */; };
+		24E311C4182053ED00549078 /* HDNarrativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E311C3182053ED00549078 /* HDNarrativeViewController.m */; };
+		24E311C71820597800549078 /* HDViewControllerSavingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E311C61820597800549078 /* HDViewControllerSavingAppDelegate.m */; };
+		24E311CB1820617E00549078 /* HDLFObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E311CA1820617E00549078 /* HDLFObject.m */; };
 		5803CF851802195A00ABDE8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5803CF841802195A00ABDE8E /* Foundation.framework */; };
 		5803CF871802195A00ABDE8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5803CF861802195A00ABDE8E /* CoreGraphics.framework */; };
 		5803CF891802195A00ABDE8E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5803CF881802195A00ABDE8E /* UIKit.framework */; };
@@ -20,7 +27,6 @@
 		5803CFA81802195A00ABDE8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5803CFA61802195A00ABDE8E /* InfoPlist.strings */; };
 		5803CFAA1802195A00ABDE8E /* HamDigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5803CFA91802195A00ABDE8E /* HamDigTests.m */; };
 		5803CFB418021BB200ABDE8E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5803CFB318021BB200ABDE8E /* Storyboard.storyboard */; };
-		580D887E1814A0C6000A5240 /* HDNewFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 580D887D1814A0C6000A5240 /* HDNewFormViewController.m */; };
 		CC6530A1181995E400212871 /* HDPopovers.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6530A0181995E400212871 /* HDPopovers.m */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +41,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		244B60851820A2DD0043C0B5 /* HDCulturalMaterialsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDCulturalMaterialsViewController.h; sourceTree = "<group>"; };
+		244B60861820A2DD0043C0B5 /* HDCulturalMaterialsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDCulturalMaterialsViewController.m; sourceTree = "<group>"; };
+		244B60881820A4500043C0B5 /* HDViewControllerSavingAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDViewControllerSavingAppDelegate.h; sourceTree = "<group>"; };
+		244B60891820A9E40043C0B5 /* HDPlanDrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPlanDrawingViewController.h; sourceTree = "<group>"; };
+		244B608A1820A9E40043C0B5 /* HDPlanDrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDPlanDrawingViewController.m; sourceTree = "<group>"; };
+		24E311BC18204BA400549078 /* HDLevelFormObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDLevelFormObject.h; sourceTree = "<group>"; };
+		24E311BD18204BA400549078 /* HDLevelFormObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDLevelFormObject.m; sourceTree = "<group>"; };
+		24E311BF1820521500549078 /* HDProvenienceDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDProvenienceDataViewController.h; sourceTree = "<group>"; };
+		24E311C01820521500549078 /* HDProvenienceDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDProvenienceDataViewController.m; sourceTree = "<group>"; };
+		24E311C2182053ED00549078 /* HDNarrativeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDNarrativeViewController.h; sourceTree = "<group>"; };
+		24E311C3182053ED00549078 /* HDNarrativeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDNarrativeViewController.m; sourceTree = "<group>"; };
+		24E311C61820597800549078 /* HDViewControllerSavingAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDViewControllerSavingAppDelegate.m; sourceTree = "<group>"; };
+		24E311C91820617E00549078 /* HDLFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDLFObject.h; sourceTree = "<group>"; };
+		24E311CA1820617E00549078 /* HDLFObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDLFObject.m; sourceTree = "<group>"; };
 		5803CF811802195A00ABDE8E /* HamDig.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HamDig.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5803CF841802195A00ABDE8E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5803CF861802195A00ABDE8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -52,8 +72,6 @@
 		5803CFA71802195A00ABDE8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5803CFA91802195A00ABDE8E /* HamDigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HamDigTests.m; sourceTree = "<group>"; };
 		5803CFB318021BB200ABDE8E /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		580D887C1814A0C6000A5240 /* HDNewFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDNewFormViewController.h; sourceTree = "<group>"; };
-		580D887D1814A0C6000A5240 /* HDNewFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDNewFormViewController.m; sourceTree = "<group>"; };
 		CC65309F181995E400212871 /* HDPopovers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPopovers.h; sourceTree = "<group>"; };
 		CC6530A0181995E400212871 /* HDPopovers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDPopovers.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,11 +136,23 @@
 				CC65309D1819955D00212871 /* III. Cultural Materials */,
 				5803CF931802195A00ABDE8E /* HDAppDelegate.h */,
 				5803CF941802195A00ABDE8E /* HDAppDelegate.m */,
-				580D887C1814A0C6000A5240 /* HDNewFormViewController.h */,
-				580D887D1814A0C6000A5240 /* HDNewFormViewController.m */,
 				5803CFB318021BB200ABDE8E /* Storyboard.storyboard */,
 				5803CF961802195A00ABDE8E /* Images.xcassets */,
 				5803CF8B1802195A00ABDE8E /* Supporting Files */,
+				24E311BF1820521500549078 /* HDProvenienceDataViewController.h */,
+				24E311C01820521500549078 /* HDProvenienceDataViewController.m */,
+				244B60891820A9E40043C0B5 /* HDPlanDrawingViewController.h */,
+				244B608A1820A9E40043C0B5 /* HDPlanDrawingViewController.m */,
+				244B60851820A2DD0043C0B5 /* HDCulturalMaterialsViewController.h */,
+				244B60861820A2DD0043C0B5 /* HDCulturalMaterialsViewController.m */,
+				24E311C2182053ED00549078 /* HDNarrativeViewController.h */,
+				24E311C3182053ED00549078 /* HDNarrativeViewController.m */,
+				24E311C61820597800549078 /* HDViewControllerSavingAppDelegate.m */,
+				244B60881820A4500043C0B5 /* HDViewControllerSavingAppDelegate.h */,
+				24E311BC18204BA400549078 /* HDLevelFormObject.h */,
+				24E311BD18204BA400549078 /* HDLevelFormObject.m */,
+				24E311C91820617E00549078 /* HDLFObject.h */,
+				24E311CA1820617E00549078 /* HDLFObject.m */,
 			);
 			path = HamDig;
 			sourceTree = "<group>";
@@ -265,8 +295,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				580D887E1814A0C6000A5240 /* HDNewFormViewController.m in Sources */,
+				24E311C4182053ED00549078 /* HDNarrativeViewController.m in Sources */,
+				244B60871820A2DD0043C0B5 /* HDCulturalMaterialsViewController.m in Sources */,
+				244B608B1820A9E40043C0B5 /* HDPlanDrawingViewController.m in Sources */,
+				24E311C11820521500549078 /* HDProvenienceDataViewController.m in Sources */,
+				24E311BE18204BA400549078 /* HDLevelFormObject.m in Sources */,
+				24E311CB1820617E00549078 /* HDLFObject.m in Sources */,
 				CC6530A1181995E400212871 /* HDPopovers.m in Sources */,
+				24E311C71820597800549078 /* HDViewControllerSavingAppDelegate.m in Sources */,
 				5803CF951802195A00ABDE8E /* HDAppDelegate.m in Sources */,
 				5803CF911802195A00ABDE8E /* main.m in Sources */,
 			);

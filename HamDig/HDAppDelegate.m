@@ -7,16 +7,41 @@
 //
 
 #import "HDAppDelegate.h"
+#import "HDProvenienceDataViewController.h"
+#import "HDAppDelegateProtocol.h"
+#import "HDLevelFormObject.h"
 
 @implementation HDAppDelegate
+
+@synthesize window;
+@synthesize navigationController;
+@synthesize theLevelFormObject;
+@synthesize theNarrativeViewController;
+@synthesize theCulturalMaterialsViewController;
+@synthesize thePlanDrawingController;
+
+-(void) pushOtherViews;
+{
+	[navigationController pushViewController: theNarrativeViewController animated:TRUE];
+    [navigationController pushViewController: theCulturalMaterialsViewController animated:TRUE];
+    [navigationController pushViewController: thePlanDrawingViewController animated:TRUE];
+    
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     //self.window.backgroundColor = [UIColor whiteColor];
-    //[self.window makeKeyAndVisible];
+    [window addSubview:navigationController.view];
+    [window makeKeyAndVisible];
     return YES;
+}
+
+- (id) init;
+{
+	self.theLevelFormObject = [[HDLevelFormObject alloc] init];
+	return [super init];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
