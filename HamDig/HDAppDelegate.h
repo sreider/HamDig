@@ -17,6 +17,7 @@
 @interface HDAppDelegate : NSObject <UIApplicationDelegate, HDAppDelegateProtocol>
 {
 
+    NSMutableArray *allForms;
     UIWindow *window;
     UINavigationController *navigationController;
 	HDLevelFormObject* theLevelFormObject;
@@ -32,5 +33,8 @@
 @property (nonatomic, retain) IBOutlet HDNarrativeViewController* theNarrativeViewController;
 @property (nonatomic, retain) IBOutlet HDCulturalMaterialsViewController* theCulturalMaterialsViewController;
 @property (nonatomic, retain) IBOutlet HDPlanDrawingViewController* thePlanDrawingController;
+
+
+@property (nonatomic,readwrite) NSMutableArray* allForms;
 
 @end

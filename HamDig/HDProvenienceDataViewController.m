@@ -41,7 +41,10 @@
     // saves the current state of the form in the list of all forms.
     //Must implement....
     
-    // HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    // This will work, I think...but it needs to get called by the button press. 
+    
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    [theLevelFormObject save];
     
 }
 
@@ -92,6 +95,15 @@
     theLevelFormObject.datumStringElevation = datumStringElevation.text;
     theLevelFormObject.excavationInterval = excavationInterval.text;
     theLevelFormObject.screenSize = screenSize.text;
+    
+    
+    // Fill dictionary for each form...
+    
+    [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
+    [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
+    [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
+
+    
     
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {

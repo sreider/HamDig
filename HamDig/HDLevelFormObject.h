@@ -11,6 +11,9 @@
 
 @interface HDLevelFormObject : HDLFObject
 {
+    NSMutableDictionary *theNewLevelForm;
+    
+    
     //Provenience Data
     NSString* stratum;
     NSString* stratumLevel;
@@ -42,6 +45,9 @@
     
 }
 
+
+@property (nonatomic,readwrite) NSMutableDictionary* theNewLevelForm;
+
 @property (nonatomic, copy) NSString* stratum;
 @property (nonatomic, copy) NSString* stratumLevel;
 @property (nonatomic, copy) NSString* date;
@@ -62,5 +68,8 @@
 @property (nonatomic, copy) NSString* excavationDescription;
 @property (nonatomic, copy) NSString* sedimentDescription;
 @property (nonatomic, copy) NSString* otherNarrative;
+
+
+-(void)save;
 
 @end

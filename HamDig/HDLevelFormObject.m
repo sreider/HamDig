@@ -7,6 +7,7 @@
 //
 
 #import "HDLevelFormObject.h"
+#import "HDAppDelegate.h"
 
 @implementation HDLevelFormObject
 
@@ -30,9 +31,17 @@
 @synthesize sedimentDescription;
 @synthesize otherNarrative;
 
+
+@synthesize theNewLevelForm;
+
 - (void)save
 {
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate] ;
     
+    
+    [appDelegate.allForms addObject:(theNewLevelForm)];
+    
+	NSLog(@"the code runs through here!");
 	
 }
 
