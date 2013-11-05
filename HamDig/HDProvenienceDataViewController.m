@@ -41,7 +41,10 @@
     // saves the current state of the form in the list of all forms.
     //Must implement....
     
-    // This will work, I think...but it needs to get called by the button press. 
+    /* I think this should be moved to a new view controller file for the
+     real save button that shows up on the popover. The save buttons on the
+     provenience form and others just opens up the popover. Shouldn't the real
+     work be done in that popover? */
     
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     [theLevelFormObject save];
@@ -79,6 +82,8 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
+    //shouldn't the new object be created when we click "New Form" on the
+    // main page?
 	HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
     theLevelFormObject.stratum = stratum.text;
@@ -99,15 +104,22 @@
     
     // Fill dictionary for each form...
     
-    [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
+    // should this be done in our void save method?
+    
+    
     [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
     [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
-
+     
     
     
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    //none of this should be here, I was just messing around and testing things. I'll come back and change this after class!
     
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    theLevelFormObject.stratum = stratum.text;
+    //[theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
+    //[theLevelFormObject save];
     [theTextField resignFirstResponder];
     return TRUE;
     

@@ -90,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="-2270" y="-3191"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit Forms View Controller-->
         <scene sceneID="3OI-HD-ly2">
             <objects>
-                <viewController id="d2p-wz-znm" sceneMemberID="viewController">
+                <viewController id="d2p-wz-znm" customClass="HDEditFormsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NKa-Gc-U0t"/>
                         <viewControllerLayoutGuide type="bottom" id="XSM-5z-ZQL"/>
@@ -115,15 +115,27 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KvP-4B-ZbN">
+                                <rect key="frame" x="318" y="273" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="d2p-wz-znm" id="LJS-FG-FL4"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="testField" destination="KvP-4B-ZbN" id="R6s-qg-d9n"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pou-1R-bKN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2219" y="-1666"/>
+            <point key="canvasLocation" x="-2199" y="-1666"/>
         </scene>
         <!--Provenience Data View Controller-->
         <scene sceneID="32L-mC-O6b">

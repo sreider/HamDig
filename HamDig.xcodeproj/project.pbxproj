@@ -27,6 +27,7 @@
 		5803CFA81802195A00ABDE8E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5803CFA61802195A00ABDE8E /* InfoPlist.strings */; };
 		5803CFAA1802195A00ABDE8E /* HamDigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5803CFA91802195A00ABDE8E /* HamDigTests.m */; };
 		5803CFB418021BB200ABDE8E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5803CFB318021BB200ABDE8E /* Storyboard.storyboard */; };
+		9A9B492818295B4400188E0B /* HDEditFormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9B492718295B4400188E0B /* HDEditFormsViewController.m */; };
 		CC6530A1181995E400212871 /* HDPopovers.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6530A0181995E400212871 /* HDPopovers.m */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,8 @@
 		5803CFA71802195A00ABDE8E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5803CFA91802195A00ABDE8E /* HamDigTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HamDigTests.m; sourceTree = "<group>"; };
 		5803CFB318021BB200ABDE8E /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		9A9B492618295B4400188E0B /* HDEditFormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDEditFormsViewController.h; sourceTree = "<group>"; };
+		9A9B492718295B4400188E0B /* HDEditFormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDEditFormsViewController.m; sourceTree = "<group>"; };
 		CC65309F181995E400212871 /* HDPopovers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPopovers.h; sourceTree = "<group>"; };
 		CC6530A0181995E400212871 /* HDPopovers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDPopovers.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,6 +151,8 @@
 				CC65309D1819955D00212871 /* Popover Helpers */,
 				5803CF931802195A00ABDE8E /* HDAppDelegate.h */,
 				5803CF941802195A00ABDE8E /* HDAppDelegate.m */,
+				9A9B492618295B4400188E0B /* HDEditFormsViewController.h */,
+				9A9B492718295B4400188E0B /* HDEditFormsViewController.m */,
 				24E311C61820597800549078 /* HDViewControllerSavingAppDelegate.m */,
 				244B60881820A4500043C0B5 /* HDViewControllerSavingAppDelegate.h */,
 				24E311BF1820521500549078 /* HDProvenienceDataViewController.h */,
@@ -307,6 +312,7 @@
 				244B60871820A2DD0043C0B5 /* HDCulturalMaterialsViewController.m in Sources */,
 				244B608B1820A9E40043C0B5 /* HDPlanDrawingViewController.m in Sources */,
 				24E311C11820521500549078 /* HDProvenienceDataViewController.m in Sources */,
+				9A9B492818295B4400188E0B /* HDEditFormsViewController.m in Sources */,
 				24E311BE18204BA400549078 /* HDLevelFormObject.m in Sources */,
 				24E311CB1820617E00549078 /* HDLFObject.m in Sources */,
 				CC6530A1181995E400212871 /* HDPopovers.m in Sources */,

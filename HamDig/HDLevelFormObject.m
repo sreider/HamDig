@@ -38,7 +38,11 @@
 {
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate] ;
     
-    
+    /* I think this is where we want to add all the strings to the dictionary.
+     Right now it looks like we're adding the dictionary itself to the global
+     array, which is most likely what we want. Don't we need to populate the
+     dicitonary before we do this though?
+    */
     [appDelegate.allForms addObject:(theNewLevelForm)];
     
 	NSLog(@"the code runs through here!");
