@@ -10,8 +10,19 @@
 #import "HDLevelFormObject.h"
 #import "HDAppDelegateProtocol.h"
 
-@implementation HDNarrativeViewController
 
+// UNDER CONSTRUCTION -J
+// sorry
+
+@interface HDNarrativeViewController () <UITextViewDelegate>
+@property (nonatomic, strong) IBOutlet UITextView *textView;
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+
+- (IBAction)dismissKeyboard:(id)sender;
+
+@end
+
+@implementation HDNarrativeViewController
 
 - (HDLevelFormObject*) theLevelFormObject;
 {
@@ -21,13 +32,13 @@
 	return theLevelFormObject;
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-	HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-	theLevelFormObject.excavationDescription = excavationDescription.text;
-    theLevelFormObject.sedimentDescription = sedimentDescription.text;
-    theLevelFormObject.otherNarrative = otherNarrative.text;
-}
+//- (void)textViewDidEndEditing:(UITextView *)textView
+//{
+//	HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//	theLevelFormObject.excavationDescription = excavationDescription.text;
+//    theLevelFormObject.sedimentDescription = sedimentDescription.text;
+//    theLevelFormObject.otherNarrative = otherNarrative.text;
+//}
 
 - (IBAction)saveAction:(UIBarButtonItem *)sender {
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
@@ -49,9 +60,19 @@
 }
 
 
-// taken from Apple developer docs... (hopefully) moves entire window UP when keyboard is called so nothing is obscured -J
-// Call this method somewhere in your view controller setup code.
+// Provided by Apple developer docs -J
 
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    activeField = textView;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    activeField = nil;
+}
+
+// Call this method somewhere in your view controller setup code.
 - (void)registerForKeyboardNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -70,38 +91,23 @@
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-    
     scrollView.contentInset = contentInsets;
     scrollView.scrollIndicatorInsets = contentInsets;
     
-    
     // If active text field is hidden by keyboard, scroll it so it's visible
     // Your app might not need or want this behavior.
-    
-    CGRect aRect = scrollView.frame;
+    CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
     CGPoint origin = activeField.frame.origin;
     origin.y -= scrollView.contentOffset.y;
-//    if (!CGRectContainsPoint(aRect, origin) ) {
+    if (!CGRectContainsPoint(aRect, origin) ) {
         CGPoint scrollPoint = CGPointMake(0.0, activeField.frame.origin.y-(aRect.size.height));
         [scrollView setContentOffset:scrollPoint animated:YES];
-//    }
-}
-- (void)textFieldDidBeginEditing:(UITextView *)textView
-{
-    activeField = textView;
-    activeField.text = @"Type here";
-}
-
-
-- (void)textFieldDidEndEditing:(UITextView *)textView
-{
-    activeField = nil;
+    }
 }
 
 
 // Called when the UIKeyboardWillHideNotification is sent
-
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
     UIEdgeInsets contentInsets = UIEdgeInsetsZero;
