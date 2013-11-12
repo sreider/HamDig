@@ -9,6 +9,7 @@
 #import "HDEditFormsViewController.h"
 #import "HDLevelFormObject.h"
 #import "HDAppDelegateProtocol.h"
+#import "HDAppDelegate.h"
 
 @interface HDEditFormsViewController ()
 
@@ -36,9 +37,19 @@
 
 - (void)viewDidLoad
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    tester = [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"];
-    //tester = theLevelFormObject.stratum;
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    //HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+
+    
+    // OPENING EDIT FORMS WITHOUT BEGINNING A NEW FORM WILL CAUSE CRASH BECAUSE
+    // THERE ARE NO ENTRIES IN THE ARRAY YET (seg fault)
+    
+    // DISPLAYS THE TITLE FROM THE GLOBAL ARRAY         -ES
+    NSMutableDictionary *temp = [appDelegate.allForms objectAtIndex:0];
+    tester = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+
+    NSLog(@"Stratum: %@", [temp objectForKey:@"stratum"]);
+    
     testField.text = tester;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.

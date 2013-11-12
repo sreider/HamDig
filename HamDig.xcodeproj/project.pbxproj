@@ -28,6 +28,7 @@
 		5803CFAA1802195A00ABDE8E /* HamDigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5803CFA91802195A00ABDE8E /* HamDigTests.m */; };
 		5803CFB418021BB200ABDE8E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5803CFB318021BB200ABDE8E /* Storyboard.storyboard */; };
 		584B04FB183288BD002F270E /* HDSaveFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584B04FA183288BD002F270E /* HDSaveFormViewController.m */; };
+		9A7DE36B1832D99C00839976 /* HDMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7DE36A1832D99C00839976 /* HDMainMenuViewController.m */; };
 		9A9B492818295B4400188E0B /* HDEditFormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9B492718295B4400188E0B /* HDEditFormsViewController.m */; };
 		CC6530A1181995E400212871 /* HDPopovers.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6530A0181995E400212871 /* HDPopovers.m */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,8 @@
 		5803CFB318021BB200ABDE8E /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		584B04F9183288BD002F270E /* HDSaveFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDSaveFormViewController.h; sourceTree = "<group>"; };
 		584B04FA183288BD002F270E /* HDSaveFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDSaveFormViewController.m; sourceTree = "<group>"; };
+		9A7DE3691832D99C00839976 /* HDMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDMainMenuViewController.h; sourceTree = "<group>"; };
+		9A7DE36A1832D99C00839976 /* HDMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDMainMenuViewController.m; sourceTree = "<group>"; };
 		9A9B492618295B4400188E0B /* HDEditFormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDEditFormsViewController.h; sourceTree = "<group>"; };
 		9A9B492718295B4400188E0B /* HDEditFormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDEditFormsViewController.m; sourceTree = "<group>"; };
 		CC65309F181995E400212871 /* HDPopovers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPopovers.h; sourceTree = "<group>"; };
@@ -161,6 +164,8 @@
 				CC5D26F9183152CB0016312F /* Cultural Materials View Controller */,
 				CC5D26F8183152B60016312F /* Narrative View Controller */,
 				5803CFB318021BB200ABDE8E /* Storyboard.storyboard */,
+				9A7DE3691832D99C00839976 /* HDMainMenuViewController.h */,
+				9A7DE36A1832D99C00839976 /* HDMainMenuViewController.m */,
 				5803CF961802195A00ABDE8E /* Images.xcassets */,
 				5803CF8B1802195A00ABDE8E /* Supporting Files */,
 			);
@@ -377,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A7DE36B1832D99C00839976 /* HDMainMenuViewController.m in Sources */,
 				24E311C4182053ED00549078 /* HDNarrativeViewController.m in Sources */,
 				244B60871820A2DD0043C0B5 /* HDCulturalMaterialsViewController.m in Sources */,
 				244B608B1820A9E40043C0B5 /* HDPlanDrawingViewController.m in Sources */,

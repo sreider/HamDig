@@ -76,12 +76,18 @@
     
     NSLog(@"Save button!");
     
-    //HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate] ;
-   // HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
-    
-   // [allForms addObject:(theLevelFormObject.theNewLevelForm)];
+    // add the dictionary to the global array           -ES
+    [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
   
+    
+    
+    /* pages we currently have save working for: Provenience, Narrative
+        still need: Plan Drawing, Cultural Materials
+        -ES
+    */
     
     //NSString *test = [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"];
     //[allForms addObject: @"test" ];
@@ -89,9 +95,6 @@
     
 	//NSLog(@"Saved theNewLevelForm to allForms");
     
-  //
-  //  NSLog(test);
-
     //NSLog(@"array: %@", appDelegate.allForms);
     
 }

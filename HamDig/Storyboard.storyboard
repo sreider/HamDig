@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="IyE-ME-f2T">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="IyE-ME-f2T">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Main Menu View Controller-->
         <scene sceneID="GMp-pn-Kix">
             <objects>
-                <viewController id="IyE-ME-f2T" sceneMemberID="viewController">
+                <viewController id="IyE-ME-f2T" customClass="HDMainMenuViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mvI-7M-XNZ"/>
                         <viewControllerLayoutGuide type="bottom" id="Co8-dJ-BJj"/>
@@ -71,6 +71,7 @@
                                     </attributedString>
                                 </state>
                                 <connections>
+                                    <action selector="createForm:" destination="IyE-ME-f2T" eventType="touchUpInside" id="M4X-11-qDh"/>
                                     <segue destination="Yot-Zi-eeF" kind="modal" id="1oF-Rz-T31"/>
                                 </connections>
                             </button>

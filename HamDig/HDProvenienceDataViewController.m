@@ -38,7 +38,12 @@
     //Must implement.
 }
 
+
+// don't think we need this action anymore. Saving happens in save popover window
+// can we get rid of this?                  -ES
 - (IBAction)saveForm:(id)sender {
+    
+    
     // saves the current state of the form in the list of all forms.
     //Must implement....
     
@@ -48,6 +53,7 @@
      work be done in that popover? */
     
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
     [theLevelFormObject save];
     
 }
@@ -73,11 +79,13 @@
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
     self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", nil];
     
-    // I think this needs to be initialized not on a specific page          -ES
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    theLevelFormObject.theNewLevelForm = [[NSMutableDictionary alloc] init];
     
-    NSLog(@"NewLevelForm Dictionary Initialized");
+    // I moved the initialization for the dict to the MainMenu create form button
+    
+    //HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    //theLevelFormObject.theNewLevelForm = [[NSMutableDictionary alloc] init];
+    
+   // NSLog(@"NewLevelForm Dictionary Initialized");
     
 }
 
@@ -90,11 +98,6 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
-    //shouldn't the new object be created when we click "New Form" on the
-    // main page?
-    
-    // I think this is just a pointer to theLevelFormObject -SR
-    
     
 	HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
@@ -120,6 +123,10 @@
     // I don't think so. I think our void save method should be just for
     // saving theNewLevelForm to the array -SR
     
+    // array is now being save from the save button, not void save
+    // do we still need the void save method for anything?      -ES
+    
+    // Provenience Data
     [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
     [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
     [theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
@@ -137,15 +144,13 @@
     
     
     
-    
     NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);
     
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    //none of this should be here, I was just messing around and testing things. I'll come back and change this after class!
-    
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    theLevelFormObject.stratum = stratum.text;
+        
+    //HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    //theLevelFormObject.stratum = stratum.text;
     //[theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
     //[theLevelFormObject save];
     [theTextField resignFirstResponder];

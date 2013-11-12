@@ -68,8 +68,24 @@
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
+// when you finish editing a field, save the current values on the page.
 {
     activeField = nil;
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    theLevelFormObject.excavationDescription = excavationDescription.text;
+    theLevelFormObject.sedimentDescription = sedimentDescription.text;
+    theLevelFormObject.otherNarrative = otherNarrative.text;
+    
+    // save objects to the dictionary
+    
+    [theLevelFormObject.theNewLevelForm setObject:excavationDescription.text forKey:@"excavationDescription"];
+    [theLevelFormObject.theNewLevelForm setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+    [theLevelFormObject.theNewLevelForm setObject:otherNarrative.text forKey:@"otherNarrative"];
+    
+    
+    NSLog(@"excavationDescription: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"excavationDescription"]);
+    
 }
 
 // Call this method somewhere in your view controller setup code.
