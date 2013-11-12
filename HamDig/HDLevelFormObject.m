@@ -35,9 +35,11 @@
 @synthesize theNewLevelForm;
 
 
+
+
 - (void)save
 {
-    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate] ;
+    //HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate] ;
     
     /* I think this is where we want to add all the strings to the dictionary.
      Right now it looks like we're adding the dictionary itself to the global
@@ -50,9 +52,9 @@
      global array. - SR
      
     */
-    [appDelegate.allForms addObject:(theNewLevelForm)];
+    //[appDelegate.allForms addObject:(theNewLevelForm)];
     
-	NSLog(@"Saved theNewLevelForm to allForms");
+	//NSLog(@"Saved theNewLevelForm to allForms");
 	
 }
 

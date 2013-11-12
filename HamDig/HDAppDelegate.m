@@ -12,6 +12,8 @@
 #import "HDLevelFormObject.h"
 
 
+NSMutableArray *allForms;
+
 @implementation HDAppDelegate
 
 @synthesize window;
@@ -38,6 +40,9 @@
     //self.window.backgroundColor = [UIColor whiteColor];
     [window addSubview:navigationController.view];
     [window makeKeyAndVisible];
+    
+    allForms = [[NSMutableArray alloc] init];
+    
     return YES;
 }
 
@@ -67,7 +72,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    allForms = [NSMutableArray array];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

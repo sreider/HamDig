@@ -73,7 +73,7 @@
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
     self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", nil];
     
-    
+    // I think this needs to be initialized not on a specific page          -ES
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     theLevelFormObject.theNewLevelForm = [[NSMutableDictionary alloc] init];
     

@@ -14,10 +14,13 @@
 
 @class HDLevelFormObject;
 
+
+extern NSMutableArray *allForms;
+
 @interface HDAppDelegate : NSObject <UIApplicationDelegate, HDAppDelegateProtocol>
 {
 
-    NSMutableArray *allForms;
+    //NSMutableArray *allForms;
     UIWindow *window;
     UINavigationController *navigationController;
 	HDLevelFormObject* theLevelFormObject;
