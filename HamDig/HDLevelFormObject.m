@@ -34,6 +34,7 @@
 
 @synthesize theNewLevelForm;
 
+
 - (void)save
 {
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate] ;
@@ -42,10 +43,16 @@
      Right now it looks like we're adding the dictionary itself to the global
      array, which is most likely what we want. Don't we need to populate the
      dicitonary before we do this though?
+     
+     
+     I think we should populate the dictionary after the user is done editing a text field.
+     Then, when the user hits the save button we call this method and add the dictionary to the
+     global array. - SR
+     
     */
     [appDelegate.allForms addObject:(theNewLevelForm)];
     
-	NSLog(@"the code runs through here!");
+	NSLog(@"Saved theNewLevelForm to allForms");
 	
 }
 

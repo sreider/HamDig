@@ -37,8 +37,8 @@
 - (void)viewDidLoad
 {
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    //tester = [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"];
-    tester = theLevelFormObject.stratum;
+    tester = [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"];
+    //tester = theLevelFormObject.stratum;
     testField.text = tester;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.

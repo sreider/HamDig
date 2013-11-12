@@ -46,7 +46,7 @@
 }
 
 
-@property (nonatomic,readwrite) NSMutableDictionary* theNewLevelForm;
+@property (nonatomic, readwrite) NSMutableDictionary* theNewLevelForm;
 
 @property (nonatomic, copy) NSString* stratum;
 @property (nonatomic, copy) NSString* stratumLevel;

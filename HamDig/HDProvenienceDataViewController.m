@@ -24,6 +24,7 @@
 
 @implementation HDProvenienceDataViewController
 
+
 - (HDLevelFormObject*) theLevelFormObject;
 {
 	id<HDAppDelegateProtocol> theDelegate = (id<HDAppDelegateProtocol>) [UIApplication sharedApplication].delegate;
@@ -71,6 +72,13 @@
     
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
     self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", nil];
+    
+    
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    theLevelFormObject.theNewLevelForm = [[NSMutableDictionary alloc] init];
+    
+    NSLog(@"NewLevelForm Dictionary Initialized");
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,6 +92,10 @@
 {
     //shouldn't the new object be created when we click "New Form" on the
     // main page?
+    
+    // I think this is just a pointer to theLevelFormObject -SR
+    
+    
 	HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
     theLevelFormObject.stratum = stratum.text;
@@ -105,12 +117,28 @@
     // Fill dictionary for each form...
     
     // should this be done in our void save method?
+    // I don't think so. I think our void save method should be just for
+    // saving theNewLevelForm to the array -SR
     
-    
+    [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
     [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
+    [theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
     [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
-     
+    [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
+    [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
+    [theLevelFormObject.theNewLevelForm setObject:unitEasting.text forKey:@"unitEasting"];
+    [theLevelFormObject.theNewLevelForm setObject:unitNorthing.text forKey:@"unitNorthing"];
+    [theLevelFormObject.theNewLevelForm setObject:unitSizeX.text forKey:@"unitSizeX"];
+    [theLevelFormObject.theNewLevelForm setObject:unitSizeY.text forKey:@"unitSizeY"];
+    [theLevelFormObject.theNewLevelForm setObject:verticalDatumID.text forKey:@"verticalDatumID"];
+    [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
+    [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text forKey:@"excavationInterval"];
+    [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
     
+    
+    
+    
+    NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);
     
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
