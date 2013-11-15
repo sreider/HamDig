@@ -25,6 +25,8 @@
     IBOutlet UITextField *excavationInterval;
     IBOutlet UITextField *screenSize;
     IBOutlet UIPickerView *areaPicker;
+    IBOutlet UIPickerView *screenSizePicker;
+    IBOutlet UIPickerView *excavationIntervalPicker;
 }
 - (IBAction)addExcavator:(UIButton *)sender;
 

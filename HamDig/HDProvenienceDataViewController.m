@@ -20,6 +20,9 @@
 
 @property (strong, nonatomic) NSArray *areaNumArray;
 @property (strong, nonatomic) NSArray *areaTypeArray;
+@property (strong, nonatomic) NSArray *screenSizeArray;
+@property (strong, nonatomic) NSArray *excavationIntervalArray;
+
 @end
 
 @implementation HDProvenienceDataViewController
@@ -77,8 +80,9 @@
     [super viewDidLoad];
     
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
-    self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", nil];
-    
+    self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
+    self.screenSizeArray = [[NSArray alloc] initWithObjects: @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
+    self.excavationIntervalArray = [[NSArray alloc] initWithObjects:@"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
     
     // I moved the initialization for the dict to the MainMenu create form button
     
@@ -106,16 +110,16 @@
     theLevelFormObject.date = (NSString*)datePicker.date;  //<<<<<<----- MIGHT BE WRONG TYPE
     theLevelFormObject.level = level.text;
     theLevelFormObject.totalLevels = totalLevels.text;
-    theLevelFormObject.areaDescription = areaDescription.text;
     theLevelFormObject.unitEasting = unitEasting.text;
     theLevelFormObject.unitNorthing = unitNorthing.text;
     theLevelFormObject.unitSizeX = unitSizeX.text;
     theLevelFormObject.unitSizeY = unitSizeY.text;
     theLevelFormObject.verticalDatumID = verticalDatumID.text;
     theLevelFormObject.datumStringElevation = datumStringElevation.text;
-    theLevelFormObject.excavationInterval = excavationInterval.text;
-    theLevelFormObject.screenSize = screenSize.text;
     
+    areaDescription.text = theLevelFormObject.areaDescription;
+    screenSize.text = theLevelFormObject.screenSize;
+    excavationInterval.text = theLevelFormObject.excavationInterval;
     
     // Fill dictionary for each form...
     
@@ -160,7 +164,7 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField == areaDescription){
+    if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
         [textField resignFirstResponder];
     }
 }
@@ -183,7 +187,13 @@
         else
             return [self.areaNumArray count];
     }
-    return 6;
+    else if (pickerView == screenSizePicker)
+        return [self.screenSizeArray count];
+    
+    else if (pickerView == excavationIntervalPicker)
+        return [self.excavationIntervalArray count];
+    
+    return 0;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
@@ -194,15 +204,38 @@
         else
             return [self.areaNumArray objectAtIndex:row];
     }
+    
+    else if (pickerView == screenSizePicker)
+        return [self.screenSizeArray objectAtIndex:row];
+    
+    else if (pickerView == excavationIntervalPicker)
+        return [self.excavationIntervalArray objectAtIndex:row];
+    
     return @"";
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     if (pickerView == areaPicker){
-        areaDescription.text = [NSString stringWithFormat: @"%@%@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
+        if ([[self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
+            areaDescription.text = @"OTHER";
+        }
+        else{
+            theLevelFormObject.areaDescription = [NSString stringWithFormat: @"%@ %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
+        }
     }
- 
+    else if (pickerView == screenSizePicker){
+        theLevelFormObject.screenSize = [self.screenSizeArray objectAtIndex:[pickerView selectedRowInComponent:0]];
+    }
+    else if (pickerView == excavationIntervalPicker){
+        if ([[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
+            excavationInterval.text = @"OTHER";
+        }
+        else{
+            theLevelFormObject.excavationInterval= [self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]];
+        }
+    }
 }
 
 
