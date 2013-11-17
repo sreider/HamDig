@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HDNarrativeViewController : UIViewController
+@interface HDNarrativeViewController : UIViewController <UITextViewDelegate>
 {
     IBOutlet UITextView *excavationDescription;
     IBOutlet UITextView *sedimentDescription;

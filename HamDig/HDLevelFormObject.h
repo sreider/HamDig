@@ -29,7 +29,7 @@
     NSString* datumStringElevation;
     NSString* excavationInterval;
     NSString* screenSize;
-    NSArray* excavators;
+    NSMutableArray *excavators; 
     
     //Plan Drawing
     
@@ -41,6 +41,7 @@
     NSString* excavationDescription;
     NSString* sedimentDescription;
     NSString* otherNarrative;
+    
     
     
     
@@ -65,7 +66,7 @@
 @property (nonatomic, copy) NSString* datumStringElevation;
 @property (nonatomic, copy) NSString* excavationInterval;
 @property (nonatomic, copy) NSString* screenSize;
-@property (nonatomic, copy) NSArray* excavators;
+@property (nonatomic, readwrite) NSMutableArray* excavators;
 
 
 @property (nonatomic, copy) NSString* excavationDescription;

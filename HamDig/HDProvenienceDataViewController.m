@@ -36,14 +36,12 @@
 	return theLevelFormObject;
 }
 
-- (IBAction)addExcavator:(UIButton *)sender {
-    //Method to add an excavator
-    //Must implement.
-}
+
 
 
 // don't think we need this action anymore. Saving happens in save popover window
 // can we get rid of this?                  -ES
+// Most likely. I just put this in as a reminder to save. -Leah
 - (IBAction)saveForm:(id)sender {
     
     
@@ -65,24 +63,45 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     self.lastTappedButton = nil;
+    
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    areaDescription.text = theLevelFormObject.areaDescription;
+    screenSize.text = theLevelFormObject.screenSize;
+    excavationInterval.text = theLevelFormObject.excavationInterval;
+    
+    NSLog(@"Dismissed Popover");
+
 }
+
 
 - (IBAction)showPopover:(id)sender
 {
     UIButton *tappedButton = (UIButton *)sender;
     [self.detailViewPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
+ 
+    if (sender == addExcavator){
+        [newExcavator becomeFirstResponder];
+    }
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
     self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
     self.screenSizeArray = [[NSArray alloc] initWithObjects: @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
     self.excavationIntervalArray = [[NSArray alloc] initWithObjects:@"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
+    
+    for (int i=0; i<[theLevelFormObject.excavators count]; i++) {
+        UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(10, i * 20, 200, 40)];
+        [newExc setText:[theLevelFormObject.excavators objectAtIndex:i]];
+        [excavatorsView addSubview:newExc];
+    }
     
     // I moved the initialization for the dict to the MainMenu create form button
     
@@ -102,8 +121,23 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    if (textField == newExcavator){
+        if(![newExcavator.text isEqualToString:@""]){
+            NSLog(@"%@", newExcavator.text);
+            [theLevelFormObject.excavators addObject:newExcavator.text];
+            UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(10, [theLevelFormObject.excavators count] * 20 - 20, 200, 40)];
+            [newExc setText:[theLevelFormObject.excavators lastObject]];
+            [self.view addSubview:newExc];
+            
+            [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
+            NSLog(@"Num excavators %i", [theLevelFormObject.excavators count]);
+            [newExcavator setText:@""];
+        }
+    }
     
-	HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    else{
+
     
     theLevelFormObject.stratum = stratum.text;
     theLevelFormObject.stratumLevel = stratumLevel.text;
@@ -145,18 +179,13 @@
     [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
     [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text forKey:@"excavationInterval"];
     [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
-    
-    
+
     
     NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);
-    
+    }
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
         
-    //HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    //theLevelFormObject.stratum = stratum.text;
-    //[theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
-    //[theLevelFormObject save];
     [theTextField resignFirstResponder];
     return TRUE;
     

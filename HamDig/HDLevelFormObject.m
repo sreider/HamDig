@@ -25,6 +25,8 @@
 @synthesize datumStringElevation;
 @synthesize excavationInterval;
 @synthesize screenSize;
+
+//DON'T DELETE THIS. We need it. -LW
 @synthesize excavators;
 
 @synthesize excavationDescription;
@@ -35,6 +37,14 @@
 @synthesize theNewLevelForm;
 
 
+- (id)init
+{
+    excavators = [[NSMutableArray alloc] init];
+    [excavators addObject:@"Leah"];
+    [excavators addObject:@"Erik"];
+
+    return self;
+}
 
 
 - (void)save

@@ -14,7 +14,7 @@
 // UNDER CONSTRUCTION -J
 // sorry
 
-@interface HDNarrativeViewController () <UITextViewDelegate>
+@interface HDNarrativeViewController () 
 @property (nonatomic, strong) IBOutlet UITextView *textView;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
@@ -65,6 +65,11 @@
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     activeField = textView;
+}
+
+- (void)dismissKeyboard:(id)sender
+{
+    
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
