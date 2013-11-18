@@ -11,12 +11,9 @@
 #import "HDAppDelegateProtocol.h"
 
 
-// UNDER CONSTRUCTION -J
-// sorry
-
 @interface HDNarrativeViewController ()
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, strong) IBOutlet UITextView *activeField;
+@property (nonatomic, strong) IBOutlet UITextView *activeField; //is set when a textView becomes first responder
 
 @end
 
@@ -50,6 +47,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    // says what to call when keyboard appears/ disappears
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardDidShowNotification
@@ -68,7 +66,7 @@
 }
 
 
-// Provided by Apple developer docs -J
+// based partially on code provided by apple
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
@@ -114,20 +112,12 @@
     
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
-    
-    
     CGPoint origin = self.activeField.frame.origin;
     origin.y -= self.scrollView.contentOffset.y;
     origin.y += self.activeField.frame.size.height;
 
-    
-    
     if (!CGRectContainsPoint(aRect, origin)) {
         [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
-        
-        
-        //CGPoint scrollPoint = CGPointMake(0.0, activeField.frame.origin.y-(aRect.size.height));
-        //[self.scrollView setContentOffset:scrollPoint animated:YES];
     }
 }
 
