@@ -23,6 +23,10 @@
 @property (strong, nonatomic) NSArray *screenSizeArray;
 @property (strong, nonatomic) NSArray *excavationIntervalArray;
 
+// controll scroll view for moving view up when keyboard is called
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) IBOutlet UITextField *activeField;
+
 @end
 
 @implementation HDProvenienceDataViewController
@@ -110,6 +114,16 @@
     
    // NSLog(@"NewLevelForm Dictionary Initialized");
     
+    // for use when calling/dismissing keyboard
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -183,6 +197,8 @@
     
     NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);
     }
+    // used by Jen's keyboard stuff
+    self.activeField = nil;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
         
@@ -196,6 +212,9 @@
     if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
         [textField resignFirstResponder];
     }
+    // used by Jen's keyboard stuff
+    self.activeField = textField;
+    
 }
 
 //// returns the number of columns to display in picker view.
@@ -267,6 +286,38 @@
     }
 }
 
+// allows fields hidden by the keyboard to become visible. (not sure if works as well with popover windows...?)
+- (void)keyboardWillShow:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    
+    self.scrollView.contentSize = self.view.bounds.size;
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+    
+    // If active text field is hidden by keyboard, scroll it so it's visible
+    
+    CGRect aRect = self.view.frame;
+    aRect.size.height -= kbSize.height;
+    CGPoint origin = self.activeField.frame.origin;
+    origin.y -= self.scrollView.contentOffset.y;
+    //origin.y += self.activeField.frame.size.height;
+    
+    if (!CGRectContainsPoint(aRect, origin)) {
+        [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];
+    }
+}
+
+// Called when the UIKeyboardWillHideNotification is sent
+- (void)keyboardWillHide:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.scrollView.contentInset = contentInsets;
+    self.scrollView.scrollIndicatorInsets = contentInsets;
+}
 
 
 @end
