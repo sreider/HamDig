@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIPopoverController *detailViewPopover;
 @property (nonatomic, strong) id lastTappedButton;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
+@property (weak, nonatomic) IBOutlet UIButton *artefactsButton;
 
 @end
 
@@ -47,6 +48,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
 }
 
 - (void)didReceiveMemoryWarning
