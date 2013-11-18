@@ -13,8 +13,7 @@
     IBOutlet UITextView *excavationDescription;
     IBOutlet UITextView *sedimentDescription;
     IBOutlet UITextView *otherNarrative;
-    IBOutlet UIScrollView *scrollView;
-    IBOutlet UITextView *activeField;
+//    IBOutlet UITextView *activeField;
 }
 
 
