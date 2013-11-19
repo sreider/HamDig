@@ -73,9 +73,108 @@
 
     // anything else we want to do here?
     
-    
+}
+
+- (IBAction)exportData:(id)sender {
 
     
+    
+    
+    
+    
+    // Still working on this... SR
+    
+    
+    
+    
+    NSLog(@"Exporting data...");
+    
+    
+    
+    //create outputString
+    
+    
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    NSString *outputString = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+    
+    NSLog(@"Output String: %@", outputString);
+    
+    
+    // Creating file...
+    
+    NSLog(@"Creating file...");
+    
+    
+    
+    NSFileManager *filemgr;
+    NSArray *filelist;
+    int count;
+    int i;
+    
+    filemgr =[NSFileManager defaultManager];
+    filelist = [filemgr contentsOfDirectoryAtPath:@"/" error:NULL];
+    count = [filelist count];
+    
+    for (i = 0; i < count; i++)
+        NSLog(@"%@", filelist[i]);
+    
+    
+    
+    
+ //   NSURL *URL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+     
+ 
+//    NSURL *path = [URL URLByAppendingPathComponent:@"output.txt"];
+    
+  //  NSLog(@"File Name: %@", path);
+    
+    /*
+    NSString *string = ...;
+     
+    NSError *error;
+     
+    BOOL ok = [string writeToURL:URL atomically:YES encoding:NSUnicodeStringEncoding error:&error];
+     
+    if (!ok) {
+     
+     // an error occurred
+     
+     NSLog(@"Error writing file at %@\n%@", path, [error localizedFailureReason]);
+     
+     // implementation continues ...
+     
+     
+     */
+     
+    
+
+
 }
+
+/*
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
