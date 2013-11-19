@@ -79,6 +79,9 @@
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
+    // to make sure the form title is being saved if user does not hit return                -ES
+    [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
+    
     // add the dictionary to the global array           -ES
     [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
   

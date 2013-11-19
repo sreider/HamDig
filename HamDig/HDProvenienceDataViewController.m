@@ -107,12 +107,6 @@
         [excavatorsView addSubview:newExc];
     }
     
-    // I moved the initialization for the dict to the MainMenu create form button
-    
-    //HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    //theLevelFormObject.theNewLevelForm = [[NSMutableDictionary alloc] init];
-    
-   // NSLog(@"NewLevelForm Dictionary Initialized");
     
     // for use when calling/dismissing keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self

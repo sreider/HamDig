@@ -39,21 +39,34 @@
 {
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     //HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
 
-    
-    // OPENING EDIT FORMS WITHOUT BEGINNING A NEW FORM WILL CAUSE CRASH BECAUSE
-    // THERE ARE NO ENTRIES IN THE ARRAY YET (seg fault)
-    
-    // DISPLAYS THE TITLE FROM THE GLOBAL ARRAY         -ES
-    NSMutableDictionary *temp = [appDelegate.allForms objectAtIndex:0];
-    tester = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+    // make sure there is something in the array            -ES
+    int numForms = [appDelegate.allForms count];
 
-    NSLog(@"Stratum: %@", [temp objectForKey:@"stratum"]);
+    // loops through array and gets info from each dict         -ES
+    for (int i = 0; i<numForms;i++){
+        // get dictionary at index i
+        NSMutableDictionary *currentDict = [appDelegate.allForms objectAtIndex:i];
+        // save the form's title
+        NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
+        // display title
+        NSLog(currentTitle);
+
+        // still working on displaying each form title          -ES
+        
+        //UITextField *formDisplay = [[UITextField alloc] initWithFrame:CGRectMake(10, i * 30, 100, 100)];
+        //formDisplay.text = currentTitle;
+        
+        tester = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+        testField.text = tester;
+    }
     
-    testField.text = tester;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {
