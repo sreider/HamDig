@@ -35,6 +35,9 @@
     
     
     //Cultural Materials
+    NSMutableArray *artifacts;
+    NSMutableArray *samples;
+    NSMutableArray *features;
     
     
     //Narrative
@@ -67,6 +70,9 @@
 @property (nonatomic, copy) NSString* excavationInterval;
 @property (nonatomic, copy) NSString* screenSize;
 @property (nonatomic, readwrite) NSMutableArray* excavators;
+@property (nonatomic, readwrite) NSMutableArray *artifacts;
+@property (nonatomic, readwrite) NSMutableArray *samples;
+@property (nonatomic, readwrite) NSMutableArray *features;
 
 
 @property (nonatomic, copy) NSString* excavationDescription;

@@ -9,6 +9,20 @@
 #import <UIKit/UIKit.h>
 
 @interface HDCulturalMaterialsViewController : UIViewController<UITextFieldDelegate, UIPopoverControllerDelegate>
+{
+    
+    IBOutlet UIButton *artifactsButton;
+    IBOutlet UIButton *featuresButton;
+    IBOutlet UIButton *samplesButton;
+}
 
+
+- (IBAction)addArtifact:(id)sender;
+- (IBAction)addFeature:(id)sender;
+- (IBAction)addSample:(id)sender;
+
+- (IBAction)deleteArtifact:(id)sender;
+- (IBAction)deleteFeature:(id)sender;
+- (IBAction)deleteSample:(id)sender;
 
 @end

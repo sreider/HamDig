@@ -28,6 +28,9 @@
 
 //DON'T DELETE THIS. We need it. -LW
 @synthesize excavators;
+@synthesize artifacts;
+@synthesize samples;
+@synthesize features;
 
 @synthesize excavationDescription;
 @synthesize sedimentDescription;
@@ -39,9 +42,10 @@
 
 - (id)init
 {
-    excavators = [[NSMutableArray alloc] init];
-    [excavators addObject:@"Leah"];
-    [excavators addObject:@"Erik"];
+    excavators = [[NSMutableArray alloc] init];    
+    artifacts = [[NSMutableArray alloc] init];
+    samples = [[NSMutableArray alloc] init];
+    features = [[NSMutableArray alloc] init];
 
     return self;
 }

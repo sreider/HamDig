@@ -53,7 +53,7 @@
         // save the form's title
         NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
         // display title
-        NSLog(currentTitle);
+        //NSLog(currentTitle);   < Commented out because of warning in compilation -LW
 
         // still working on displaying each form title          -ES
         
