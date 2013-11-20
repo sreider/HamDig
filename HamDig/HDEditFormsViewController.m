@@ -10,14 +10,16 @@
 #import "HDLevelFormObject.h"
 #import "HDAppDelegateProtocol.h"
 #import "HDAppDelegate.h"
+#import "HDTabFormViewController.h"
 
 @interface HDEditFormsViewController ()
 
 @end
 
 @implementation HDEditFormsViewController
-@synthesize tester;
-@synthesize testField;
+//@synthesize tester;
+//@synthesize testField;
+
 
 - (HDLevelFormObject*) theLevelFormObject;
 {
@@ -55,17 +57,48 @@
 
         // still working on displaying each form title          -ES
         
-        //UITextField *formDisplay = [[UITextField alloc] initWithFrame:CGRectMake(10, i * 30, 100, 100)];
-        //formDisplay.text = currentTitle;
+        // display an edit button ...
+        UIButton *clickToEdit = [[UIButton alloc] initWithFrame:CGRectMake(25, 100 + (i * 100), 100, 50)];
+        // background color
+        clickToEdit.backgroundColor = [UIColor blueColor];
+        // title
+        [clickToEdit setTitle:@"click to edit" forState:UIControlStateNormal];
+        // reference to button is index + 1     (because 0 defaults to the viewController so we have to start at 1)   -ES
+        // this mean the index of the button is one more than it's corresponding index for the form/dictionary
+        clickToEdit.tag = i+1;
+        // add button action to each button
+        [clickToEdit addTarget:self action:@selector(editButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:clickToEdit];
         
-        tester = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
-        testField.text = tester;
+        
+        // ... along with the title of each form
+        UILabel *formDisplay = [[UILabel alloc] initWithFrame:CGRectMake(200, 100 + (i * 100), 100, 50)];
+        formDisplay.text = currentTitle;
+        [self.view addSubview:formDisplay];
+        
+        
+        //tester = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+        //testField.text = tester;
     }
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
 
+-(void)editButtonClick:(UIButton*)sender
+{
+    
+    // example action that turns each button green
+    [(UIButton *)[self.view viewWithTag:sender.tag] setBackgroundColor:[UIColor greenColor]];
+    
+
+    // performs the same segue as the "New Form" button on the Main Menu
+    //      Needed to add an identifier to the segue in storyboard under attributes inspector
+    [self performSegueWithIdentifier:@"newFormSegue" sender:self];
+
+//    [self presentViewController:myController animated:YES completion:Nil];
+    
+}
 
 
 - (void)didReceiveMemoryWarning
