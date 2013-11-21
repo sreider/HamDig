@@ -9,6 +9,7 @@
 #import "HDNarrativeViewController.h"
 #import "HDLevelFormObject.h"
 #import "HDAppDelegateProtocol.h"
+#import "HDAppDelegate.h"
 
 
 @interface HDNarrativeViewController ()
@@ -44,6 +45,17 @@
 
 - (void)viewDidLoad
 {
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appDelegate.currentlyEditing) {
+        NSLog(@"Editing flag is on");
+        int i = appDelegate.currentDictIndex;
+        NSMutableDictionary *currentDict = [appDelegate.allForms objectAtIndex:i];
+        excavationDescription.text = [currentDict objectForKey:@"excavationDescription"];
+        sedimentDescription.text = [currentDict objectForKey:@"sedimentDescription"];
+        otherNarrative.text = [currentDict objectForKey:@"otherNarrative"];
+    
+    }
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     

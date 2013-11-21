@@ -106,28 +106,21 @@
         NSLog(@"Editing form with");
         NSLog(currentTitle);
         
-        // prepopulate here
-/*        [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
-        [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
-        [theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
-        [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
-        [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
-        [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
-        [theLevelFormObject.theNewLevelForm setObject:unitEasting.text forKey:@"unitEasting"];
-        [theLevelFormObject.theNewLevelForm setObject:unitNorthing.text forKey:@"unitNorthing"];
-        [theLevelFormObject.theNewLevelForm setObject:unitSizeX.text forKey:@"unitSizeX"];
-        [theLevelFormObject.theNewLevelForm setObject:unitSizeY.text forKey:@"unitSizeY"];
-        [theLevelFormObject.theNewLevelForm setObject:verticalDatumID.text forKey:@"verticalDatumID"];
-        [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
-        [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text forKey:@"excavationInterval"];
-        [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"]; */
-        
+        // prepopulating here
         stratum.text = [currentDict objectForKey:@"stratum"];
         stratumLevel.text = [currentDict objectForKey:@"stratumLevel"];
         //datePicker.date = [currentDict objectForKey:@"date"];
         level.text = [currentDict objectForKey:@"level"];
         totalLevels.text = [currentDict objectForKey:@"totalLevels"];
-        // I'll fill in the rest later
+        areaDescription.text = [currentDict objectForKey:@"areaDescription"];
+        unitEasting.text = [currentDict objectForKey:@"unitEasting"];
+        unitNorthing.text = [currentDict objectForKey:@"unitNorthing"];
+        unitSizeX.text = [currentDict objectForKey:@"unitSizeX"];
+        unitSizeY.text = [currentDict objectForKey:@"unitSizeY"];
+        verticalDatumID.text = [currentDict objectForKey:@"verticalDatumID"];
+        datumStringElevation.text = [currentDict objectForKey:@"datumStringElevation"];
+        excavationInterval.text = [currentDict objectForKey:@"excavationInterval"];
+        screenSize.text = [currentDict objectForKey:@"screenSize"];
     }
     
     
