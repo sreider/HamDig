@@ -53,7 +53,10 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+   /* HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    // turn the global currentlyEditing flag off because we have now either saved or returned to the main menu
+    appDelegate.currentlyEditing = FALSE;
+    [super viewDidLoad]; */
 	// Do any additional setup after loading the view.
 }
 
@@ -72,19 +75,15 @@
     
 
     // anything else we want to do here?
-    
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    // turn the global currentlyEditing flag off because we have now either saved or returned to the main menu
+    appDelegate.currentlyEditing = FALSE;
+    [super viewDidLoad];
 }
 
 - (IBAction)exportData:(id)sender {
 
-    
-    
-    
-    
-    
     // Still working on this... SR
-    
-    
     
     
     NSLog(@"Exporting data...");
@@ -96,7 +95,21 @@
     
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSString *outputString = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+    
+    
+    
+    NSString * digName = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+    NSString * northing = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"unitNorthing"];
+    NSString * easting = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"unitEasting"];
+    NSString * stratum = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"stratum"];
+    NSString * level = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"stratumLevel"];
+    
+    
+    NSString *outputString = [NSString stringWithFormat:@"Name=%@;Northing=%@;Easting=%@;UnitSizeW=.98;UnitSizeH=.99;Stratum=%@;Level=%@;Excavators=[Test];VerticalDatumID=A;DatumStringElevation=1.0;ExcavationInterval=1", digName, northing, easting, stratum, level ];
+    
+    
+    
+   
     
     NSLog(@"Output String: %@", outputString);
     
@@ -105,75 +118,29 @@
     
     NSLog(@"Creating file...");
     
-    
-    
-    NSFileManager *filemgr;
-    NSArray *filelist;
-    int count;
-    int i;
-    
-    filemgr =[NSFileManager defaultManager];
-    filelist = [filemgr contentsOfDirectoryAtPath:@"/" error:NULL];
-    count = [filelist count];
-    
-    for (i = 0; i < count; i++)
-        NSLog(@"%@", filelist[i]);
-    
-    
-    
-    
- //   NSURL *URL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-     
- 
-//    NSURL *path = [URL URLByAppendingPathComponent:@"output.txt"];
-    
-  //  NSLog(@"File Name: %@", path);
-    
-    /*
-    NSString *string = ...;
-     
     NSError *error;
-     
-    BOOL ok = [string writeToURL:URL atomically:YES encoding:NSUnicodeStringEncoding error:&error];
-     
-    if (!ok) {
-     
-     // an error occurred
-     
-     NSLog(@"Error writing file at %@\n%@", path, [error localizedFailureReason]);
-     
-     // implementation continues ...
-     
-     
-     */
-     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSLog(@"Documents Directory: %@", documentsDirectory);
     
-
+    
+    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"HamDigOutput.txt"];
+    
+    
+    BOOL ok = [outputString writeToFile:appFile atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+    if (!ok) {
+        
+        // an error occurred
+        
+        NSLog(@"Error writing file at %@\n%@", appFile, [error localizedFailureReason]);
+    
+    }
+    else {
+        NSLog(@"Successfully wrote file!");
+    }
 
 }
-
-/*
-- (NSURL *)applicationDocumentsDirectory
-{
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -37,6 +37,8 @@ extern NSMutableArray *allForms;
 @property (nonatomic, retain) IBOutlet HDCulturalMaterialsViewController* theCulturalMaterialsViewController;
 @property (nonatomic, retain) IBOutlet HDPlanDrawingViewController* thePlanDrawingController;
 
+@property BOOL currentlyEditing;
+@property int currentDictIndex;
 
 @property (nonatomic,readwrite) NSMutableArray* allForms;
 

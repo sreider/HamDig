@@ -39,6 +39,10 @@
 
 - (void)viewDidLoad
 {
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (!(appDelegate.currentlyEditing)){
+        NSLog(@"Editing flag is off when save popover loads");
+    }
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -53,8 +57,20 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
-    
+    //HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
 	HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+
+   /* if (!appDelegate.currentlyEditing) {
+        [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
+            // to make sure the form title is being saved if user does not hit return                -ES
+        [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
+    }
+    else{
+        int i = appDelegate.currentDictIndex;
+        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        [currentDict setObject:formTitle.text forKey:@"formTitle"];
+    }*/
     [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
     NSLog(@"Form Title: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"formTitle"]);
     
@@ -79,12 +95,24 @@
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
-    // to make sure the form title is being saved if user does not hit return                -ES
-    [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
+
     
     // add the dictionary to the global array           -ES
-    [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
-  
+    // only if user is not editing
+    if (!(appDelegate.currentlyEditing)){
+        NSLog(@"Adding form to array cus editing flag is off");
+        [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
+            // to make sure the form title is being saved if user does not hit return                -ES
+        [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
+    }
+    else{
+        int i = appDelegate.currentDictIndex;
+        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        [currentDict setObject:formTitle.text forKey:@"formTitle"];
+    }
+    
+
+    
     
     
     /* pages we currently have save working for: Provenience, Narrative
