@@ -121,7 +121,7 @@
     NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"HamDigOutput.txt"];
     
     
-    BOOL ok = [outputString writeToFile:appFile atomically:YES encoding:NSUnicodeStringEncoding error:&error];
+    BOOL ok = [outputString writeToFile:appFile atomically:YES encoding:NSUTF8StringEncoding error:&error];
     
     if (!ok) {
         
