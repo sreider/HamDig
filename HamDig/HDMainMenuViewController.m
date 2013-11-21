@@ -89,7 +89,21 @@
     
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    NSString *outputString = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+    
+    
+    
+    NSString * digName = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
+    NSString * northing = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"unitNorthing"];
+    NSString * easting = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"unitEasting"];
+    NSString * stratum = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"stratum"];
+    NSString * level = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"stratumLevel"];
+    
+    
+    NSString *outputString = [NSString stringWithFormat:@"Name=%@;Northing=%@;Easting=%@;UnitSizeW=.98;UnitSizeH=.99;Stratum=%@;Level=%@;Excavators=[Test];VerticalDatumID=A;DatumStringElevation=1.0;ExcavationInterval=1", digName, northing, easting, stratum, level ];
+    
+    
+    
+   
     
     NSLog(@"Output String: %@", outputString);
     
@@ -104,7 +118,7 @@
     NSLog(@"Documents Directory: %@", documentsDirectory);
     
     
-    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"MyFile.txt"];
+    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"HamDigOutput.txt"];
     
     
     BOOL ok = [outputString writeToFile:appFile atomically:YES encoding:NSUnicodeStringEncoding error:&error];
