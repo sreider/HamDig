@@ -40,6 +40,11 @@
     UIButton *tappedButton = (UIButton *)sender;
     [self.detailViewPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
+    
+    //Add all existing material to curent popover. Implement. -LW
+    //
+    //
+    //
 
 }
 
@@ -58,9 +63,13 @@
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
     //Locations for initial addition of cultural materials to page -LW
-    self.artifactLoc = 200;
-    self.featureLoc = 180;
-    self.sampleLoc = 200;
+    self.artifactLoc = 150;
+    self.featureLoc = 130;
+    self.sampleLoc = 150;
+    
+    self.artifacts = [[NSMutableArray alloc] init];
+    self.samples = [[NSMutableArray alloc] init];
+    self.features = [[NSMutableArray alloc] init];
 
     //To add data from dictionary to page -LW
     for (int i=0; i<[theLevelFormObject.artifacts count]; i++) {
@@ -107,21 +116,27 @@
     del.frame = CGRectMake(620, loc, 60, 30);
     [del setTitle:@"-delete-" forState:UIControlStateNormal];
     
-    if ([artOrSam  isEqual: @"artifact"])
+    NSArray *material = [NSArray arrayWithObjects: type, easting, northing, depth, del, nil];
+    
+    if ([artOrSam  isEqual: @"artifact"]){
         [del addTarget:self
                 action:@selector(deleteArtifact:)
                 forControlEvents:UIControlEventTouchUpInside];
-    else
+        [self.artifacts addObject: material];
+    }
+    else {
         [del addTarget:self
                 action:@selector(deleteSample:)
                 forControlEvents:UIControlEventTouchUpInside];
-
+        [self.samples addObject:material];
+    }
+    
     [self.view addSubview:type];
     [self.view addSubview:easting];
     [self.view addSubview:northing];
     [self.view addSubview:depth];
     [self.view addSubview:del];
-    
+
     loc+= 50;
     return loc;
 }
@@ -149,6 +164,10 @@
             action:@selector(deleteFeature:)
             forControlEvents:UIControlEventTouchUpInside];
     
+    
+    NSArray *material = [NSArray arrayWithObjects: num, type, del, nil];
+    [self.features addObject:material];
+    
     [self.view addSubview:num];
     [self.view addSubview:type];
     [self.view addSubview:del];
@@ -161,19 +180,41 @@
     self.sampleLoc = [self addArtifactOrSample:self.sampleLoc:@"sample"];
 }
 
-- (IBAction)deleteArtifact:(id)sender
+- (void)deleteArtifact:(id)sender
 {
     //Delete row from app visually
     //Delete artifact info from Dictionary -LW
+    int x = [self.artifacts count];
+    for (int i=0; i<[self.artifacts count]; i++) {
+        if ([[self.artifacts objectAtIndex:i] objectAtIndex:4] == sender) {
+            //Remove graphics from window -LW
+            for (int j = 0; j < 5; j++) {
+                [[[self.artifacts objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
+            }
+            self.artifactLoc -= 50;
+            
+            //Remove artifact info from list -LW
+            [self.artifacts removeObjectAtIndex:i];
+            x = i;
+        }
+        if (x > i) {
+            NSLog(@"greater!");
+            for (int j = 0; j < 5; j++) {
+                CGRect textFieldFrame = [[[self.artifacts objectAtIndex:i] objectAtIndex:j] frame];
+                textFieldFrame.origin.y -= 50;
+            }
+        }
+    }
+    
 }
 
-- (IBAction)deleteFeature:(id)sender
+- (void)deleteFeature:(id)sender
 {
     //Delete row from app visually
     //Delete feature info from Dictionary -LW
 }
 
-- (IBAction)deleteSample:(id)sender
+- (void)deleteSample:(id)sender
 {
     //Delete row from app visually
     //Delete env. sample info from Dictionary -LW

@@ -21,8 +21,5 @@
 - (IBAction)addFeature:(id)sender;
 - (IBAction)addSample:(id)sender;
 
-- (IBAction)deleteArtifact:(id)sender;
-- (IBAction)deleteFeature:(id)sender;
-- (IBAction)deleteSample:(id)sender;
 
 @end
