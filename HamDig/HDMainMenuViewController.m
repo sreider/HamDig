@@ -77,14 +77,7 @@
 
 - (IBAction)exportData:(id)sender {
 
-    
-    
-    
-    
-    
     // Still working on this... SR
-    
-    
     
     
     NSLog(@"Exporting data...");
@@ -105,75 +98,29 @@
     
     NSLog(@"Creating file...");
     
-    
-    
-    NSFileManager *filemgr;
-    NSArray *filelist;
-    int count;
-    int i;
-    
-    filemgr =[NSFileManager defaultManager];
-    filelist = [filemgr contentsOfDirectoryAtPath:@"/" error:NULL];
-    count = [filelist count];
-    
-    for (i = 0; i < count; i++)
-        NSLog(@"%@", filelist[i]);
-    
-    
-    
-    
- //   NSURL *URL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-     
- 
-//    NSURL *path = [URL URLByAppendingPathComponent:@"output.txt"];
-    
-  //  NSLog(@"File Name: %@", path);
-    
-    /*
-    NSString *string = ...;
-     
     NSError *error;
-     
-    BOOL ok = [string writeToURL:URL atomically:YES encoding:NSUnicodeStringEncoding error:&error];
-     
-    if (!ok) {
-     
-     // an error occurred
-     
-     NSLog(@"Error writing file at %@\n%@", path, [error localizedFailureReason]);
-     
-     // implementation continues ...
-     
-     
-     */
-     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSLog(@"Documents Directory: %@", documentsDirectory);
     
-
+    
+    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"MyFile.txt"];
+    
+    
+    BOOL ok = [outputString writeToFile:appFile atomically:YES encoding:NSUnicodeStringEncoding error:&error];
+    
+    if (!ok) {
+        
+        // an error occurred
+        
+        NSLog(@"Error writing file at %@\n%@", appFile, [error localizedFailureReason]);
+    
+    }
+    else {
+        NSLog(@"Successfully wrote file!");
+    }
 
 }
-
-/*
-- (NSURL *)applicationDocumentsDirectory
-{
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
