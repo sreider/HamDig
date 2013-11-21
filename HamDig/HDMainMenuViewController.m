@@ -53,7 +53,10 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+   /* HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    // turn the global currentlyEditing flag off because we have now either saved or returned to the main menu
+    appDelegate.currentlyEditing = FALSE;
+    [super viewDidLoad]; */
 	// Do any additional setup after loading the view.
 }
 
@@ -72,7 +75,10 @@
     
 
     // anything else we want to do here?
-    
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    // turn the global currentlyEditing flag off because we have now either saved or returned to the main menu
+    appDelegate.currentlyEditing = FALSE;
+    [super viewDidLoad];
 }
 
 - (IBAction)exportData:(id)sender {

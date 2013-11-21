@@ -53,7 +53,7 @@
         // save the form's title
         NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
         // display title
-        //NSLog(currentTitle);   < Commented out because of warning in compilation -LW
+        NSLog(currentTitle);  // < Commented out because of warning in compilation -LW This is just because it's not a string literal, it doesnt cause an actual error
 
         // still working on displaying each form title          -ES
         
@@ -91,6 +91,12 @@
     // example action that turns each button green
     [(UIButton *)[self.view viewWithTag:sender.tag] setBackgroundColor:[UIColor greenColor]];
     
+    // to get the global flag currentlyEditing and set it to true
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDelegate.currentlyEditing = TRUE;
+    
+    // save the index of the dict
+    appDelegate.currentDictIndex = sender.tag - 1;
 
     // performs the same segue as the "New Form" button on the Main Menu
     //      Needed to add an identifier to the segue in storyboard under attributes inspector

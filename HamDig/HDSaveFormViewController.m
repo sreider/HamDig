@@ -39,6 +39,10 @@
 
 - (void)viewDidLoad
 {
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (!(appDelegate.currentlyEditing)){
+        NSLog(@"Editing flag is off when save popover loads");
+    }
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -83,8 +87,11 @@
     [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
     
     // add the dictionary to the global array           -ES
-    [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
-  
+    // only if user is not editing
+    if (!(appDelegate.currentlyEditing)){
+        NSLog(@"Adding form to array cus editing flag is off");
+        [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
+    }
     
     
     /* pages we currently have save working for: Provenience, Narrative
