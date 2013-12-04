@@ -11,6 +11,10 @@
 @interface HDCulturalMaterialsViewController : UIViewController<UITextFieldDelegate, UIPopoverControllerDelegate>
 {
     
+    IBOutlet UIView *artifactView;
+    IBOutlet UIView *sampleView;
+    IBOutlet UIView *featureView;
+    
     IBOutlet UIButton *artifactsButton;
     IBOutlet UIButton *featuresButton;
     IBOutlet UIButton *samplesButton;

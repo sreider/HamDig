@@ -28,26 +28,6 @@
 
 @implementation HDCulturalMaterialsViewController
 
-//Popover stuff from Jen
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
-{
-    self.lastTappedButton = nil;
-    NSLog(@"Dismiss popover");
-}
-
-- (IBAction)showPopover:(id)sender
-{
-    UIButton *tappedButton = (UIButton *)sender;
-    [self.detailViewPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    self.lastTappedButton = sender;
-    
-    //Add all existing material to curent popover. Implement. -LW
-    //
-    //
-    //
-
-}
-
 - (HDLevelFormObject*) theLevelFormObject;
 {
 	id<HDAppDelegateProtocol> theDelegate = (id<HDAppDelegateProtocol>) [UIApplication sharedApplication].delegate;
@@ -70,38 +50,75 @@
     self.artifacts = [[NSMutableArray alloc] init];
     self.samples = [[NSMutableArray alloc] init];
     self.features = [[NSMutableArray alloc] init];
-
-    //To add data from dictionary to page -LW
-    for (int i=0; i<[theLevelFormObject.artifacts count]; i++) {
-        [self addArtifact:nil];
-    }
-    for (int i=0; i<[theLevelFormObject.features count]; i++) {
-        [self addFeature:nil];
-    }
-    for (int i=0; i<[theLevelFormObject.samples count]; i++) {
-        [self addSample:nil];
-    }
-//    self.artifacts = [theLevelFormObject.theNewLevelForm objectForKey:@"artifacts"];
-//    self.features = [theLevelFormObject.theNewLevelForm objectForKey:@"features"];
-//    self.samples = [theLevelFormObject.theNewLevelForm objectForKey:@"samples"];
     
+    //To add data from the current level form object to page -LW
+    for (int i=0; i<[theLevelFormObject.artifacts count]; i++)
+        self.artifactLoc = [self addArtifactOrSample:self.artifactLoc :@"artifact" :false :i :artifactView :theLevelFormObject.artifacts];
+    
+    for (int i=0; i<[theLevelFormObject.features  count]; i++)
+        [self addFeat:false :i];
+    
+    for (int i=0; i<[theLevelFormObject.samples count]; i++)
+        self.sampleLoc = [self addArtifactOrSample:self.sampleLoc :@"sample" :false :i :sampleView :theLevelFormObject.samples];
 }
+
 -(void)viewDidAppear:(BOOL)animated
 {
     //Shows the artifacts popover on page load. -LW
-    [artifactsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+   [artifactsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    
+//Popover stuff from Jen
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+    self.lastTappedButton = nil;
+    NSLog(@"Dismiss popover");
+}
+
+- (IBAction)showPopover:(id)sender
+{
+    UIButton *tappedButton = (UIButton *)sender;
+    [self.detailViewPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
+
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
+{
     [theTextField resignFirstResponder];
     return TRUE;
-    
 }
-- (int) addArtifactOrSample:(int)loc :(NSString*)artOrSam
+
+//Checks if the given array is the array the edited text field is in -LW
+-(void)checkList:(UITextField*)textField :(NSMutableArray*)ary :(NSMutableArray*)lfAry :(int)numObj
 {
-    //Graphically adds a row to the Artifact or Env. Sample page -LW
-    
+    for (int i=0; i < [ary count]; i++)
+        for (int j=0; j<numObj; j++)
+            if ([[ary objectAtIndex:i] objectAtIndex:j] == textField) {
+                UITextField *txt =[[lfAry objectAtIndex:i] objectAtIndex:j];
+                txt.text = textField.text;
+            }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+
+    //Save value in correct list
+    [self checkList:textField :self.artifacts :theLevelFormObject.artifacts :4];
+    [self checkList:textField :self.samples :theLevelFormObject.samples :4];
+    [self checkList:textField :self.features :theLevelFormObject.features :1];
+}
+
+
+////////////////////////
+//Adding new materials: programmatically creates all of the UI objects for the user to interact with
+//Also populates preexisting material's textfields.  -LW
+////////////////////////
+
+- (int) addArtifactOrSample:(int)loc :(NSString*)artOrSam :(BOOL)new :(int)index :(UIView*)viewX :(NSMutableArray*) lfAry
+{
+
     UITextField *type = [[UITextField alloc] initWithFrame:CGRectMake(50,loc,250,30)];
     UITextField *easting = [[UITextField alloc] initWithFrame:CGRectMake(320, loc, 80, 30)];
     UITextField *northing = [[UITextField alloc] initWithFrame:CGRectMake(420, loc, 80, 30)];
@@ -112,12 +129,27 @@
     [northing setBorderStyle:UITextBorderStyleRoundedRect];
     [depth setBorderStyle:UITextBorderStyleRoundedRect];
     
+    //Adds fields to the coresponding popover view
+    [viewX addSubview:type];
+    [viewX addSubview:easting];
+    [viewX addSubview:northing];
+    [viewX addSubview:depth];
+
+    //Attaches each newly added graphical object to the page delegate so they can be referred to in the HDCulturalMaterialsViewController class.
+    type.delegate = self;
+    easting.delegate = self;
+    northing.delegate = self;
+    depth.delegate = self;
+    
+    //Creates and adds the delete button to the corresponding popover view
     UIButton *del = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     del.frame = CGRectMake(620, loc, 60, 30);
     [del setTitle:@"-delete-" forState:UIControlStateNormal];
-    
+    [viewX addSubview:del];
+   
     NSArray *material = [NSArray arrayWithObjects: type, easting, northing, depth, del, nil];
     
+    //adds the delete action to the delete button.
     if ([artOrSam  isEqual: @"artifact"]){
         [del addTarget:self
                 action:@selector(deleteArtifact:)
@@ -131,99 +163,126 @@
         [self.samples addObject:material];
     }
     
-    [self.view addSubview:type];
-    [self.view addSubview:easting];
-    [self.view addSubview:northing];
-    [self.view addSubview:depth];
-    [self.view addSubview:del];
-
-    loc+= 50;
-    return loc;
+    if (new)  //new material is not is level form
+        [lfAry addObject:material];
+    else{    //populate the text field with data from the existing form
+        type.text = [[[lfAry objectAtIndex:index] objectAtIndex:0] text];
+        easting.text = [[[lfAry objectAtIndex:index] objectAtIndex:1] text];
+        northing.text = [[[lfAry objectAtIndex:index] objectAtIndex:2] text];
+        depth.text = [[[lfAry objectAtIndex:index] objectAtIndex:3] text];
+    }
+    return loc += 50;
 }
 
+-(void) addFeat:(BOOL)new :(int)index
+{
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    UITextField *type = [[UITextField alloc] initWithFrame:CGRectMake(30, self.featureLoc, 250, 30)];
+    [type setBorderStyle:UITextBorderStyleRoundedRect];
+    
+    UIButton *del = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    del.frame = CGRectMake(320, self.featureLoc, 60, 30);
+    [del setTitle:@"-delete-"
+         forState:UIControlStateNormal];
+    [del addTarget:self
+            action:@selector(deleteFeature:)
+  forControlEvents:UIControlEventTouchUpInside];
+    
+    NSArray *material = [NSArray arrayWithObjects: type, del, nil];
+    [self.features addObject:material];
+    if (new)
+        [theLevelFormObject.features addObject:material];
+    else
+        type.text = [[[theLevelFormObject.features objectAtIndex:index] objectAtIndex:0] text];
+    
+    [featureView addSubview:type];
+    [featureView addSubview:del];
+    
+    type.delegate = self;
+    
+    self.featureLoc += 50;
+}
+
+//////////////////
+//action methods attached to the + buttons on each of the popovers
+//all call other methods with specifying parameters -LW
+//////////////////
 
 - (IBAction)addArtifact:(id)sender
 {
-    self.artifactLoc = [self addArtifactOrSample:self.artifactLoc:@"artifact"];
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    self.artifactLoc = [self addArtifactOrSample :self.artifactLoc :@"artifact" :true :-1 :artifactView :theLevelFormObject.artifacts];
+}
+
+- (IBAction)addSample:(id)sender
+{
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    self.sampleLoc = [self addArtifactOrSample:self.sampleLoc:@"sample" :true :-1 :sampleView :theLevelFormObject.samples];
 }
 
 - (IBAction)addFeature:(id)sender
 {
     //Graphically adds a row to the Feature page -LW
+    [self addFeat:true :-1];
     
-    UITextField *num = [[UITextField alloc] initWithFrame:CGRectMake(35,self.featureLoc,100,30)];
-    UITextField *type = [[UITextField alloc] initWithFrame:CGRectMake(175, self.featureLoc, 250, 30)];
-    [type setBorderStyle:UITextBorderStyleRoundedRect];
-    [num setBorderStyle:UITextBorderStyleRoundedRect];
-    
-    UIButton *del = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    del.frame = CGRectMake(450, self.featureLoc, 60, 30);
-    [del setTitle:@"-delete-"
-            forState:UIControlStateNormal];
-    [del addTarget:self
-            action:@selector(deleteFeature:)
-            forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    NSArray *material = [NSArray arrayWithObjects: num, type, del, nil];
-    [self.features addObject:material];
-    
-    [self.view addSubview:num];
-    [self.view addSubview:type];
-    [self.view addSubview:del];
-
-    self.featureLoc += 50;
 }
 
-- (IBAction)addSample:(id)sender
+////////////////////////////////
+//Deletes previously added material -LW
+////////////////////////////////
+
+- (int) deleteMaterial:(id)sender :(NSMutableArray*)ary :(NSMutableArray*)lfAry :(int)loc :(int)cnt
 {
-    self.sampleLoc = [self addArtifactOrSample:self.sampleLoc:@"sample"];
+ 
+    int x = -1;
+    for (int i=0; i<[ary count]; i++) {
+        if ([[ary objectAtIndex:i] objectAtIndex:cnt - 1] == sender) {
+            //Remove graphics from window
+            for (int j = 0; j < cnt; j++)
+                [[[ary objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
+            loc -= 50;
+
+            //Remove artifact info from list
+            [ary removeObjectAtIndex:i];
+            [lfAry removeObjectAtIndex:i];
+            x = i;
+        }
+    }
+   //Moves each following material entry up;
+    for (int i=x; i<ary.count; i++) {
+        for (int j = 0; j < cnt; j++) {
+            UIView *fieldId = [[ary objectAtIndex:i] objectAtIndex:j];
+            CGRect textFieldFrame = fieldId.frame;
+            textFieldFrame.origin.y -= 50;
+            fieldId.frame = textFieldFrame;
+        }
+    }
+    return loc;
 }
+
+////////////////
+//Methods that are attached to the "delete" button for each type of material
+//All call the deleteMaterial method with identifying parameters -LW
+////////////////
 
 - (void)deleteArtifact:(id)sender
 {
-    //Delete row from app visually
-    //Delete artifact info from Dictionary -LW
-    int x = [self.artifacts count];
-    for (int i=0; i<[self.artifacts count]; i++) {
-        if ([[self.artifacts objectAtIndex:i] objectAtIndex:4] == sender) {
-            //Remove graphics from window -LW
-            for (int j = 0; j < 5; j++) {
-                [[[self.artifacts objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
-            }
-            self.artifactLoc -= 50;
-            
-            //Remove artifact info from list -LW
-            [self.artifacts removeObjectAtIndex:i];
-            x = i;
-        }
-        if (x > i) {
-            NSLog(@"greater!");
-            for (int j = 0; j < 5; j++) {
-                CGRect textFieldFrame = [[[self.artifacts objectAtIndex:i] objectAtIndex:j] frame];
-                textFieldFrame.origin.y -= 50;
-            }
-        }
-    }
-    
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    self.artifactLoc = [self deleteMaterial :sender :self.artifacts :theLevelFormObject.artifacts :self.artifactLoc :5];
 }
 
 - (void)deleteFeature:(id)sender
 {
-    //Delete row from app visually
-    //Delete feature info from Dictionary -LW
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    self.featureLoc = [self deleteMaterial :sender :self.features :theLevelFormObject.features :self.featureLoc :2];
 }
 
 - (void)deleteSample:(id)sender
 {
-    //Delete row from app visually
-    //Delete env. sample info from Dictionary -LW
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    self.sampleLoc = [self deleteMaterial :sender :self.samples :theLevelFormObject.samples :self.sampleLoc :5];
 }
 @end

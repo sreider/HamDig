@@ -53,7 +53,7 @@
         // save the form's title
         NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
         // display title
-        NSLog(currentTitle);  // < Commented out because of warning in compilation -LW This is just because it's not a string literal, it doesnt cause an actual error
+        NSLog(@"%@", currentTitle);  // < Commented out because of warning in compilation -LW This is just because it's not a string literal, it doesnt cause an actual error
 
         // still working on displaying each form title          -ES
         

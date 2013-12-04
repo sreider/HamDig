@@ -73,6 +73,13 @@
     NSLog(@"create a level form");
     NSLog(@"NewLevelForm Dictionary Initialized");
     
+    //Initializes the mutable arrays in a new dictionary
+    //Might be needed, but could possibly delete this -LW
+    [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"artifacts"];
+    [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"features"];
+    [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"samples"];
+    [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"excavators"];
+ 
 
     // anything else we want to do here?
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];

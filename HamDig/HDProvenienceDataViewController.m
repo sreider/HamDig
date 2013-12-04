@@ -104,7 +104,7 @@
         // save the form's title
         NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
         NSLog(@"Editing form with");
-        NSLog(currentTitle);
+        NSLog(@"%@", currentTitle);
         
         // prepopulating here
         stratum.text = [currentDict objectForKey:@"stratum"];
@@ -167,7 +167,7 @@
             [theLevelFormObject.excavators addObject:newExcavator.text];
             UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(10, [theLevelFormObject.excavators count] * 20 - 20, 200, 40)];
             [newExc setText:[theLevelFormObject.excavators lastObject]];
-            [self.view addSubview:newExc];
+            [excavatorsView addSubview:newExc];
             
             [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
             NSLog(@"Num excavators %i", [theLevelFormObject.excavators count]);
