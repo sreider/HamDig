@@ -16,6 +16,7 @@
 
 
 extern NSMutableArray *allForms;
+extern NSMutableDictionary *dictCopy;
 
 @interface HDAppDelegate : NSObject <UIApplicationDelegate, HDAppDelegateProtocol>
 {
@@ -41,5 +42,6 @@ extern NSMutableArray *allForms;
 @property int currentDictIndex;
 
 @property (nonatomic,readwrite) NSMutableArray* allForms;
+@property (nonatomic,readwrite) NSMutableDictionary* dictCopy;
 
 @end

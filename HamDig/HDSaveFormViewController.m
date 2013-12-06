@@ -40,9 +40,13 @@
 - (void)viewDidLoad
 {
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (!(appDelegate.currentlyEditing)){
-        NSLog(@"Editing flag is off when save popover loads");
+    // if editing, prepopulate the form title
+    if (appDelegate.currentlyEditing){
+        int i = appDelegate.currentDictIndex;
+        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        formTitle.text = [currentDict objectForKey:@"formTitle"];
     }
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -57,26 +61,35 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
-    //HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
 	HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
-
-   /* if (!appDelegate.currentlyEditing) {
-        [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
-            // to make sure the form title is being saved if user does not hit return                -ES
+    // same as code for save button to make sure changes affect correct form if editing
+    if (!appDelegate.currentlyEditing){
         [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
+        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
+        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.samples forKey:@"samples"];
+        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.features forKey:@"features"];
+        NSLog(@"Form Title: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"formTitle"]);
+        
     }
     else{
         int i = appDelegate.currentDictIndex;
         NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
-        [currentDict setObject:formTitle.text forKey:@"formTitle"];
-    }*/
+        //[currentDict setObject:formTitle.text forKey:@"formTitle"];
+        [currentDict setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
+        [currentDict setObject:theLevelFormObject.samples forKey:@"samples"];
+        [currentDict setObject:theLevelFormObject.features forKey:@"features"];
+        NSLog(@"Form Title: %@", [currentDict objectForKey:@"formTitle"]);
+        
+    }
+    /*
     [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
     [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
     [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.samples forKey:@"samples"];
     [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.features forKey:@"features"];
     NSLog(@"Form Title: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"formTitle"]);
-    
+    */
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -109,9 +122,13 @@
         [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
     }
     else{
+        NSLog(@"replacing dict at index because editing flag is on");
         int i = appDelegate.currentDictIndex;
         NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
         [currentDict setObject:formTitle.text forKey:@"formTitle"];
+
+        NSLog(@"turning the editing flag off");
+        appDelegate.currentlyEditing = FALSE;
     }
     
 
@@ -123,13 +140,7 @@
         -ES
     */
     
-    //NSString *test = [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"];
-    //[allForms addObject: @"test" ];
-    
-    
-	//NSLog(@"Saved theNewLevelForm to allForms");
-    
-    //NSLog(@"array: %@", appDelegate.allForms);
+
     
 }
 

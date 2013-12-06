@@ -103,8 +103,8 @@
         NSMutableDictionary *currentDict = [appDelegate.allForms objectAtIndex:i];
         // save the form's title
         NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
-        NSLog(@"Editing form with");
-        NSLog(@"%@", currentTitle);
+        //NSLog(@"Editing form with");
+        NSLog(@"Editing: %@", currentTitle);
         
         // prepopulating here
         stratum.text = [currentDict objectForKey:@"stratum"];
@@ -160,6 +160,7 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     if (textField == newExcavator){
         if(![newExcavator.text isEqualToString:@""]){
@@ -180,7 +181,8 @@
     
     theLevelFormObject.stratum = stratum.text;
     theLevelFormObject.stratumLevel = stratumLevel.text;
-    theLevelFormObject.date = (NSString*)datePicker.date;  //<<<<<<----- MIGHT BE WRONG TYPE
+
+    theLevelFormObject.date = (NSString*)datePicker.date;
     theLevelFormObject.level = level.text;
     theLevelFormObject.totalLevels = totalLevels.text;
     theLevelFormObject.unitEasting = unitEasting.text;
@@ -204,23 +206,46 @@
     // do we still need the void save method for anything?      -ES
     
     // Provenience Data
-    [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
-    [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
-    [theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
-    [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
-    [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
-    [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
-    [theLevelFormObject.theNewLevelForm setObject:unitEasting.text forKey:@"unitEasting"];
-    [theLevelFormObject.theNewLevelForm setObject:unitNorthing.text forKey:@"unitNorthing"];
-    [theLevelFormObject.theNewLevelForm setObject:unitSizeX.text forKey:@"unitSizeX"];
-    [theLevelFormObject.theNewLevelForm setObject:unitSizeY.text forKey:@"unitSizeY"];
-    [theLevelFormObject.theNewLevelForm setObject:verticalDatumID.text forKey:@"verticalDatumID"];
-    [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
-    [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text forKey:@"excavationInterval"];
-    [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
-
     
-    NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);
+    if (!appDelegate.currentlyEditing){
+        [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
+        [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
+        [theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
+        [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
+        [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
+        [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
+        [theLevelFormObject.theNewLevelForm setObject:unitEasting.text forKey:@"unitEasting"];
+        [theLevelFormObject.theNewLevelForm setObject:unitNorthing.text forKey:@"unitNorthing"];
+        [theLevelFormObject.theNewLevelForm setObject:unitSizeX.text forKey:@"unitSizeX"];
+        [theLevelFormObject.theNewLevelForm setObject:unitSizeY.text forKey:@"unitSizeY"];
+        [theLevelFormObject.theNewLevelForm setObject:verticalDatumID.text forKey:@"verticalDatumID"];
+        [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
+        [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text   forKey:@"excavationInterval"];
+        [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
+    }
+    else{
+        int i = appDelegate.currentDictIndex;
+        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        [currentDict setObject:stratum.text forKey:@"stratum"];
+        [currentDict setObject:stratumLevel.text forKey:@"stratumLevel"];
+        // HERE: date picker not working for prepopulating
+        // not sure how to prepopulate datePicker, any thoughts?     -ES
+        [currentDict setObject:(NSString*)datePicker.date forKey:@"date"];
+        [currentDict setObject:level.text forKey:@"level"];
+        [currentDict setObject:totalLevels.text forKey:@"totalLevels"];
+        [currentDict setObject:areaDescription.text forKey:@"areaDescription"];
+        [currentDict setObject:unitEasting.text forKey:@"unitEasting"];
+        [currentDict setObject:unitNorthing.text forKey:@"unitNorthing"];
+        [currentDict setObject:unitSizeX.text forKey:@"unitSizeX"];
+        [currentDict setObject:unitSizeY.text forKey:@"unitSizeY"];
+        // HERE: still need to prepopulate excavators       -ES
+        [currentDict setObject:verticalDatumID.text forKey:@"verticalDatumID"];
+        [currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
+        [currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
+        [currentDict setObject:screenSize.text forKey:@"screenSize"];
+    }
+    
+    //NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);
     }
     // used by Jen's keyboard stuff
     self.activeField = nil;

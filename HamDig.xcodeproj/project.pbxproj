@@ -30,6 +30,7 @@
 		584B04FB183288BD002F270E /* HDSaveFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584B04FA183288BD002F270E /* HDSaveFormViewController.m */; };
 		9A7DE36B1832D99C00839976 /* HDMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A7DE36A1832D99C00839976 /* HDMainMenuViewController.m */; };
 		9A9B492818295B4400188E0B /* HDEditFormsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9B492718295B4400188E0B /* HDEditFormsViewController.m */; };
+		9A9D483E185030D900F72473 /* HDBackMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9D483D185030D900F72473 /* HDBackMenuViewController.m */; };
 		9AE8ED53183C313700C7CCB8 /* HDTabFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE8ED52183C313700C7CCB8 /* HDTabFormViewController.m */; };
 		CC6530A1181995E400212871 /* HDPopovers.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6530A0181995E400212871 /* HDPopovers.m */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,8 @@
 		9A7DE36A1832D99C00839976 /* HDMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDMainMenuViewController.m; sourceTree = "<group>"; };
 		9A9B492618295B4400188E0B /* HDEditFormsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDEditFormsViewController.h; sourceTree = "<group>"; };
 		9A9B492718295B4400188E0B /* HDEditFormsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDEditFormsViewController.m; sourceTree = "<group>"; };
+		9A9D483C185030D900F72473 /* HDBackMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDBackMenuViewController.h; sourceTree = "<group>"; };
+		9A9D483D185030D900F72473 /* HDBackMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDBackMenuViewController.m; sourceTree = "<group>"; };
 		9AE8ED51183C313700C7CCB8 /* HDTabFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDTabFormViewController.h; sourceTree = "<group>"; };
 		9AE8ED52183C313700C7CCB8 /* HDTabFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDTabFormViewController.m; sourceTree = "<group>"; };
 		CC65309F181995E400212871 /* HDPopovers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPopovers.h; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				5803CFB318021BB200ABDE8E /* Storyboard.storyboard */,
 				9AE8ED51183C313700C7CCB8 /* HDTabFormViewController.h */,
 				9AE8ED52183C313700C7CCB8 /* HDTabFormViewController.m */,
+				9A9D483C185030D900F72473 /* HDBackMenuViewController.h */,
+				9A9D483D185030D900F72473 /* HDBackMenuViewController.m */,
 				9A7DE3691832D99C00839976 /* HDMainMenuViewController.h */,
 				9A7DE36A1832D99C00839976 /* HDMainMenuViewController.m */,
 				5803CF961802195A00ABDE8E /* Images.xcassets */,
@@ -393,6 +398,7 @@
 				244B60871820A2DD0043C0B5 /* HDCulturalMaterialsViewController.m in Sources */,
 				244B608B1820A9E40043C0B5 /* HDPlanDrawingViewController.m in Sources */,
 				584B04FB183288BD002F270E /* HDSaveFormViewController.m in Sources */,
+				9A9D483E185030D900F72473 /* HDBackMenuViewController.m in Sources */,
 				24E311C11820521500549078 /* HDProvenienceDataViewController.m in Sources */,
 				9A9B492818295B4400188E0B /* HDEditFormsViewController.m in Sources */,
 				24E311BE18204BA400549078 /* HDLevelFormObject.m in Sources */,

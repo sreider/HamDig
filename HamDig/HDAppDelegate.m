@@ -35,6 +35,9 @@ BOOL currentlyEditing;
 
 int currentDictIndex;
 
+// to keep a copy if user wants to go back to old version without saving   -ES
+NSMutableDictionary * dictCopy;
+
 @implementation HDAppDelegate
 
 @synthesize window;

@@ -16,13 +16,7 @@
 #import "HDLevelFormObject.h"
 #import "HDSaveFormViewController.h"
 
-/* This form is for the main menu. Right now only functionality is we create a new dictionary every time we click the "New Form" button.
-    Things to add?
-    -Edit forms button action
-        -right now opening edit forms gets first entry in array and displays title
-    -Upload button action
-    -Pull Data button action
-    -??
+/* This form is for the main menu.
  
  ES
 */
@@ -53,11 +47,7 @@
 
 - (void)viewDidLoad
 {
-   /* HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    // turn the global currentlyEditing flag off because we have now either saved or returned to the main menu
-    appDelegate.currentlyEditing = FALSE;
-    [super viewDidLoad]; */
-	// Do any additional setup after loading the view.
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,11 +70,6 @@
     [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"samples"];
     [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"excavators"];
  
-
-    // anything else we want to do here?
-    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    // turn the global currentlyEditing flag off because we have now either saved or returned to the main menu
-    appDelegate.currentlyEditing = FALSE;
     [super viewDidLoad];
 }
 

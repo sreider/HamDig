@@ -53,9 +53,7 @@
         // save the form's title
         NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
         // display title
-        NSLog(@"%@", currentTitle);  // < Commented out because of warning in compilation -LW This is just because it's not a string literal, it doesnt cause an actual error
-
-        // still working on displaying each form title          -ES
+        NSLog(@"current title: %@", currentTitle);
         
         // display an edit button ...
         UIButton *clickToEdit = [[UIButton alloc] initWithFrame:CGRectMake(25, 100 + (i * 100), 100, 50)];
@@ -64,7 +62,7 @@
         // title
         [clickToEdit setTitle:@"click to edit" forState:UIControlStateNormal];
         // reference to button is index + 1     (because 0 defaults to the viewController so we have to start at 1)   -ES
-        // this mean the index of the button is one more than it's corresponding index for the form/dictionary
+        // this means the index of the button is one more than it's corresponding index for the form/dictionary
         clickToEdit.tag = i+1;
         // add button action to each button
         [clickToEdit addTarget:self action:@selector(editButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -72,13 +70,10 @@
         
         
         // ... along with the title of each form
-        UILabel *formDisplay = [[UILabel alloc] initWithFrame:CGRectMake(200, 100 + (i * 100), 100, 50)];
+        UILabel *formDisplay = [[UILabel alloc] initWithFrame:CGRectMake(200, 100 + (i * 100), 500, 50)];
         formDisplay.text = currentTitle;
         [self.view addSubview:formDisplay];
         
-        
-        //tester = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
-        //testField.text = tester;
     }
     
     [super viewDidLoad];
@@ -97,7 +92,13 @@
     
     // save the index of the dict
     appDelegate.currentDictIndex = sender.tag - 1;
+    int i = appDelegate.currentDictIndex;
 
+    // save a deep copy of the dictionary to use when user clicks menu      -ES
+    NSMutableDictionary * cp = [appDelegate.allForms objectAtIndex:i];
+    appDelegate.dictCopy = [NSMutableDictionary dictionaryWithDictionary:cp];
+    
+    
     // performs the same segue as the "New Form" button on the Main Menu
     //      Needed to add an identifier to the segue in storyboard under attributes inspector
     [self performSegueWithIdentifier:@"newFormSegue" sender:self];

@@ -37,10 +37,27 @@
 //}
 
 - (IBAction)saveAction:(UIBarButtonItem *)sender {
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     theLevelFormObject.excavationDescription = excavationDescription.text;
     theLevelFormObject.sedimentDescription = sedimentDescription.text;
     theLevelFormObject.otherNarrative = otherNarrative.text;
+
+    if (appDelegate.currentlyEditing){
+        int i = appDelegate.currentDictIndex;
+        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        [currentDict setObject:excavationDescription.text forKey:@"excavationDescription"];
+        [currentDict setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+        [currentDict setObject:otherNarrative.text forKey:@"otherNarrative"];
+    }
+    else {
+        [theLevelFormObject.theNewLevelForm setObject:excavationDescription.text forKey:@"excavationDescription"];
+        [theLevelFormObject.theNewLevelForm setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+        [theLevelFormObject.theNewLevelForm setObject:otherNarrative.text forKey:@"otherNarrative"];
+    }
+
+
+
 }
 
 - (void)viewDidLoad
@@ -89,6 +106,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 // when you finish editing a field, save the current values on the page.
 {
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     self.activeField = nil;
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
@@ -97,13 +115,20 @@
     theLevelFormObject.otherNarrative = otherNarrative.text;
     
     // save objects to the dictionary
+    if (appDelegate.currentlyEditing){
+        int i = appDelegate.currentDictIndex;
+        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        [currentDict setObject:excavationDescription.text forKey:@"excavationDescription"];
+        [currentDict setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+        [currentDict setObject:otherNarrative.text forKey:@"otherNarrative"];
+    }
+    else {
+        [theLevelFormObject.theNewLevelForm setObject:excavationDescription.text forKey:@"excavationDescription"];
+        [theLevelFormObject.theNewLevelForm setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+        [theLevelFormObject.theNewLevelForm setObject:otherNarrative.text forKey:@"otherNarrative"];
+    }
     
-    [theLevelFormObject.theNewLevelForm setObject:excavationDescription.text forKey:@"excavationDescription"];
-    [theLevelFormObject.theNewLevelForm setObject:sedimentDescription.text forKey:@"sedimentDescription"];
-    [theLevelFormObject.theNewLevelForm setObject:otherNarrative.text forKey:@"otherNarrative"];
-    
-    
-    NSLog(@"excavationDescription: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"excavationDescription"]);
+    //NSLog(@"excavationDescription: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"excavationDescription"]);
     
 }
 
