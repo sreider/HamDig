@@ -162,6 +162,8 @@
 {
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    //NEW EXCAVATOR saving and displaying
     if (textField == newExcavator){
         if(![newExcavator.text isEqualToString:@""]){
             NSLog(@"%@", newExcavator.text);
