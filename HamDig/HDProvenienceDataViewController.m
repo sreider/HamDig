@@ -180,11 +180,22 @@
     
     else{
 
-    
+        
+     //   NSString *dateString = [NSDateFormatter localizedStringFromDate:[NSDate date]
+       //                                                       dateStyle:NSDateFormatterShortStyle
+        //                                                      timeStyle:NSDateFormatterFullStyle];
+        
+        
+        
+        
+        
     theLevelFormObject.stratum = stratum.text;
     theLevelFormObject.stratumLevel = stratumLevel.text;
 
     theLevelFormObject.date = (NSString*)datePicker.date;
+   
+        
+        
     theLevelFormObject.level = level.text;
     theLevelFormObject.totalLevels = totalLevels.text;
     theLevelFormObject.unitEasting = unitEasting.text;
@@ -212,7 +223,7 @@
     if (!appDelegate.currentlyEditing){
         [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
         [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
-        [theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
+        //[theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
         [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
         [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
         [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
@@ -224,6 +235,17 @@
         [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
         [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text   forKey:@"excavationInterval"];
         [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
+    
+        // date to string -SR
+        NSDate *d = datePicker.date;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
+        NSString *stringFromDate = [formatter stringFromDate:d];
+        [theLevelFormObject.theNewLevelForm setObject:stringFromDate forKey:@"date"];
+        
+
+    
+    
     }
     else{
         int i = appDelegate.currentDictIndex;
@@ -232,7 +254,9 @@
         [currentDict setObject:stratumLevel.text forKey:@"stratumLevel"];
         // HERE: date picker not working for prepopulating
         // not sure how to prepopulate datePicker, any thoughts?     -ES
-        [currentDict setObject:(NSString*)datePicker.date forKey:@"date"];
+        
+        //[currentDict setObject:(NSString*)datePicker.date forKey:@"date"];
+        
         [currentDict setObject:level.text forKey:@"level"];
         [currentDict setObject:totalLevels.text forKey:@"totalLevels"];
         [currentDict setObject:areaDescription.text forKey:@"areaDescription"];
@@ -245,6 +269,17 @@
         [currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
         [currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
         [currentDict setObject:screenSize.text forKey:@"screenSize"];
+    
+        
+        // date to string -SR
+        NSDate *d = datePicker.date;
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
+        NSString *stringFromDate = [formatter stringFromDate:d];
+        [currentDict setObject:stringFromDate forKey:@"date"];
+
+        
+    
     }
     
     //NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);

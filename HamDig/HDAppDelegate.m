@@ -57,6 +57,68 @@ NSMutableDictionary * dictCopy;
     
 }
 
+-(BOOL) getSavedState;
+{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSLog(@"Documents Directory: %@", documentsDirectory);
+    
+    NSString *stateFile = [documentsDirectory stringByAppendingPathComponent:@"HamDigSaveState.txt"];
+    
+    NSError *error;
+
+    NSData *fileContents = [NSData dataWithContentsOfFile:stateFile];
+    
+    // If there isn't a saved state, leave allForms empty.
+    if (nil == fileContents) {
+        return FALSE;
+    }
+
+    NSMutableArray *newAllForms = [NSJSONSerialization JSONObjectWithData:fileContents options:kNilOptions error:&error];
+    
+    NSLog(@"%@", newAllForms);
+    
+    allForms = newAllForms;
+    
+    return TRUE;
+
+}
+
+
+-(void) saveAppState;
+{
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:allForms
+                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                         error:&error];
+    
+    NSLog(@"Creating file...");
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSLog(@"Documents Directory: %@", documentsDirectory);
+    
+    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:@"HamDigSaveState.txt"];
+    
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",jsonString);
+    
+        BOOL ok = [jsonString writeToFile:appFile atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    
+        if (!ok) {        // an error occurrer
+            NSLog(@"Error writing file at %@\n%@", appFile, [error localizedFailureReason]);
+        }
+        else {
+            NSLog(@"Successfully saved state");
+        }
+    }
+}
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -66,6 +128,10 @@ NSMutableDictionary * dictCopy;
     [window makeKeyAndVisible];
     
     allForms = [[NSMutableArray alloc] init];
+    
+    
+    [self getSavedState];
+    
     
     return YES;
 }
@@ -86,11 +152,13 @@ NSMutableDictionary * dictCopy;
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [self saveAppState];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
@@ -99,9 +167,11 @@ NSMutableDictionary * dictCopy;
     
 }
 
+
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    [self saveAppState];
 }
 
 @end
