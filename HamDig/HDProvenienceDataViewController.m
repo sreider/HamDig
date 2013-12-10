@@ -28,6 +28,10 @@
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITextField *activeField;
 
+
+// this is the blank test popover floating up there doing nothing
+@property (nonatomic, strong) UIPopoverController *testPopover;
+
 @end
 
 @implementation HDProvenienceDataViewController
@@ -63,7 +67,9 @@
     [theLevelFormObject save];
     
 }
-
+/*
+ popovers... I have tried to implement the popover for the 'area' field but it keeps breaking everything. currently, the popover works from the button labeled 'test'. it pulls up a popover, and clicking outside actually dismisses it. go figure?
+ */
 //Popover stuff from Jen
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
@@ -79,16 +85,17 @@
 
 }
 
-
+//THIS WORKS PERFECTLY FROM THE "TEST" BUTTON
+//NOT THE TEXT FIELDS WTF
 - (IBAction)showPopover:(id)sender
 {
     UIButton *tappedButton = (UIButton *)sender;
-    [self.detailViewPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.testPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
  
-    if (sender == addExcavator){
-        [newExcavator becomeFirstResponder];
-    }
+    //if (sender == addExcavator){
+    //    [newExcavator becomeFirstResponder];
+    //}
 }
 
 
@@ -148,6 +155,13 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+/*
+    Popover instantiation... whenever i tried to implement this using the area field, everything broke. No idea why... probably something to do with the field itself or the scroll wheel. Basically this creates the popover view somewhat programatically so that it can do stuff when its dismissed
+ */
+    HDPopovers *content = [self.storyboard instantiateViewControllerWithIdentifier:@"testPopover"];
+    self.testPopover = [[UIPopoverController alloc] initWithContentViewController:content];
+    self.testPopover.delegate = self;
     
 }
 

@@ -130,6 +130,21 @@
             </objects>
             <point key="canvasLocation" x="-2199" y="-1666"/>
         </scene>
+        <!--Popovers-->
+        <scene sceneID="hl7-y3-A1s">
+            <objects>
+                <viewController storyboardIdentifier="testPopover" id="NID-Sf-5ob" customClass="HDPopovers" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W0P-cu-UXq">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="150"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5tC-Ex-pf3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-169" y="-4710"/>
+        </scene>
         <!--Provenience Data View Controller-->
         <scene sceneID="ulN-ZS-eZm">
             <objects>
@@ -598,6 +613,16 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <outlet property="delegate" destination="5kN-2r-fNm" id="Ifc-o8-RaR"/>
                                         </connections>
                                     </scrollView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hqE-zc-jst">
+                                        <rect key="frame" x="369" y="309" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Test">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showPopover:" destination="5kN-2r-fNm" eventType="touchUpInside" id="LwT-nh-Znp"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <connections>
                                     <outlet property="delegate" destination="5kN-2r-fNm" id="szc-wu-zOG"/>
