@@ -89,7 +89,8 @@
 //NOT THE TEXT FIELDS WTF
 - (IBAction)showPopover:(id)sender
 {
-    UIButton *tappedButton = (UIButton *)sender;
+//    UIButton *tappedButton = (UIButton *)sender;
+    UITextField *tappedButton = (UITextField *) sender;
     [self.testPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
  
