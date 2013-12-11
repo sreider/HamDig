@@ -23,6 +23,8 @@
 @property (strong, nonatomic) NSArray *areaTypeArray;
 @property (strong, nonatomic) NSArray *screenSizeArray;
 @property (strong, nonatomic) NSArray *excavationIntervalArray;
+@property int excavatorLoc;
+@property NSMutableArray *excavators;
 
 // controll scroll view for moving view up when keyboard is called
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
@@ -99,6 +101,57 @@
     //}
 }
 
+- (IBAction)addExcavator:(id)sender {
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+
+    UITextField *excavator = [[UITextField alloc] initWithFrame:CGRectMake(2,self.excavatorLoc,200,30)];
+    [excavator setBorderStyle:UITextBorderStyleRoundedRect];
+    [excavatorsView addSubview:excavator];
+    excavator.delegate = self;
+    
+    UIButton *del = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    del.frame = CGRectMake(210, self.excavatorLoc, 60, 30);
+    [del setTitle:@"-delete-" forState:UIControlStateNormal];
+    [excavatorsView addSubview:del];
+    
+    [del addTarget:self
+            action:@selector(deleteExcavator:)
+            forControlEvents:UIControlEventTouchUpInside];
+    NSArray *exc = [NSArray arrayWithObjects: excavator, del, nil];
+    
+    [self.excavators addObject: exc];
+    [theLevelFormObject.excavators addObject:exc];
+    self.excavatorLoc += 35;
+    
+}
+
+-(IBAction)deleteExcavator:(id)sender
+{
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    int x = -1;
+    for (int i=0; i<[self.excavators count]; i++) {
+        if ([[self.excavators objectAtIndex:i] objectAtIndex:1] == sender) {
+            //Remove graphics from window
+            for (int j = 0; j < 2; j++)
+                [[[self.excavators objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
+            self.excavatorLoc -= 35;
+            
+            //Remove artifact info from list
+            [self.excavators removeObjectAtIndex:i];
+            [theLevelFormObject.excavators removeObjectAtIndex:i];
+            x = i;
+        }
+    }
+    //Moves each following excavator entry up;
+    for (int i=x; i<[self.excavators count]; i++) {
+        for (int j = 0; j < 2; j++) {
+            UIView *fieldId = [[self.excavators objectAtIndex:i] objectAtIndex:j];
+            CGRect textFieldFrame = fieldId.frame;
+            textFieldFrame.origin.y -= 35;
+            fieldId.frame = textFieldFrame;
+        }
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -140,10 +193,14 @@
     self.screenSizeArray = [[NSArray alloc] initWithObjects: @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
     self.excavationIntervalArray = [[NSArray alloc] initWithObjects:@"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
     
+    self.excavatorLoc = 0;
+    self.excavators = [[NSMutableArray alloc] init];
+    
     for (int i=0; i<[theLevelFormObject.excavators count]; i++) {
-        UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(10, i * 20, 200, 40)];
+        UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(2, self.excavatorLoc, 200, 30)];
         [newExc setText:[theLevelFormObject.excavators objectAtIndex:i]];
         [excavatorsView addSubview:newExc];
+        self.excavatorLoc += 35;
     }
     
     
@@ -179,21 +236,21 @@
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
     //NEW EXCAVATOR saving and displaying
-    if (textField == newExcavator){
-        if(![newExcavator.text isEqualToString:@""]){
-            NSLog(@"%@", newExcavator.text);
-            [theLevelFormObject.excavators addObject:newExcavator.text];
-            UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(10, [theLevelFormObject.excavators count] * 20 - 20, 200, 40)];
-            [newExc setText:[theLevelFormObject.excavators lastObject]];
-            [excavatorsView addSubview:newExc];
-            
-            [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
-            NSLog(@"Num excavators %i", [theLevelFormObject.excavators count]);
-            [newExcavator setText:@""];
-        }
-    }
-    
-    else{
+//    if (textField == newExcavator){
+//        if(![newExcavator.text isEqualToString:@""]){
+//            NSLog(@"%@", newExcavator.text);
+//            [theLevelFormObject.excavators addObject:newExcavator.text];
+//            UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(10, [theLevelFormObject.excavators count] * 20 - 20, 200, 40)];
+//            [newExc setText:[theLevelFormObject.excavators lastObject]];
+//            [excavatorsView addSubview:newExc];
+//            
+//            [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
+//            NSLog(@"Num excavators %i", [theLevelFormObject.excavators count]);
+//            [newExcavator setText:@""];
+//        }
+//    }
+//    
+//    else{
 
         
      //   NSString *dateString = [NSDateFormatter localizedStringFromDate:[NSDate date]
@@ -298,7 +355,7 @@
     }
     
     //NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);
-    }
+   // }
     // used by Jen's keyboard stuff
     self.activeField = nil;
 }

@@ -27,13 +27,10 @@
     IBOutlet UIPickerView *areaPicker;
     IBOutlet UIPickerView *screenSizePicker;
     IBOutlet UIPickerView *excavationIntervalPicker;
-    IBOutlet UITextField *newExcavator;
     IBOutlet UIScrollView *excavatorsView;
-    IBOutlet UIButton *addExcavator;
+
 }
-
-
-
+- (IBAction)addExcavator:(id)sender;
 - (IBAction)saveForm:(id)sender;
 
 @end

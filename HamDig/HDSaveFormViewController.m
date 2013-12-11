@@ -70,6 +70,7 @@
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.samples forKey:@"samples"];
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.features forKey:@"features"];
+        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
         NSLog(@"Form Title: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"formTitle"]);
         
     }
@@ -80,16 +81,10 @@
         [currentDict setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
         [currentDict setObject:theLevelFormObject.samples forKey:@"samples"];
         [currentDict setObject:theLevelFormObject.features forKey:@"features"];
+        [currentDict setObject:theLevelFormObject.excavators forKey:@"excavators"];
         NSLog(@"Form Title: %@", [currentDict objectForKey:@"formTitle"]);
         
     }
-    /*
-    [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
-    [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
-    [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.samples forKey:@"samples"];
-    [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.features forKey:@"features"];
-    NSLog(@"Form Title: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"formTitle"]);
-    */
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
