@@ -197,9 +197,8 @@
     self.excavators = [[NSMutableArray alloc] init];
     
     for (int i=0; i<[theLevelFormObject.excavators count]; i++) {
-        UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(2, self.excavatorLoc, 200, 30)];
-        [newExc setText:[theLevelFormObject.excavators objectAtIndex:i]];
-        [excavatorsView addSubview:newExc];
+        [excavatorsView addSubview:[[theLevelFormObject.excavators objectAtIndex:i] objectAtIndex:0]];
+        [excavatorsView addSubview:[[theLevelFormObject.excavators objectAtIndex:i] objectAtIndex:1]];
         self.excavatorLoc += 35;
     }
     
