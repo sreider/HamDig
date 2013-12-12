@@ -8,21 +8,15 @@
 
 
 #import "HDProvenienceDataViewController.h"
-#import "HDLevelFormObject.h"   
-#import "HDAppDelegateProtocol.h"
+//#import "HDLevelFormObject.h"
+//#import "HDAppDelegateProtocol.h"
 #import "HDPopovers.h"
-#import "HDAppDelegate.h"
+//#import "HDAppDelegate.h"
 
 @interface HDProvenienceDataViewController ()
-@property (nonatomic, strong) UIPopoverController *barButtonItemPopover;
-@property (nonatomic, strong) UIPopoverController *detailViewPopover;
-@property (nonatomic, strong) id lastTappedButton;
-@property (nonatomic, strong) UIPopoverController *masterPopoverController;
 
-@property (strong, nonatomic) NSArray *areaNumArray;
-@property (strong, nonatomic) NSArray *areaTypeArray;
-@property (strong, nonatomic) NSArray *screenSizeArray;
-@property (strong, nonatomic) NSArray *excavationIntervalArray;
+
+
 @property int excavatorLoc;
 @property NSMutableArray *excavators;
 
@@ -32,12 +26,15 @@
 
 
 // this is the blank test popover floating up there doing nothing
-@property (nonatomic, strong) UIPopoverController *testPopover;
+@property (nonatomic, strong) UIPopoverController *areaPopover;
+@property (nonatomic, strong) UIPopoverController *excavationPopover;
+@property (nonatomic, strong) UIPopoverController *screenSizePopover;
+@property (nonatomic, strong) id lastTappedButton;
 
 @end
 
 @implementation HDProvenienceDataViewController
-
+/*
 
 - (HDLevelFormObject*) theLevelFormObject;
 {
@@ -47,17 +44,19 @@
 	return theLevelFormObject;
 }
 
-- (IBAction)saveForm:(id)sender {
+ */
+//- (IBAction)saveForm:(id)sender {
     
     /* I think this should be moved to a new view controller file for the
      real save button that shows up on the popover. The save buttons on the
      provenience form and others just opens up the popover. Shouldn't the real
      work be done in that popover? */
     
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
-    [theLevelFormObject save];
-}
+//    [theLevelFormObject save];
+//}
+
 
 /*
  popovers... I have tried to implement the popover for the 'area' field but it keeps breaking everything. currently, the popover works from the button labeled 'test'. it pulls up a popover, and clicking outside actually dismisses it. go figure?
@@ -67,24 +66,45 @@
 {
     self.lastTappedButton = nil;
     
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
-    areaDescription.text = theLevelFormObject.areaDescription;
-    screenSize.text = theLevelFormObject.screenSize;
-    excavationInterval.text = theLevelFormObject.excavationInterval;
+//    areaDescription.text = theLevelFormObject.areaDescription;
+//    screenSize.text = theLevelFormObject.screenSize;
+//    excavationInterval.text = theLevelFormObject.excavationInterval;
     
     NSLog(@"Dismissed Popover");
 }
 
-//THIS WORKS PERFECTLY FROM THE "TEST" BUTTON
-//NOT THE TEXT FIELDS WTF
-- (IBAction)showPopover:(id)sender
-{
-//    UIButton *tappedButton = (UIButton *)sender;
-    UITextField *tappedButton = (UITextField *) sender;
-    [self.testPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+/*
+ POPOVERS: lets hope this works
+ call the popovers programatically
+ */
+
+- (IBAction)showAreaPopover:(id)sender {
+        UITextField *tappedButton = (UITextField *) sender;
+        [self.areaPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
+    [tappedButton resignFirstResponder];
 }
+
+- (IBAction)showExcavationPopover:(id)sender {
+        UITextField *tappedButton = (UITextField *) sender;
+        [self.excavationPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
+    [tappedButton resignFirstResponder];
+}
+
+- (IBAction)showScreenSizePopover:(id)sender {
+        UITextField *tappedButton = (UITextField *) sender;
+        [self.screenSizePopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
+    [tappedButton resignFirstResponder];
+}
+
+
+
+
+/*
 
 - (IBAction)addExcavator:(id)sender {
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
@@ -140,13 +160,14 @@
         }
     }
 }
-
+*/
 - (void)viewDidLoad
 {
     // I know this is a mess but I'll clean this up later!! This was just a rushed example          -ES
     
     [super viewDidLoad];
-   
+    
+/*
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appDelegate.currentlyEditing) {
         NSLog(@"Editing flag is on");
@@ -185,11 +206,7 @@
     else{
         self.excavators = [[NSMutableArray alloc] init];
     }
-    
-    self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
-    self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
-    self.screenSizeArray = [[NSArray alloc] initWithObjects: @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
-    self.excavationIntervalArray = [[NSArray alloc] initWithObjects:@"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
+ */
     
     // for use when calling/dismissing keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -204,9 +221,18 @@
 /*
     Popover instantiation... whenever i tried to implement this using the area field, everything broke. No idea why... probably something to do with the field itself or the scroll wheel. Basically this creates the popover view somewhat programatically so that it can do stuff when its dismissed
  */
-    HDPopovers *content = [self.storyboard instantiateViewControllerWithIdentifier:@"testPopover"];
-    self.testPopover = [[UIPopoverController alloc] initWithContentViewController:content];
-    self.testPopover.delegate = self;
+    
+    HDPopovers *areaContent = [self.storyboard instantiateViewControllerWithIdentifier:@"areaPopover"];
+    self.areaPopover = [[UIPopoverController alloc] initWithContentViewController:areaContent];
+    self.areaPopover.delegate = self;
+    
+    HDPopovers *excavationContent = [self.storyboard instantiateViewControllerWithIdentifier:@"excavationPopover"];
+    self.excavationPopover = [[UIPopoverController alloc] initWithContentViewController:excavationContent];
+    self.excavationPopover.delegate = self;
+    
+    HDPopovers *screenSizeContent = [self.storyboard instantiateViewControllerWithIdentifier:@"screenPopover"];
+    self.screenSizePopover = [[UIPopoverController alloc] initWithContentViewController:screenSizeContent];
+    self.screenSizePopover.delegate = self;
     
 }
 
@@ -219,13 +245,13 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
-    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+//    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
      //   NSString *dateString = [NSDateFormatter localizedStringFromDate:[NSDate date]
      //                                                       dateStyle:NSDateFormatterShortStyle
      //                                                      timeStyle:NSDateFormatterFullStyle];
-        
+/*
     theLevelFormObject.stratum = stratum.text;
     theLevelFormObject.stratumLevel = stratumLevel.text;
 
@@ -241,11 +267,12 @@
     theLevelFormObject.unitSizeY = unitSizeY.text;
     theLevelFormObject.verticalDatumID = verticalDatumID.text;
     theLevelFormObject.datumStringElevation = datumStringElevation.text;
-    
+ */
+ /*
     areaDescription.text = theLevelFormObject.areaDescription;
     screenSize.text = theLevelFormObject.screenSize;
     excavationInterval.text = theLevelFormObject.excavationInterval;
-    
+*/
     // Fill dictionary for each form...
     
     // should this be done in our void save method?
@@ -256,22 +283,22 @@
     // do we still need the void save method for anything?      -ES
     
     // Provenience Data
-    
+/*
     if (!appDelegate.currentlyEditing){
         [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
         [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
         //[theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
         [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
         [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
-        [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
+//        [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
         [theLevelFormObject.theNewLevelForm setObject:unitEasting.text forKey:@"unitEasting"];
         [theLevelFormObject.theNewLevelForm setObject:unitNorthing.text forKey:@"unitNorthing"];
         [theLevelFormObject.theNewLevelForm setObject:unitSizeX.text forKey:@"unitSizeX"];
         [theLevelFormObject.theNewLevelForm setObject:unitSizeY.text forKey:@"unitSizeY"];
         [theLevelFormObject.theNewLevelForm setObject:verticalDatumID.text forKey:@"verticalDatumID"];
         [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
-        [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text   forKey:@"excavationInterval"];
-        [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
+//        [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text   forKey:@"excavationInterval"];
+//        [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
     
         // date to string -SR
         NSDate *d = datePicker.date;
@@ -293,7 +320,7 @@
         
         [currentDict setObject:level.text forKey:@"level"];
         [currentDict setObject:totalLevels.text forKey:@"totalLevels"];
-        [currentDict setObject:areaDescription.text forKey:@"areaDescription"];
+//        [currentDict setObject:areaDescription.text forKey:@"areaDescription"];
         [currentDict setObject:unitEasting.text forKey:@"unitEasting"];
         [currentDict setObject:unitNorthing.text forKey:@"unitNorthing"];
         [currentDict setObject:unitSizeX.text forKey:@"unitSizeX"];
@@ -301,8 +328,8 @@
         // HERE: still need to prepopulate excavators       -ES
         [currentDict setObject:verticalDatumID.text forKey:@"verticalDatumID"];
         [currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
-        [currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
-        [currentDict setObject:screenSize.text forKey:@"screenSize"];
+//        [currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
+//        [currentDict setObject:screenSize.text forKey:@"screenSize"];
         
         // date to string -SR
         NSDate *d = datePicker.date;
@@ -314,7 +341,7 @@
         
     
     }
-
+*/
     // used by Jen's keyboard stuff
     self.activeField = nil;
 }
@@ -326,80 +353,12 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
-        [textField resignFirstResponder];
-    }
+//    if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
+//        [textField resignFirstResponder];
+        
+//    }
     // used by Jen's keyboard stuff
     self.activeField = textField;
-}
-
-//// returns the number of columns to display in picker view.
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    if (pickerView == areaPicker)
-        return 2;
-    else
-        return 1;
-}
-
-//// returns the # of rows in each component of a picker view.
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    if (pickerView == areaPicker){
-        if (component == 0)
-            return [self.areaTypeArray count];
-        else
-            return [self.areaNumArray count];
-    }
-    else if (pickerView == screenSizePicker)
-        return [self.screenSizeArray count];
-    
-    else if (pickerView == excavationIntervalPicker)
-        return [self.excavationIntervalArray count];
-    
-    return 0;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    if (pickerView == areaPicker){
-        if (component == 0)
-            return [self.areaTypeArray objectAtIndex:row];
-        else
-            return [self.areaNumArray objectAtIndex:row];
-    }
-    
-    else if (pickerView == screenSizePicker)
-        return [self.screenSizeArray objectAtIndex:row];
-    
-    else if (pickerView == excavationIntervalPicker)
-        return [self.excavationIntervalArray objectAtIndex:row];
-    
-    return @"";
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    if (pickerView == areaPicker){
-        if ([[self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            areaDescription.text = @"OTHER";
-        }
-        else{
-            theLevelFormObject.areaDescription = [NSString stringWithFormat: @"%@ %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
-        }
-    }
-    else if (pickerView == screenSizePicker){
-        theLevelFormObject.screenSize = [self.screenSizeArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-    }
-    else if (pickerView == excavationIntervalPicker){
-        if ([[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            excavationInterval.text = @"OTHER";
-        }
-        else{
-            theLevelFormObject.excavationInterval= [self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-        }
-    }
 }
 
 // allows fields hidden by the keyboard to become visible. (not sure if works as well with popover windows...?)

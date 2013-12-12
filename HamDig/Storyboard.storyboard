@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="IyE-ME-f2T">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="IyE-ME-f2T">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
@@ -130,102 +130,77 @@
             </objects>
             <point key="canvasLocation" x="-2199" y="-1666"/>
         </scene>
-        <!--Popovers-->
-        <scene sceneID="hl7-y3-A1s">
+        <!--Popovers - Excavation Popover-->
+        <scene sceneID="u6c-MP-POv">
             <objects>
-                <viewController storyboardIdentifier="testPopover" id="NID-Sf-5ob" customClass="HDPopovers" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="W0P-cu-UXq">
-                        <rect key="frame" x="0.0" y="0.0" width="370" height="216"/>
+                <viewController storyboardIdentifier="excavationPopover" title="Excavation Popover" id="UAD-Fa-RC6" customClass="HDPopovers" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yPG-UM-bLU">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" id="MYF-Jz-K6v">
-                                <rect key="frame" x="0.0" y="0.0" width="370" height="216"/>
+                            <pickerView contentMode="scaleToFill" id="jlv-gM-DLS">
+                                <rect key="frame" x="-60" y="0.0" width="320" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <date key="date" timeIntervalSinceReferenceDate="408407828.40721101">
-                                    <!--2013-12-10 22:37:08 +0000-->
-                                </date>
-                                <timeZone key="timeZone" name="America/Los_Angeles">
-                                    <data key="data">
-VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
-y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
-5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
-8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
-AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
-DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
-HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
-KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
-OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
-Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
-VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
-Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
-cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
-f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
-AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</data>
-                                </timeZone>
-                            </datePicker>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="excavationIntervalPicker" destination="jlv-gM-DLS" id="Q0k-aV-CNn"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5tC-Ex-pf3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xu9-0A-Iqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-169" y="-4710"/>
+            <point key="canvasLocation" x="-39" y="-4599"/>
         </scene>
-        <!--Provenience Data View Controller-->
-        <scene sceneID="ulN-ZS-eZm">
+        <!--Popovers - Screen Size Popover-->
+        <scene sceneID="hUm-Pt-Qaa">
             <objects>
-                <viewController id="Ear-lW-WL4" customClass="HDProvenienceDataViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="u2r-MZ-12R" customClass="HDProvenienceDataController">
+                <viewController storyboardIdentifier="screenPopover" title="Screen Size Popover" id="9KJ-gu-xxl" customClass="HDPopovers" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="59j-Zn-jvS">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" id="GJW-EQ-HTH">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
+                            <pickerView contentMode="scaleToFill" id="RvW-72-JQS">
+                                <rect key="frame" x="-60" y="0.0" width="320" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Ear-lW-WL4" id="W1o-dk-Rxj"/>
-                                </connections>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="excavationIntervalPicker" destination="GJW-EQ-HTH" id="Dzm-IM-UyP"/>
+                        <outlet property="screenSizePicker" destination="RvW-72-JQS" id="byH-mh-SHu"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="u0v-uO-rYy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rG8-vM-PXs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-114" y="-4380"/>
+            <point key="canvasLocation" x="179" y="-4599"/>
         </scene>
-        <!--Provenience Data View Controller-->
-        <scene sceneID="32L-mC-O6b">
+        <!--Popovers - Area Desc Popover-->
+        <scene sceneID="hl7-y3-A1s">
             <objects>
-                <viewController id="FNG-M7-vko" customClass="HDProvenienceDataViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" id="b11-nu-dXw">
+                <viewController storyboardIdentifier="areaPopover" title="Area Desc Popover" id="NID-Sf-5ob" customClass="HDPopovers" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="W0P-cu-UXq">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="216"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <pickerView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="150" placeholderIntrinsicHeight="216" id="j9j-fS-qSx">
+                            <pickerView contentMode="scaleToFill" id="OcK-lo-6wR">
                                 <rect key="frame" x="0.0" y="0.0" width="300" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="FNG-M7-vko" id="i2y-9n-PIo"/>
-                                </connections>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="areaPicker" destination="j9j-fS-qSx" id="zqS-Ns-BAl"/>
+                        <outlet property="areaPicker" destination="OcK-lo-6wR" id="B60-6N-VtY"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1FX-fX-4eb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5tC-Ex-pf3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-503" y="-4380"/>
+            <point key="canvasLocation" x="-358" y="-4599"/>
         </scene>
         <!--Back Menu View Controller-->
         <scene sceneID="9Ma-k9-1Um">
@@ -425,10 +400,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <outlet property="delegate" destination="5kN-2r-fNm" id="1Vr-My-W2c"/>
-                                            <segue destination="FNG-M7-vko" kind="popover" popoverAnchorView="ckF-cm-DKT" id="awK-Sn-jWk">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
+                                            <action selector="showAreaPopover:" destination="5kN-2r-fNm" eventType="editingDidBegin" id="R1D-Ou-tdx"/>
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="MUR-O7-fBE">
@@ -573,10 +545,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <outlet property="delegate" destination="5kN-2r-fNm" id="Ea0-c5-8YU"/>
-                                            <segue destination="Ear-lW-WL4" kind="popover" popoverAnchorView="WzJ-3J-pYd" id="glA-TP-8F0">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
+                                            <action selector="showExcavationPopover:" destination="5kN-2r-fNm" eventType="editingDidBegin" id="HXk-ft-DmX"/>
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="Jb5-XD-tLg">
@@ -585,10 +554,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <outlet property="delegate" destination="5kN-2r-fNm" id="ae7-Mv-JAh"/>
-                                            <segue destination="JhA-NS-BBD" kind="popover" popoverAnchorView="Jb5-XD-tLg" id="jZm-rv-jRO">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                            </segue>
+                                            <action selector="showScreenSizePopover:" destination="5kN-2r-fNm" eventType="editingDidBegin" id="YvR-Rb-id3"/>
                                         </connections>
                                     </textField>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screen Size:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ur7-ul-Gql">
@@ -670,6 +636,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="scrollView" destination="ec9-Xo-gq1" id="5iH-on-eQ4"/>
                         <outlet property="stratum" destination="Mb5-VK-EfX" id="ek1-Kb-JqM"/>
                         <outlet property="stratumLevel" destination="S5O-qO-GAp" id="m7l-XR-bfS"/>
+                        <outlet property="testField" destination="IvV-N2-n3m" id="1hK-1U-eqV"/>
                         <outlet property="totalLevels" destination="uTL-rl-Oer" id="daS-WX-LaG"/>
                         <outlet property="unitEasting" destination="MUR-O7-fBE" id="Jk6-Gv-w6J"/>
                         <outlet property="unitNorthing" destination="AVX-lR-mu5" id="vGh-MW-JBf"/>
@@ -681,32 +648,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azc-WD-RKs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-358" y="-4015"/>
-        </scene>
-        <!--Provenience Data View Controller-->
-        <scene sceneID="G0a-JG-J9O">
-            <objects>
-                <viewController id="JhA-NS-BBD" customClass="HDProvenienceDataViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" id="AZF-Kp-ZGX">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <pickerView contentMode="scaleToFill" id="jHr-W1-NwR">
-                                <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="JhA-NS-BBD" id="C5f-9z-CZb"/>
-                                </connections>
-                            </pickerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="screenSizePicker" destination="jHr-W1-NwR" id="uVK-ML-jAr"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gMW-IZ-QWW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="181" y="-4380"/>
         </scene>
         <!--Plan Drawing View Controller - II. Plan Drawing-->
         <scene sceneID="pfX-2f-0ov">
