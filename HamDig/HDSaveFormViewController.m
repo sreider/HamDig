@@ -67,30 +67,19 @@
     // same as code for save button to make sure changes affect correct form if editing
     if (!appDelegate.currentlyEditing){
         [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
-        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
-        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.samples forKey:@"samples"];
-        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.features forKey:@"features"];
-        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
         NSLog(@"Form Title: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"formTitle"]);
-        
     }
     else{
         int i = appDelegate.currentDictIndex;
         NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
-        //[currentDict setObject:formTitle.text forKey:@"formTitle"];
-        [currentDict setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
-        [currentDict setObject:theLevelFormObject.samples forKey:@"samples"];
-        [currentDict setObject:theLevelFormObject.features forKey:@"features"];
-        [currentDict setObject:theLevelFormObject.excavators forKey:@"excavators"];
         NSLog(@"Form Title: %@", [currentDict objectForKey:@"formTitle"]);
-        
     }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
+{
     [theTextField resignFirstResponder];
     return TRUE;
-    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -114,34 +103,29 @@
         [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
             // to make sure the form title is being saved if user does not hit return                -ES
         [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
+        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
+        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.samples forKey:@"samples"];
+        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.features forKey:@"features"];
+        [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
     }
     else{
         NSLog(@"replacing dict at index because editing flag is on");
         int i = appDelegate.currentDictIndex;
         NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
         [currentDict setObject:formTitle.text forKey:@"formTitle"];
+        [currentDict setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
+        [currentDict setObject:theLevelFormObject.samples forKey:@"samples"];
+        [currentDict setObject:theLevelFormObject.features forKey:@"features"];
+        [currentDict setObject:theLevelFormObject.excavators forKey:@"excavators"];
 
         NSLog(@"turning the editing flag off");
         appDelegate.currentlyEditing = FALSE;
     }
-    
-
-    
-    
-    
+   
     /* pages we currently have save working for: Provenience, Narrative
         still need: Plan Drawing, Cultural Materials
         -ES
     */
     
-
-    
 }
-
-
-
-
-
-
-
 @end

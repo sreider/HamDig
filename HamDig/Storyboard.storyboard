@@ -598,7 +598,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="YLl-Ae-hBQ">
-                                        <rect key="frame" x="305" y="579" width="279" height="141"/>
+                                        <rect key="frame" x="305" y="579" width="280" height="140"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <color key="backgroundColor" red="0.84328294839999995" green="0.82455818820000004" blue="0.84191593330000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>

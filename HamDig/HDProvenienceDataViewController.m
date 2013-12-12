@@ -47,17 +47,7 @@
 	return theLevelFormObject;
 }
 
-
-
-
-// don't think we need this action anymore. Saving happens in save popover window
-// can we get rid of this?                  -ES
-// Most likely. I just put this in as a reminder to save. -Leah
 - (IBAction)saveForm:(id)sender {
-    
-    
-    // saves the current state of the form in the list of all forms.
-    //Must implement....
     
     /* I think this should be moved to a new view controller file for the
      real save button that shows up on the popover. The save buttons on the
@@ -67,8 +57,8 @@
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
     [theLevelFormObject save];
-    
 }
+
 /*
  popovers... I have tried to implement the popover for the 'area' field but it keeps breaking everything. currently, the popover works from the button labeled 'test'. it pulls up a popover, and clicking outside actually dismisses it. go figure?
  */
@@ -84,7 +74,6 @@
     excavationInterval.text = theLevelFormObject.excavationInterval;
     
     NSLog(@"Dismissed Popover");
-
 }
 
 //THIS WORKS PERFECTLY FROM THE "TEST" BUTTON
@@ -95,10 +84,6 @@
     UITextField *tappedButton = (UITextField *) sender;
     [self.testPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
- 
-    //if (sender == addExcavator){
-    //    [newExcavator becomeFirstResponder];
-    //}
 }
 
 - (IBAction)addExcavator:(id)sender {
@@ -122,6 +107,9 @@
     [self.excavators addObject: exc];
     [theLevelFormObject.excavators addObject:exc];
     self.excavatorLoc += 35;
+
+    excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
+
     
 }
 
@@ -135,7 +123,7 @@
             for (int j = 0; j < 2; j++)
                 [[[self.excavators objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
             self.excavatorLoc -= 35;
-            
+            excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
             //Remove artifact info from list
             [self.excavators removeObjectAtIndex:i];
             [theLevelFormObject.excavators removeObjectAtIndex:i];
@@ -157,6 +145,8 @@
 {
     // I know this is a mess but I'll clean this up later!! This was just a rushed example          -ES
     
+    [super viewDidLoad];
+   
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appDelegate.currentlyEditing) {
         NSLog(@"Editing flag is on");
@@ -182,26 +172,24 @@
         datumStringElevation.text = [currentDict objectForKey:@"datumStringElevation"];
         excavationInterval.text = [currentDict objectForKey:@"excavationInterval"];
         screenSize.text = [currentDict objectForKey:@"screenSize"];
+        self.excavators = [currentDict objectForKey:@"excavators"];
+        self.excavatorLoc = 0;
+        excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc + 35);
+        for (int i=0; i<[self.excavators count]; i++) {
+            [excavatorsView addSubview:[[self.excavators objectAtIndex:i] objectAtIndex:0]];
+            [excavatorsView addSubview:[[self.excavators objectAtIndex:i] objectAtIndex:1]];
+            self.excavatorLoc += 35;
+            excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
+        }
     }
-    
-    
-    [super viewDidLoad];
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    else{
+        self.excavators = [[NSMutableArray alloc] init];
+    }
     
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
     self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
     self.screenSizeArray = [[NSArray alloc] initWithObjects: @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
     self.excavationIntervalArray = [[NSArray alloc] initWithObjects:@"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
-    
-    self.excavatorLoc = 0;
-    self.excavators = [[NSMutableArray alloc] init];
-    
-    for (int i=0; i<[theLevelFormObject.excavators count]; i++) {
-        [excavatorsView addSubview:[[theLevelFormObject.excavators objectAtIndex:i] objectAtIndex:0]];
-        [excavatorsView addSubview:[[theLevelFormObject.excavators objectAtIndex:i] objectAtIndex:1]];
-        self.excavatorLoc += 35;
-    }
-    
     
     // for use when calling/dismissing keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -234,31 +222,9 @@
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
-    //NEW EXCAVATOR saving and displaying
-//    if (textField == newExcavator){
-//        if(![newExcavator.text isEqualToString:@""]){
-//            NSLog(@"%@", newExcavator.text);
-//            [theLevelFormObject.excavators addObject:newExcavator.text];
-//            UILabel *newExc = [[UILabel alloc] initWithFrame:CGRectMake(10, [theLevelFormObject.excavators count] * 20 - 20, 200, 40)];
-//            [newExc setText:[theLevelFormObject.excavators lastObject]];
-//            [excavatorsView addSubview:newExc];
-//            
-//            [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
-//            NSLog(@"Num excavators %i", [theLevelFormObject.excavators count]);
-//            [newExcavator setText:@""];
-//        }
-//    }
-//    
-//    else{
-
-        
      //   NSString *dateString = [NSDateFormatter localizedStringFromDate:[NSDate date]
-       //                                                       dateStyle:NSDateFormatterShortStyle
-        //                                                      timeStyle:NSDateFormatterFullStyle];
-        
-        
-        
-        
+     //                                                       dateStyle:NSDateFormatterShortStyle
+     //                                                      timeStyle:NSDateFormatterFullStyle];
         
     theLevelFormObject.stratum = stratum.text;
     theLevelFormObject.stratumLevel = stratumLevel.text;
@@ -313,11 +279,8 @@
         [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *stringFromDate = [formatter stringFromDate:d];
         [theLevelFormObject.theNewLevelForm setObject:stringFromDate forKey:@"date"];
-        
-
-    
-    
     }
+    
     else{
         int i = appDelegate.currentDictIndex;
         NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
@@ -340,7 +303,6 @@
         [currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
         [currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
         [currentDict setObject:screenSize.text forKey:@"screenSize"];
-    
         
         // date to string -SR
         NSDate *d = datePicker.date;
@@ -352,17 +314,14 @@
         
     
     }
-    
-    //NSLog(@"Stratum: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"stratum"]);
-   // }
+
     // used by Jen's keyboard stuff
     self.activeField = nil;
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-        
-    [theTextField resignFirstResponder];
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
+{
+   [theTextField resignFirstResponder];
     return TRUE;
-    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -372,7 +331,6 @@
     }
     // used by Jen's keyboard stuff
     self.activeField = textField;
-    
 }
 
 //// returns the number of columns to display in picker view.
@@ -476,6 +434,5 @@
     self.scrollView.contentInset = contentInsets;
     self.scrollView.scrollIndicatorInsets = contentInsets;
 }
-
 
 @end
