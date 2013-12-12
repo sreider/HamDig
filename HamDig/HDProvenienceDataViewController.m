@@ -86,60 +86,6 @@
     self.lastTappedButton = sender;
 }
 
-- (IBAction)addExcavator:(id)sender {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-
-    UITextField *excavator = [[UITextField alloc] initWithFrame:CGRectMake(2,self.excavatorLoc,200,30)];
-    [excavator setBorderStyle:UITextBorderStyleRoundedRect];
-    [excavatorsView addSubview:excavator];
-    excavator.delegate = self;
-    
-    UIButton *del = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    del.frame = CGRectMake(210, self.excavatorLoc, 60, 30);
-    [del setTitle:@"-delete-" forState:UIControlStateNormal];
-    [excavatorsView addSubview:del];
-    
-    [del addTarget:self
-            action:@selector(deleteExcavator:)
-            forControlEvents:UIControlEventTouchUpInside];
-    NSArray *exc = [NSArray arrayWithObjects: excavator, del, nil];
-    
-    [self.excavators addObject: exc];
-    [theLevelFormObject.excavators addObject:exc];
-    self.excavatorLoc += 35;
-
-    excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
-
-    
-}
-
--(IBAction)deleteExcavator:(id)sender
-{
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    int x = -1;
-    for (int i=0; i<[self.excavators count]; i++) {
-        if ([[self.excavators objectAtIndex:i] objectAtIndex:1] == sender) {
-            //Remove graphics from window
-            for (int j = 0; j < 2; j++)
-                [[[self.excavators objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
-            self.excavatorLoc -= 35;
-            excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
-            //Remove artifact info from list
-            [self.excavators removeObjectAtIndex:i];
-            [theLevelFormObject.excavators removeObjectAtIndex:i];
-            x = i;
-        }
-    }
-    //Moves each following excavator entry up;
-    for (int i=x; i<[self.excavators count]; i++) {
-        for (int j = 0; j < 2; j++) {
-            UIView *fieldId = [[self.excavators objectAtIndex:i] objectAtIndex:j];
-            CGRect textFieldFrame = fieldId.frame;
-            textFieldFrame.origin.y -= 35;
-            fieldId.frame = textFieldFrame;
-        }
-    }
-}
 
 - (void)viewDidLoad
 {
@@ -245,7 +191,7 @@
     areaDescription.text = theLevelFormObject.areaDescription;
     screenSize.text = theLevelFormObject.screenSize;
     excavationInterval.text = theLevelFormObject.excavationInterval;
-    
+   
     // Fill dictionary for each form...
     
     // should this be done in our void save method?
@@ -332,6 +278,65 @@
     // used by Jen's keyboard stuff
     self.activeField = textField;
 }
+
+
+///////////////////Excavators/////////////////////
+- (IBAction)addExcavator:(id)sender {
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    UITextField *excavator = [[UITextField alloc] initWithFrame:CGRectMake(2,self.excavatorLoc,200,30)];
+    [excavator setBorderStyle:UITextBorderStyleRoundedRect];
+    [excavatorsView addSubview:excavator];
+    excavator.delegate = self;
+    
+    UIButton *del = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    del.frame = CGRectMake(210, self.excavatorLoc, 60, 30);
+    [del setTitle:@"-delete-" forState:UIControlStateNormal];
+    [excavatorsView addSubview:del];
+    
+    [del addTarget:self
+            action:@selector(deleteExcavator:)
+  forControlEvents:UIControlEventTouchUpInside];
+    NSArray *exc = [NSArray arrayWithObjects: excavator, del, nil];
+    
+    [self.excavators addObject: exc];
+    [theLevelFormObject.excavators addObject:exc];
+    self.excavatorLoc += 35;
+    
+    excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
+    
+    
+}
+
+-(IBAction)deleteExcavator:(id)sender
+{
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    int x = -1;
+    for (int i=0; i<[self.excavators count]; i++) {
+        if ([[self.excavators objectAtIndex:i] objectAtIndex:1] == sender) {
+            //Remove graphics from window
+            for (int j = 0; j < 2; j++)
+                [[[self.excavators objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
+            self.excavatorLoc -= 35;
+            excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
+            //Remove artifact info from list
+            [self.excavators removeObjectAtIndex:i];
+            [theLevelFormObject.excavators removeObjectAtIndex:i];
+            x = i;
+        }
+    }
+    //Moves each following excavator entry up;
+    for (int i=x; i<[self.excavators count]; i++) {
+        for (int j = 0; j < 2; j++) {
+            UIView *fieldId = [[self.excavators objectAtIndex:i] objectAtIndex:j];
+            CGRect textFieldFrame = fieldId.frame;
+            textFieldFrame.origin.y -= 35;
+            fieldId.frame = textFieldFrame;
+        }
+    }
+}
+
+///////////////////Picker Views//////////////////
 
 //// returns the number of columns to display in picker view.
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView

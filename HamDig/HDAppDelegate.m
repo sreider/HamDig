@@ -128,11 +128,7 @@ NSMutableDictionary * dictCopy;
     [window makeKeyAndVisible];
     
     allForms = [[NSMutableArray alloc] init];
-    
-    
     [self getSavedState];
-    
-    
     return YES;
 }
 

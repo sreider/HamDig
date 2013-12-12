@@ -29,7 +29,7 @@
     NSString* datumStringElevation;
     NSString* excavationInterval;
     NSString* screenSize;
-    NSMutableArray *excavators; 
+    NSMutableArray *excavators;
     
     //Plan Drawing
     
@@ -44,11 +44,6 @@
     NSString* excavationDescription;
     NSString* sedimentDescription;
     NSString* otherNarrative;
-    
-    
-    
-    
-    
     
 }
 

@@ -1,4 +1,5 @@
-//
+
+    //
 //  HDSaveFormViewController.m
 //  HamDig
 //
@@ -100,13 +101,17 @@
     // only if user is not editing
     if (!(appDelegate.currentlyEditing)){
         NSLog(@"Adding form to array cus editing flag is off");
-        [appDelegate.allForms addObject:(theLevelFormObject.theNewLevelForm)];
             // to make sure the form title is being saved if user does not hit return                -ES
+  
         [theLevelFormObject.theNewLevelForm setObject:formTitle.text forKey:@"formTitle"];
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.artifacts forKey:@"artifacts"];
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.samples forKey:@"samples"];
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.features forKey:@"features"];
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
+        NSLog(@"Right before adding new dictionary to all forms");
+        //THIS LINE DOESN'T WORK ON iPAD! Apparently we're trying to mutate an immutable object, but the allForms array is a mutable object....
+        [appDelegate.allForms addObject:theLevelFormObject.theNewLevelForm];
+        NSLog(@"Right AFTER adding new dict to allForms");
     }
     else{
         NSLog(@"replacing dict at index because editing flag is on");
