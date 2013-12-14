@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HDProvenienceDataViewController : UIViewController <UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIPopoverControllerDelegate, UIScrollViewDelegate>
+@interface HDProvenienceDataViewController : UIViewController <UITextFieldDelegate, UIPopoverControllerDelegate, UIScrollViewDelegate>
 {
     IBOutlet UITextField *stratum;
     IBOutlet UITextField *stratumLevel;
@@ -24,9 +24,6 @@
     IBOutlet UITextField *datumStringElevation;
     IBOutlet UITextField *excavationInterval;
     IBOutlet UITextField *screenSize;
-    IBOutlet UIPickerView *areaPicker;
-    IBOutlet UIPickerView *screenSizePicker;
-    IBOutlet UIPickerView *excavationIntervalPicker;
     IBOutlet UIScrollView *excavatorsView;
 
 }

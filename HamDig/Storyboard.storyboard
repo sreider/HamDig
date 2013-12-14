@@ -130,10 +130,10 @@
             </objects>
             <point key="canvasLocation" x="-2199" y="-1666"/>
         </scene>
-        <!--Popovers-->
+        <!--Popovers - AREA DESCRIPTION-->
         <scene sceneID="hl7-y3-A1s">
             <objects>
-                <viewController storyboardIdentifier="areaPopover" id="NID-Sf-5ob" customClass="HDPopovers" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="areaPopover" title="AREA DESCRIPTION" id="NID-Sf-5ob" customClass="HDPopovers" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="W0P-cu-UXq">
                         <rect key="frame" x="0.0" y="0.0" width="370" height="216"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -157,10 +157,10 @@
             </objects>
             <point key="canvasLocation" x="-498" y="-4749"/>
         </scene>
-        <!--Popovers-->
+        <!--Popovers - EXCAVATION INTERVAL-->
         <scene sceneID="ulN-ZS-eZm">
             <objects>
-                <viewController storyboardIdentifier="excavationPopover" id="Ear-lW-WL4" customClass="HDPopovers" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="excavationPopover" title="EXCAVATION INTERVAL" id="Ear-lW-WL4" customClass="HDPopovers" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="u2r-MZ-12R">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -183,6 +183,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u0v-uO-rYy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-111" y="-4749"/>
+        </scene>
+        <!--Popovers - STRATUM-->
+        <scene sceneID="RVX-za-Yf9">
+            <objects>
+                <viewController storyboardIdentifier="stratumPopover" title="STRATUM" id="M2D-mG-Wgb" customClass="HDPopovers" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RJG-VA-4Pe">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="216"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" id="eRl-zF-rzk">
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="M2D-mG-Wgb" id="VIT-Pb-2S3"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="stratumPicker" destination="eRl-zF-rzk" id="DPK-lq-XVX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u4u-7p-SCP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-498" y="-4457"/>
         </scene>
         <!--Back Menu View Controller-->
         <scene sceneID="9Ma-k9-1Um">
@@ -296,6 +323,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
+                                            <action selector="showStratumPopover:" destination="5kN-2r-fNm" eventType="editingDidBegin" id="kb4-td-Z5G"/>
                                             <outlet property="delegate" destination="5kN-2r-fNm" id="Xrh-zk-p9n"/>
                                         </connections>
                                     </textField>
@@ -556,19 +584,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <outlet property="delegate" destination="5kN-2r-fNm" id="Ifc-o8-RaR"/>
                                         </connections>
                                     </scrollView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="IvV-N2-n3m">
-                                        <rect key="frame" x="334" y="74" width="174" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[not connected to anything] Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZV4-P1-yUU">
-                                        <rect key="frame" x="49" y="77" width="277" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <connections>
                                     <outlet property="delegate" destination="5kN-2r-fNm" id="szc-wu-zOG"/>
@@ -630,10 +645,10 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             </objects>
             <point key="canvasLocation" x="-358" y="-4015"/>
         </scene>
-        <!--Popovers-->
+        <!--Popovers - SCREEN SIZE-->
         <scene sceneID="G0a-JG-J9O">
             <objects>
-                <viewController storyboardIdentifier="screenSizePopover" id="JhA-NS-BBD" customClass="HDPopovers" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="screenSizePopover" title="SCREEN SIZE" id="JhA-NS-BBD" customClass="HDPopovers" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" id="AZF-Kp-ZGX">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
