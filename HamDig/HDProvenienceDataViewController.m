@@ -14,25 +14,27 @@
 #import "HDAppDelegate.h"
 
 @interface HDProvenienceDataViewController ()
-@property (nonatomic, strong) UIPopoverController *barButtonItemPopover;
-@property (nonatomic, strong) UIPopoverController *detailViewPopover;
-@property (nonatomic, strong) id lastTappedButton;
-@property (nonatomic, strong) UIPopoverController *masterPopoverController;
 
+//picker wheel stuff to be moved
 @property (strong, nonatomic) NSArray *areaNumArray;
 @property (strong, nonatomic) NSArray *areaTypeArray;
 @property (strong, nonatomic) NSArray *screenSizeArray;
 @property (strong, nonatomic) NSArray *excavationIntervalArray;
+
+// excavators
 @property int excavatorLoc;
 @property NSMutableArray *excavators;
 
-// controll scroll view for moving view up when keyboard is called
+// control scroll view for moving view up when keyboard is called
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITextField *activeField;
 
+// Popovers
+@property (nonatomic, strong) UIPopoverController *areaPopover;
+@property (nonatomic, strong) UIPopoverController *excavationPopover;
+@property (nonatomic, strong) UIPopoverController *screenSizePopover;
 
-// this is the blank test popover floating up there doing nothing
-@property (nonatomic, strong) UIPopoverController *testPopover;
+@property (nonatomic, strong) id lastTappedButton;
 
 @end
 
@@ -60,15 +62,14 @@
 }
 
 /*
- popovers... I have tried to implement the popover for the 'area' field but it keeps breaking everything. currently, the popover works from the button labeled 'test'. it pulls up a popover, and clicking outside actually dismisses it. go figure?
+POPOVER STUFF - now with saving when popover closes!
  */
-//Popover stuff from Jen
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     self.lastTappedButton = nil;
     
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    
+
     areaDescription.text = theLevelFormObject.areaDescription;
     screenSize.text = theLevelFormObject.screenSize;
     excavationInterval.text = theLevelFormObject.excavationInterval;
@@ -76,13 +77,22 @@
     NSLog(@"Dismissed Popover");
 }
 
-//THIS WORKS PERFECTLY FROM THE "TEST" BUTTON
-//NOT THE TEXT FIELDS WTF
-- (IBAction)showPopover:(id)sender
-{
-//    UIButton *tappedButton = (UIButton *)sender;
+// three different showPopovers for the three different windows
+- (IBAction)showAreaPopover:(id)sender {
     UITextField *tappedButton = (UITextField *) sender;
-    [self.testPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.areaPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
+}
+
+- (IBAction)showExcavationPopover:(id)sender {
+    UITextField *tappedButton = (UITextField *) sender;
+    [self.excavationPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
+}
+
+- (IBAction)showScreenSizePopover:(id)sender {
+    UITextField *tappedButton = (UITextField *) sender;
+    [self.screenSizePopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
 }
 
@@ -148,11 +158,19 @@
                                                object:nil];
     
 /*
-    Popover instantiation... whenever i tried to implement this using the area field, everything broke. No idea why... probably something to do with the field itself or the scroll wheel. Basically this creates the popover view somewhat programatically so that it can do stuff when its dismissed
+    Popover instantiation... Basically this creates the popover view somewhat programatically so that it can do stuff when its dismissed
  */
-    HDPopovers *content = [self.storyboard instantiateViewControllerWithIdentifier:@"testPopover"];
-    self.testPopover = [[UIPopoverController alloc] initWithContentViewController:content];
-    self.testPopover.delegate = self;
+    HDPopovers *areaContent = [self.storyboard instantiateViewControllerWithIdentifier:@"areaPopover"];
+    self.areaPopover = [[UIPopoverController alloc] initWithContentViewController:areaContent];
+    self.areaPopover.delegate = self;
+    
+    HDPopovers *excavationContent = [self.storyboard instantiateViewControllerWithIdentifier:@"excavationPopover"];
+    self.excavationPopover = [[UIPopoverController alloc] initWithContentViewController:excavationContent];
+    self.excavationPopover.delegate = self;
+    
+    HDPopovers *screenSizeContent = [self.storyboard instantiateViewControllerWithIdentifier:@"screenSizePopover"];
+    self.screenSizePopover = [[UIPopoverController alloc] initWithContentViewController:screenSizeContent];
+    self.screenSizePopover.delegate = self;
     
 }
 
@@ -335,7 +353,7 @@
         }
     }
 }
-
+/*
 ///////////////////Picker Views//////////////////
 
 //// returns the number of columns to display in picker view.
@@ -406,7 +424,7 @@
         }
     }
 }
-
+*/
 // allows fields hidden by the keyboard to become visible. (not sure if works as well with popover windows...?)
 - (void)keyboardWillShow:(NSNotification*)aNotification
 {

@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HDPopovers : UIViewController
-
+@interface HDPopovers : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
+{
+    IBOutlet UIPickerView *areaPicker;
+    IBOutlet UIPickerView *excavationPicker;
+    IBOutlet UIPickerView *screenSizePicker;
+}
 @end
