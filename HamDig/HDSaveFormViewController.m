@@ -109,6 +109,7 @@
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.features forKey:@"features"];
         [theLevelFormObject.theNewLevelForm setObject:theLevelFormObject.excavators forKey:@"excavators"];
         NSLog(@"Right before adding new dictionary to all forms");
+        NSLog(@"%@", theLevelFormObject.theNewLevelForm);
         //THIS LINE DOESN'T WORK ON iPAD! Apparently we're trying to mutate an immutable object, but the allForms array is a mutable object....
         [appDelegate.allForms addObject:theLevelFormObject.theNewLevelForm];
         NSLog(@"Right AFTER adding new dict to allForms");

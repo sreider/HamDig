@@ -32,6 +32,9 @@
 
 @property (nonatomic, strong) id lastTappedButton;
 
+@property bool areaFlag;
+@property bool intervalFlag;
+
 @end
 
 @implementation HDProvenienceDataViewController
@@ -62,14 +65,26 @@ POPOVER STUFF - now with saving when popover closes!
  */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    self.lastTappedButton = nil;
-    
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-
-    areaDescription.text = theLevelFormObject.areaDescription;
+    if (self.lastTappedButton == areaDescription){
+        if ([theLevelFormObject.areaDescription  isEqualToString: @"OTHER"]){
+            self.areaFlag = 1;
+            [areaDescription becomeFirstResponder];
+        }
+        else
+            areaDescription.text = theLevelFormObject.areaDescription;
+    }
+    else if (self.lastTappedButton == excavationInterval){
+        if ([theLevelFormObject.excavationInterval isEqualToString:@"OTHER"]){
+            self.intervalFlag =1;
+            [excavationInterval becomeFirstResponder];
+        }
+        else
+            excavationInterval.text = theLevelFormObject.excavationInterval;
+    }
     screenSize.text = theLevelFormObject.screenSize;
-    excavationInterval.text = theLevelFormObject.excavationInterval;
     stratum.text = theLevelFormObject.stratum;
+        self.lastTappedButton = nil;
     
     NSLog(@"Dismissed Popover");
 }
@@ -242,6 +257,7 @@ POPOVER STUFF - now with saving when popover closes!
     
     // Provenience Data
     
+    // Fill dictionary for each form...
     if (!appDelegate.currentlyEditing){
         [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
         [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
@@ -295,9 +311,6 @@ POPOVER STUFF - now with saving when popover closes!
         [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *stringFromDate = [formatter stringFromDate:d];
         [currentDict setObject:stringFromDate forKey:@"date"];
-
-        
-    
     }
 
     // used by Jen's keyboard stuff
@@ -313,7 +326,15 @@ POPOVER STUFF - now with saving when popover closes!
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField == areaDescription || textField == screenSize || textField == excavationInterval || textField == stratum || textField == dateField){
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    NSLog(@"%i", self.areaFlag);
+    if (textField == areaDescription && [theLevelFormObject.areaDescription isEqualToString:@"OTHER"] && self.areaFlag == 1) {
+        self.intervalFlag = 0;
+    }
+    else if (textField == excavationInterval && [theLevelFormObject.excavationInterval isEqualToString:@"OTHER"] && self.intervalFlag == 1){
+        self.intervalFlag = 0;
+    }
+    else if (textField == areaDescription || textField == screenSize || textField == excavationInterval || textField == stratum || textField == dateField){
         [textField resignFirstResponder];
     }
     // used by Jen's keyboard stuff
