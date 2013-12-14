@@ -25,6 +25,9 @@
     IBOutlet UITextField *excavationInterval;
     IBOutlet UITextField *screenSize;
     IBOutlet UIScrollView *excavatorsView;
+    
+    IBOutlet UITextField *dateField;
+    
 
 }
 - (IBAction)addExcavator:(id)sender;

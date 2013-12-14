@@ -42,12 +42,12 @@
 	// Do any additional setup after loading the view.
     //HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
-    self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
-    self.screenSizeArray = [[NSArray alloc] initWithObjects: @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
-    self.excavationIntervalArray = [[NSArray alloc] initWithObjects:@"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
+    self.areaNumArray = [[NSArray alloc] initWithObjects: @" ", @"1", @"2", @"3", @"4", @"5", @"6", nil];
+    self.areaTypeArray = [[NSArray alloc] initWithObjects: @" ", @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
+    self.screenSizeArray = [[NSArray alloc] initWithObjects: @" ", @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
+    self.excavationIntervalArray = [[NSArray alloc] initWithObjects: @" ", @"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
     
-    self.stratumArray = [[NSArray alloc] initWithObjects: @"I", @"II", @"III", @"IV", @"V", @"VI", @"VII", @"VIII", @"IX", @"X", @"XI", @"XII", @"XIII", @"XIV", @"XV", @"XVI", @"XVII", @"XVIII", @"XIX", @"XX", @"XXI" @"XXII", @"XXIII", @"XXIV", @"XXV", @"XXVI", @"XXVII", @"XXVIII", @"XXIX", @"XXX", nil];
+    self.stratumArray = [[NSArray alloc] initWithObjects: @" ", @"I", @"II", @"III", @"IV", @"V", @"VI", @"VII", @"VIII", @"IX", @"X", @"XI", @"XII", @"XIII", @"XIV", @"XV", @"XVI", @"XVII", @"XVIII", @"XIX", @"XX", @"XXI" @"XXII", @"XXIII", @"XXIV", @"XXV", @"XXVI", @"XXVII", @"XXVIII", @"XXIX", @"XXX", nil];
     self.stratumAppendArray = [[NSArray alloc] initWithObjects: @" ", @"- 1", @"- 2", @"- 3", @"- 4", @"- 5", @"- 6", @"- 7", @"- 8", @"- 9", nil];
 }
 

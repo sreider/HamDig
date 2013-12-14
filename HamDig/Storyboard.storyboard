@@ -184,6 +184,54 @@
             </objects>
             <point key="canvasLocation" x="-111" y="-4749"/>
         </scene>
+        <!--Popovers - DATE-->
+        <scene sceneID="kg9-af-dDW">
+            <objects>
+                <viewController storyboardIdentifier="datePopover" title="DATE" id="elZ-EE-fiM" customClass="HDPopovers" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Toh-gJ-B4R">
+                        <rect key="frame" x="0.0" y="0.0" width="275" height="216"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="3AG-eP-s6E">
+                                <rect key="frame" x="-33" y="0.0" width="340" height="216"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="408735911.26958001">
+                                    <!--2013-12-14 17:45:11 +0000-->
+                                </date>
+                                <timeZone key="timeZone" name="America/Los_Angeles">
+                                    <mutableData key="data">
+VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
+y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
+5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
+8n/BkPNvwKD0X6OQ9U+ioPY/hZD3L4Sg+CiiEPkPZqD6CIQQ+viDIPvoZhD82GUg/chIEP64RyD/qCoQ
+AJgpIAGIDBACeAsgA3EokARhJ6AFUQqQBkEJoAcw7JAHjUOgCRDOkAmtvyAK8LCQC+CvoAzZzRANwJGg
+DrmvEA+priAQmZEQEYmQIBJ5cxATaXIgFFlVEBVJVCAWOTcQFyk2IBgiU5AZCRggGgI1kBryNKAb4heQ
+HNIWoB3B+ZAesfigH6HbkCB2KyAhgb2QIlYNICNq2hAkNe8gJUq8ECYV0SAnKp4QJ/7toCkKgBAp3s+g
+KupiECu+saAs036QLZ6ToC6zYJAvfnWgMJNCkDFnkiAycySQM0d0IDRTBpA1J1YgNjLokDcHOCA4HAUQ
+OOcaIDn75xA6xvwgO9vJEDywGKA9u6sQPo/6oD+bjRBAb9ygQYSpkEJPvqBDZIuQRC+goEVEbZBF89Mg
+Ry2KEEfTtSBJDWwQSbOXIErtThBLnLOgTNZqkE18laBOtkyQT1x3oFCWLpBRPFmgUnYQkFMcO6BUVfKQ
+VPwdoFY11JBW5TogWB7xEFjFHCBZ/tMQWqT+IFvetRBchOAgXb6XEF5kwiBfnnkQYE3eoGGHlZBiLcCg
+Y2d3kGQNoqBlR1mQZe2EoGcnO5BnzWagaQcdkGmtSKBq5v+Qa5ZlIGzQHBBtdkcgbq/+EG9WKSBwj+AQ
+cTYLIHJvwhBzFe0gdE+kEHT/CaB2OMCQdt7roHgYopB4vs2gefiEkHqer6B72GaQfH6RoH24SJB+XnOg
+f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
+AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
+</mutableData>
+                                </timeZone>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="view" destination="3AG-eP-s6E" id="UNZ-bw-NSU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uWj-YF-bbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-226" y="-4457"/>
+        </scene>
         <!--Popovers - STRATUM-->
         <scene sceneID="RVX-za-Yf9">
             <objects>
@@ -337,7 +385,7 @@
                                         </connections>
                                     </textField>
                                     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="kDo-r3-ydK">
-                                        <rect key="frame" x="257" y="109" width="255" height="216"/>
+                                        <rect key="frame" x="257" y="150" width="255" height="216"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <date key="date" timeIntervalSinceReferenceDate="403121942.35597402">
                                             <!--2013-10-10 18:19:02 +0000-->
@@ -584,6 +632,16 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <outlet property="delegate" destination="5kN-2r-fNm" id="Ifc-o8-RaR"/>
                                         </connections>
                                     </scrollView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="0yy-cZ-NWF">
+                                        <rect key="frame" x="258" y="106" width="254" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="showDatePopover:" destination="5kN-2r-fNm" eventType="editingDidBegin" id="hgY-dH-dTP"/>
+                                            <outlet property="delegate" destination="5kN-2r-fNm" id="TQp-q1-jDS"/>
+                                        </connections>
+                                    </textField>
                                 </subviews>
                                 <connections>
                                     <outlet property="delegate" destination="5kN-2r-fNm" id="szc-wu-zOG"/>
@@ -624,6 +682,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <tabBarItem key="tabBarItem" title="I. Provenience Data" id="I1s-Pe-aSw"/>
                     <connections>
                         <outlet property="areaDescription" destination="ckF-cm-DKT" id="V3L-tH-zbm"/>
+                        <outlet property="dateField" destination="0yy-cZ-NWF" id="eEV-5B-AJA"/>
                         <outlet property="datePicker" destination="kDo-r3-ydK" id="WlQ-B4-y47"/>
                         <outlet property="datumStringElevation" destination="hfd-2j-2JD" id="m6V-8d-xcH"/>
                         <outlet property="excavationInterval" destination="WzJ-3J-pYd" id="nch-E2-D25"/>

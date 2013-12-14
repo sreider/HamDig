@@ -15,12 +15,6 @@
 
 @interface HDProvenienceDataViewController ()
 
-//picker wheel stuff to be moved
-@property (strong, nonatomic) NSArray *areaNumArray;
-@property (strong, nonatomic) NSArray *areaTypeArray;
-@property (strong, nonatomic) NSArray *screenSizeArray;
-@property (strong, nonatomic) NSArray *excavationIntervalArray;
-
 // excavators
 @property int excavatorLoc;
 @property NSMutableArray *excavators;
@@ -34,6 +28,7 @@
 @property (nonatomic, strong) UIPopoverController *excavationPopover;
 @property (nonatomic, strong) UIPopoverController *screenSizePopover;
 @property (nonatomic, strong) UIPopoverController *stratumPopover;
+@property (nonatomic, strong) UIPopoverController *datePopover;
 
 @property (nonatomic, strong) id lastTappedButton;
 
@@ -103,6 +98,13 @@ POPOVER STUFF - now with saving when popover closes!
     [self.stratumPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
 }
+
+- (IBAction)showDatePopover:(id)sender {
+    UITextField *tappedButton = (UITextField *) sender;
+    [self.datePopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
+}
+
 
 
 
@@ -184,6 +186,10 @@ POPOVER STUFF - now with saving when popover closes!
     HDPopovers *stratumContent = [self.storyboard instantiateViewControllerWithIdentifier:@"stratumPopover"];
     self.stratumPopover = [[UIPopoverController alloc] initWithContentViewController:stratumContent];
     self.stratumPopover.delegate = self;
+    
+    HDPopovers *dateContent = [self.storyboard instantiateViewControllerWithIdentifier:@"datePopover"];
+    self.datePopover = [[UIPopoverController alloc] initWithContentViewController:dateContent];
+    self.datePopover.delegate = self;
     
 }
 
@@ -305,7 +311,7 @@ POPOVER STUFF - now with saving when popover closes!
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
+    if (textField == areaDescription || textField == screenSize || textField == excavationInterval || textField == stratum || textField == dateField){
         [textField resignFirstResponder];
     }
     // used by Jen's keyboard stuff
@@ -368,78 +374,6 @@ POPOVER STUFF - now with saving when popover closes!
         }
     }
 }
-/*
-///////////////////Picker Views//////////////////
-
-//// returns the number of columns to display in picker view.
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    if (pickerView == areaPicker)
-        return 2;
-    else
-        return 1;
-}
-
-//// returns the # of rows in each component of a picker view.
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    if (pickerView == areaPicker){
-        if (component == 0)
-            return [self.areaTypeArray count];
-        else
-            return [self.areaNumArray count];
-    }
-    else if (pickerView == screenSizePicker)
-        return [self.screenSizeArray count];
-    
-    else if (pickerView == excavationIntervalPicker)
-        return [self.excavationIntervalArray count];
-    
-    return 0;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    if (pickerView == areaPicker){
-        if (component == 0)
-            return [self.areaTypeArray objectAtIndex:row];
-        else
-            return [self.areaNumArray objectAtIndex:row];
-    }
-    
-    else if (pickerView == screenSizePicker)
-        return [self.screenSizeArray objectAtIndex:row];
-    
-    else if (pickerView == excavationIntervalPicker)
-        return [self.excavationIntervalArray objectAtIndex:row];
-    
-    return @"";
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    if (pickerView == areaPicker){
-        if ([[self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            areaDescription.text = @"OTHER";
-        }
-        else{
-            theLevelFormObject.areaDescription = [NSString stringWithFormat: @"%@ %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
-        }
-    }
-    else if (pickerView == screenSizePicker){
-        theLevelFormObject.screenSize = [self.screenSizeArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-    }
-    else if (pickerView == excavationIntervalPicker){
-        if ([[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            excavationInterval.text = @"OTHER";
-        }
-        else{
-            theLevelFormObject.excavationInterval= [self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-        }
-    }
-}
-*/
 
 //////// SCROLL WINDOW ABOVE KEYBOARD /////////////
 
