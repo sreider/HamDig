@@ -12,7 +12,7 @@
 {
     IBOutlet UITextField *stratum;
     IBOutlet UITextField *stratumLevel;
-//    IBOutlet UIDatePicker *datePicker;
+
     IBOutlet UITextField *level;
     IBOutlet UITextField *totalLevels;
     IBOutlet UITextField *areaDescription;
