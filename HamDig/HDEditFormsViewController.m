@@ -13,6 +13,7 @@
 #import "HDTabFormViewController.h"
 
 @interface HDEditFormsViewController ()
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -66,25 +67,27 @@
         clickToEdit.tag = i+1;
         // add button action to each button
         [clickToEdit addTarget:self action:@selector(editButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:clickToEdit];
+        [self.scrollView addSubview:clickToEdit];
         
         
         // ... along with the title of each form
         UILabel *formDisplay = [[UILabel alloc] initWithFrame:CGRectMake(200, 100 + (i * 100), 500, 50)];
         formDisplay.text = currentTitle;
-        [self.view addSubview:formDisplay];
+        [self.scrollView addSubview:formDisplay];
         
     }
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    self.scrollView.contentSize = self.view.bounds.size;
 }
 
 -(void)editButtonClick:(UIButton*)sender
 {
     
     // example action that turns each button green
-    [(UIButton *)[self.view viewWithTag:sender.tag] setBackgroundColor:[UIColor greenColor]];
+    [(UIButton *)[self.scrollView viewWithTag:sender.tag] setBackgroundColor:[UIColor greenColor]];
     
     // to get the global flag currentlyEditing and set it to true
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];

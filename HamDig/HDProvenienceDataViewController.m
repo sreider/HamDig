@@ -65,7 +65,6 @@ POPOVER STUFF - now with saving when popover closes!
  */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    //HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     if (self.lastTappedButton == areaDescription){
         if ([theLevelFormObject.areaDescription  isEqualToString: @"OTHER"]){
@@ -89,7 +88,6 @@ POPOVER STUFF - now with saving when popover closes!
 
     NSDateFormatter *toDateForm = [[NSDateFormatter alloc] init];
     [toDateForm setDateFormat:@"yyyy'-'MM'-'dd"];
-    //NSDate *date = [[NSDate alloc] init];
     NSString *dateStr = theLevelFormObject.date;
     NSDate *date = [toDateForm dateFromString: dateStr];
     NSLog(@"date: %@", date);
@@ -201,13 +199,14 @@ POPOVER STUFF - now with saving when popover closes!
 
         self.excavators = [[NSMutableArray alloc] init];
         
-        //prepopulate date field with current date... change?
+        //prepopulate date field with current date
         NSDate *today = [[NSDate alloc] init];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterLongStyle];
         NSString *stringFromDate = [formatter stringFromDate:today];
         dateField.text = stringFromDate;
         
+        // put current date into dictionary (this is important when calling other popovers
         NSDateFormatter *dictForm = [[NSDateFormatter alloc] init];
         [dictForm setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *dictDate = [dictForm stringFromDate:today];
@@ -262,12 +261,6 @@ POPOVER STUFF - now with saving when popover closes!
 {
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    
-
-
- //   theLevelFormObject.date = (NSString*)datePicker.date;
- //   theLevelFormObject.date = dateField.text;
-    NSLog(@"%@ b", dateField.text);
         
     theLevelFormObject.stratumLevel = stratumLevel.text;
     theLevelFormObject.level = level.text;
@@ -288,7 +281,6 @@ POPOVER STUFF - now with saving when popover closes!
     if (!appDelegate.currentlyEditing){
         [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
         [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
-        //[theLevelFormObject.theNewLevelForm setObject:(NSString*)datePicker.date forKey:@"date"];
         [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
         [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
         [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
