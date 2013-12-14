@@ -70,13 +70,13 @@ POPOVER STUFF - now with saving when popover closes!
     
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     if ([theLevelFormObject.areaDescription  isEqualToString: @"OTHER"]){
-        NSLog(@"OTHER");
+        [areaDescription becomeFirstResponder];
     }
     else
         areaDescription.text = theLevelFormObject.areaDescription;
  
     if ([theLevelFormObject.excavationInterval isEqualToString:@"OTHER"]){
-        NSLog(@"OTHER");
+        [excavationInterval becomeFirstResponder];
     }
     else
         excavationInterval.text = theLevelFormObject.excavationInterval;
@@ -296,7 +296,15 @@ POPOVER STUFF - now with saving when popover closes!
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+
+    if (textField == areaDescription && [theLevelFormObject.areaDescription isEqualToString:@"OTHER"]) {
+        NSLog(@"at other");
+    }
+    else if (textField == excavationInterval && [theLevelFormObject.excavationInterval isEqualToString:@"OTHER"]){
+        NSLog(@"at other");
+    }
+    else if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
         [textField resignFirstResponder];
     }
     // used by Jen's keyboard stuff
