@@ -13,5 +13,7 @@
     IBOutlet UIPickerView *areaPicker;
     IBOutlet UIPickerView *excavationPicker;
     IBOutlet UIPickerView *screenSizePicker;
+    
+    IBOutlet UIPickerView *stratumPicker;
 }
 @end

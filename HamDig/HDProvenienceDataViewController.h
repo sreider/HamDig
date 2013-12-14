@@ -24,10 +24,10 @@
     IBOutlet UITextField *datumStringElevation;
     IBOutlet UITextField *excavationInterval;
     IBOutlet UITextField *screenSize;
-    IBOutlet UIPickerView *areaPicker;
-    IBOutlet UIPickerView *screenSizePicker;
-    IBOutlet UIPickerView *excavationIntervalPicker;
     IBOutlet UIScrollView *excavatorsView;
+    
+    IBOutlet UITextField *dateField;
+    
 
 }
 - (IBAction)addExcavator:(id)sender;

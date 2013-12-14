@@ -15,12 +15,6 @@
 
 @interface HDProvenienceDataViewController ()
 
-//picker wheel stuff to be moved
-@property (strong, nonatomic) NSArray *areaNumArray;
-@property (strong, nonatomic) NSArray *areaTypeArray;
-@property (strong, nonatomic) NSArray *screenSizeArray;
-@property (strong, nonatomic) NSArray *excavationIntervalArray;
-
 // excavators
 @property int excavatorLoc;
 @property NSMutableArray *excavators;
@@ -33,6 +27,8 @@
 @property (nonatomic, strong) UIPopoverController *areaPopover;
 @property (nonatomic, strong) UIPopoverController *excavationPopover;
 @property (nonatomic, strong) UIPopoverController *screenSizePopover;
+@property (nonatomic, strong) UIPopoverController *stratumPopover;
+@property (nonatomic, strong) UIPopoverController *datePopover;
 
 @property (nonatomic, strong) id lastTappedButton;
 
@@ -92,7 +88,7 @@ POPOVER STUFF - now with saving when popover closes!
     NSLog(@"Dismissed Popover");
 }
 
-// three different showPopovers for the three different windows
+// four different showPopovers for the four different windows
 - (IBAction)showAreaPopover:(id)sender {
     UITextField *tappedButton = (UITextField *) sender;
     [self.areaPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -110,6 +106,20 @@ POPOVER STUFF - now with saving when popover closes!
     [self.screenSizePopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
 }
+
+- (IBAction)showStratumPopover:(id)sender {
+    UITextField *tappedButton = (UITextField *) sender;
+    [self.stratumPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
+}
+
+- (IBAction)showDatePopover:(id)sender {
+    UITextField *tappedButton = (UITextField *) sender;
+    [self.datePopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    self.lastTappedButton = sender;
+}
+
+
 
 
 - (void)viewDidLoad
@@ -156,12 +166,12 @@ POPOVER STUFF - now with saving when popover closes!
     else{
         self.excavators = [[NSMutableArray alloc] init];
     }
-    
+ /*
     self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
     self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
     self.screenSizeArray = [[NSArray alloc] initWithObjects: @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
     self.excavationIntervalArray = [[NSArray alloc] initWithObjects:@"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
-    
+*/
     // for use when calling/dismissing keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -187,6 +197,14 @@ POPOVER STUFF - now with saving when popover closes!
     self.screenSizePopover = [[UIPopoverController alloc] initWithContentViewController:screenSizeContent];
     self.screenSizePopover.delegate = self;
     
+    HDPopovers *stratumContent = [self.storyboard instantiateViewControllerWithIdentifier:@"stratumPopover"];
+    self.stratumPopover = [[UIPopoverController alloc] initWithContentViewController:stratumContent];
+    self.stratumPopover.delegate = self;
+    
+    HDPopovers *dateContent = [self.storyboard instantiateViewControllerWithIdentifier:@"datePopover"];
+    self.datePopover = [[UIPopoverController alloc] initWithContentViewController:dateContent];
+    self.datePopover.delegate = self;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -205,7 +223,7 @@ POPOVER STUFF - now with saving when popover closes!
      //                                                       dateStyle:NSDateFormatterShortStyle
      //                                                      timeStyle:NSDateFormatterFullStyle];
         
-    theLevelFormObject.stratum = stratum.text;
+    //theLevelFormObject.stratum = stratum.text;
     theLevelFormObject.stratumLevel = stratumLevel.text;
 
     theLevelFormObject.date = (NSString*)datePicker.date;
@@ -285,6 +303,8 @@ POPOVER STUFF - now with saving when popover closes!
     // used by Jen's keyboard stuff
     self.activeField = nil;
 }
+
+
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField
 {
    [theTextField resignFirstResponder];
