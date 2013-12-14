@@ -83,6 +83,7 @@ POPOVER STUFF - now with saving when popover closes!
             excavationInterval.text = theLevelFormObject.excavationInterval;
     }
     screenSize.text = theLevelFormObject.screenSize;
+    stratum.text = theLevelFormObject.stratum;
         self.lastTappedButton = nil;
     
     NSLog(@"Dismissed Popover");
@@ -321,7 +322,7 @@ POPOVER STUFF - now with saving when popover closes!
     else if (textField == excavationInterval && [theLevelFormObject.excavationInterval isEqualToString:@"OTHER"] && self.intervalFlag == 1){
         self.intervalFlag = 0;
     }
-    else if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
+    else if (textField == areaDescription || textField == screenSize || textField == excavationInterval || textField == stratum || textField == dateField){
         [textField resignFirstResponder];
     }
     // used by Jen's keyboard stuff
@@ -385,7 +386,8 @@ POPOVER STUFF - now with saving when popover closes!
     }
 }
 
-// allows fields hidden by the keyboard to become visible. (not sure if works as well with popover windows...?)
+//////// SCROLL WINDOW ABOVE KEYBOARD /////////////
+
 - (void)keyboardWillShow:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];
