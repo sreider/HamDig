@@ -36,6 +36,9 @@
 
 @property (nonatomic, strong) id lastTappedButton;
 
+@property bool areaFlag;
+@property bool intervalFlag;
+
 @end
 
 @implementation HDProvenienceDataViewController
@@ -66,22 +69,25 @@ POPOVER STUFF - now with saving when popover closes!
  */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    self.lastTappedButton = nil;
-    
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    if ([theLevelFormObject.areaDescription  isEqualToString: @"OTHER"]){
-        [areaDescription becomeFirstResponder];
+    if (self.lastTappedButton == areaDescription){
+        if ([theLevelFormObject.areaDescription  isEqualToString: @"OTHER"]){
+            self.areaFlag = 1;
+            [areaDescription becomeFirstResponder];
+        }
+        else
+            areaDescription.text = theLevelFormObject.areaDescription;
     }
-    else
-        areaDescription.text = theLevelFormObject.areaDescription;
- 
-    if ([theLevelFormObject.excavationInterval isEqualToString:@"OTHER"]){
-        [excavationInterval becomeFirstResponder];
+    else if (self.lastTappedButton == excavationInterval){
+        if ([theLevelFormObject.excavationInterval isEqualToString:@"OTHER"]){
+            self.intervalFlag =1;
+            [excavationInterval becomeFirstResponder];
+        }
+        else
+            excavationInterval.text = theLevelFormObject.excavationInterval;
     }
-    else
-        excavationInterval.text = theLevelFormObject.excavationInterval;
-    
     screenSize.text = theLevelFormObject.screenSize;
+        self.lastTappedButton = nil;
     
     NSLog(@"Dismissed Popover");
 }
@@ -215,18 +221,12 @@ POPOVER STUFF - now with saving when popover closes!
     theLevelFormObject.verticalDatumID = verticalDatumID.text;
     theLevelFormObject.datumStringElevation = datumStringElevation.text;
     
-   
+    if (textField == areaDescription)
+        self.areaFlag = 0;
+    else if (textField == excavationInterval)
+        self.intervalFlag = 0;
+    
     // Fill dictionary for each form...
-    
-    // should this be done in our void save method?
-    // I don't think so. I think our void save method should be just for
-    // saving theNewLevelForm to the array -SR
-    
-    // array is now being save from the save button, not void save
-    // do we still need the void save method for anything?      -ES
-    
-    // Provenience Data
-    
     if (!appDelegate.currentlyEditing){
         [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
         [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
@@ -280,9 +280,6 @@ POPOVER STUFF - now with saving when popover closes!
         [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *stringFromDate = [formatter stringFromDate:d];
         [currentDict setObject:stringFromDate forKey:@"date"];
-
-        
-    
     }
 
     // used by Jen's keyboard stuff
@@ -297,12 +294,12 @@ POPOVER STUFF - now with saving when popover closes!
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-
-    if (textField == areaDescription && [theLevelFormObject.areaDescription isEqualToString:@"OTHER"]) {
-        NSLog(@"at other");
+    NSLog(@"%i", self.areaFlag);
+    if (textField == areaDescription && [theLevelFormObject.areaDescription isEqualToString:@"OTHER"] && self.areaFlag == 1) {
+        self.intervalFlag = 0;
     }
-    else if (textField == excavationInterval && [theLevelFormObject.excavationInterval isEqualToString:@"OTHER"]){
-        NSLog(@"at other");
+    else if (textField == excavationInterval && [theLevelFormObject.excavationInterval isEqualToString:@"OTHER"] && self.intervalFlag == 1){
+        self.intervalFlag = 0;
     }
     else if (textField == areaDescription || textField == screenSize || textField == excavationInterval){
         [textField resignFirstResponder];
