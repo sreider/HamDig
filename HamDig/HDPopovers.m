@@ -138,6 +138,17 @@
         }
     
     }
+
+}
+
+- (IBAction)dateSet:(id)sender {
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
+    NSString *stringFromDate = [formatter stringFromDate:datePicker.date];
+    theLevelFormObject.date = stringFromDate;
+
+    
 }
 
 
