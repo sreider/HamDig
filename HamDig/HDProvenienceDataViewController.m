@@ -242,20 +242,10 @@ POPOVER STUFF - now with saving when popover closes!
     theLevelFormObject.verticalDatumID = verticalDatumID.text;
     theLevelFormObject.datumStringElevation = datumStringElevation.text;
     
-    //areaDescription.text = theLevelFormObject.areaDescription;
-    //screenSize.text = theLevelFormObject.screenSize;
-    //excavationInterval.text = theLevelFormObject.excavationInterval;
-   
-    // Fill dictionary for each form...
-    
-    // should this be done in our void save method?
-    // I don't think so. I think our void save method should be just for
-    // saving theNewLevelForm to the array -SR
-    
-    // array is now being save from the save button, not void save
-    // do we still need the void save method for anything?      -ES
-    
-    // Provenience Data
+    if (textField == areaDescription)
+        self.areaFlag = 0;
+    else if (textField == excavationInterval)
+        self.intervalFlag = 0;
     
     // Fill dictionary for each form...
     if (!appDelegate.currentlyEditing){
