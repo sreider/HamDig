@@ -75,12 +75,18 @@
         formDisplay.text = currentTitle;
         [self.scrollView addSubview:formDisplay];
         
+        
+        
     }
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.scrollView.contentSize = self.view.bounds.size;
+    // set up scroll view to see all forms
+    CGFloat contentHeight = numForms*100 + 100;
+    CGSize scrollContent = CGSizeMake(self.scrollView.contentSize.width, contentHeight);
+    [self.scrollView setContentSize:scrollContent];
+
 }
 
 -(void)editButtonClick:(UIButton*)sender

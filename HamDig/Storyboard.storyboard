@@ -118,15 +118,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" id="eVc-v4-guR">
-                                <rect key="frame" x="0.0" y="123" width="768" height="901"/>
+                                <rect key="frame" x="0.0" y="114" width="768" height="910"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <inset key="contentInset" minX="0.0" minY="30" maxX="0.0" maxY="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="contentInset" minX="0.0" minY="20" maxX="0.0" maxY="10"/>
                                 <connections>
                                     <outlet property="delegate" destination="iMc-EH-bRr" id="2kq-Tg-Hqv"/>
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.71895118849999995" green="0.81592700620000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
