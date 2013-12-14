@@ -69,10 +69,19 @@ POPOVER STUFF - now with saving when popover closes!
     self.lastTappedButton = nil;
     
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-
-    areaDescription.text = theLevelFormObject.areaDescription;
+    if ([theLevelFormObject.areaDescription  isEqualToString: @"OTHER"]){
+        NSLog(@"OTHER");
+    }
+    else
+        areaDescription.text = theLevelFormObject.areaDescription;
+ 
+    if ([theLevelFormObject.excavationInterval isEqualToString:@"OTHER"]){
+        NSLog(@"OTHER");
+    }
+    else
+        excavationInterval.text = theLevelFormObject.excavationInterval;
+    
     screenSize.text = theLevelFormObject.screenSize;
-    excavationInterval.text = theLevelFormObject.excavationInterval;
     
     NSLog(@"Dismissed Popover");
 }
@@ -206,9 +215,6 @@ POPOVER STUFF - now with saving when popover closes!
     theLevelFormObject.verticalDatumID = verticalDatumID.text;
     theLevelFormObject.datumStringElevation = datumStringElevation.text;
     
-    areaDescription.text = theLevelFormObject.areaDescription;
-    screenSize.text = theLevelFormObject.screenSize;
-    excavationInterval.text = theLevelFormObject.excavationInterval;
    
     // Fill dictionary for each form...
     
@@ -353,78 +359,7 @@ POPOVER STUFF - now with saving when popover closes!
         }
     }
 }
-/*
-///////////////////Picker Views//////////////////
 
-//// returns the number of columns to display in picker view.
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
-    if (pickerView == areaPicker)
-        return 2;
-    else
-        return 1;
-}
-
-//// returns the # of rows in each component of a picker view.
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    if (pickerView == areaPicker){
-        if (component == 0)
-            return [self.areaTypeArray count];
-        else
-            return [self.areaNumArray count];
-    }
-    else if (pickerView == screenSizePicker)
-        return [self.screenSizeArray count];
-    
-    else if (pickerView == excavationIntervalPicker)
-        return [self.excavationIntervalArray count];
-    
-    return 0;
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    if (pickerView == areaPicker){
-        if (component == 0)
-            return [self.areaTypeArray objectAtIndex:row];
-        else
-            return [self.areaNumArray objectAtIndex:row];
-    }
-    
-    else if (pickerView == screenSizePicker)
-        return [self.screenSizeArray objectAtIndex:row];
-    
-    else if (pickerView == excavationIntervalPicker)
-        return [self.excavationIntervalArray objectAtIndex:row];
-    
-    return @"";
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    if (pickerView == areaPicker){
-        if ([[self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            areaDescription.text = @"OTHER";
-        }
-        else{
-            theLevelFormObject.areaDescription = [NSString stringWithFormat: @"%@ %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
-        }
-    }
-    else if (pickerView == screenSizePicker){
-        theLevelFormObject.screenSize = [self.screenSizeArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-    }
-    else if (pickerView == excavationIntervalPicker){
-        if ([[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            excavationInterval.text = @"OTHER";
-        }
-        else{
-            theLevelFormObject.excavationInterval= [self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-        }
-    }
-}
-*/
 // allows fields hidden by the keyboard to become visible. (not sure if works as well with popover windows...?)
 - (void)keyboardWillShow:(NSNotification*)aNotification
 {

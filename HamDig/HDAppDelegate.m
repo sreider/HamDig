@@ -80,6 +80,8 @@ NSMutableDictionary * dictCopy;
     NSLog(@"%@", newAllForms);
     
     allForms = newAllForms;
+    NSLog(@"%hhd", [allForms isKindOfClass:[NSMutableArray class]]);
+    NSLog(@"%i", allForms.count);
     
     return TRUE;
 

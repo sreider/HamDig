@@ -94,24 +94,24 @@
 {
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     if (pickerView == areaPicker){
-        //if ([[self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            //areaDescription.text = @"OTHER";
-        //}
-        //else{
+        if ([[self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]] isEqual: @"--OTHER--"]){
+            theLevelFormObject.areaDescription = @"OTHER";
+        }
+       else{
             theLevelFormObject.areaDescription = [NSString stringWithFormat: @"%@ %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
-        //}
+        }
     }
     
     else if (pickerView == screenSizePicker){
         theLevelFormObject.screenSize = [self.screenSizeArray objectAtIndex:[pickerView selectedRowInComponent:0]];
     }
     else if (pickerView == excavationPicker){
-        //if ([[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-        //    excavationInterval.text = @"OTHER";
-        //}
-        //else{
+        if ([[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
+            theLevelFormObject.excavationInterval = @"OTHER";
+        }
+        else{
             theLevelFormObject.excavationInterval= [self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-        //}
+        }
     }
     
 }
