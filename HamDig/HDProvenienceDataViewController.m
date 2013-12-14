@@ -152,12 +152,6 @@ POPOVER STUFF - now with saving when popover closes!
     else{
         self.excavators = [[NSMutableArray alloc] init];
     }
- /*
-    self.areaNumArray = [[NSArray alloc] initWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", nil];
-    self.areaTypeArray = [[NSArray alloc] initWithObjects: @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
-    self.screenSizeArray = [[NSArray alloc] initWithObjects: @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
-    self.excavationIntervalArray = [[NSArray alloc] initWithObjects:@"5 cm", @"10 cm", @"15 cm", @"--OTHER--", nil];
-*/
     // for use when calling/dismissing keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -191,6 +185,14 @@ POPOVER STUFF - now with saving when popover closes!
     self.datePopover = [[UIPopoverController alloc] initWithContentViewController:dateContent];
     self.datePopover.delegate = self;
     
+    // wonder if this works?
+    NSDate *today = [[NSDate alloc] init];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterLongStyle];
+    NSString *stringFromDate = [formatter stringFromDate:today];
+    dateField.text = stringFromDate;
+
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -225,9 +227,9 @@ POPOVER STUFF - now with saving when popover closes!
     theLevelFormObject.verticalDatumID = verticalDatumID.text;
     theLevelFormObject.datumStringElevation = datumStringElevation.text;
     
-    areaDescription.text = theLevelFormObject.areaDescription;
-    screenSize.text = theLevelFormObject.screenSize;
-    excavationInterval.text = theLevelFormObject.excavationInterval;
+    //areaDescription.text = theLevelFormObject.areaDescription;
+    //screenSize.text = theLevelFormObject.screenSize;
+    //excavationInterval.text = theLevelFormObject.excavationInterval;
    
     // Fill dictionary for each form...
     

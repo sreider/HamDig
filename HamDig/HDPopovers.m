@@ -49,6 +49,7 @@
     
     self.stratumArray = [[NSArray alloc] initWithObjects: @" ", @"I", @"II", @"III", @"IV", @"V", @"VI", @"VII", @"VIII", @"IX", @"X", @"XI", @"XII", @"XIII", @"XIV", @"XV", @"XVI", @"XVII", @"XVIII", @"XIX", @"XX", @"XXI" @"XXII", @"XXIII", @"XXIV", @"XXV", @"XXVI", @"XXVII", @"XXVIII", @"XXIX", @"XXX", nil];
     self.stratumAppendArray = [[NSArray alloc] initWithObjects: @" ", @"- 1", @"- 2", @"- 3", @"- 4", @"- 5", @"- 6", @"- 7", @"- 8", @"- 9", nil];
+    
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -114,29 +115,18 @@
 {
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     if (pickerView == areaPicker){
-        //if ([[self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            //areaDescription.text = @"OTHER";
-        //}
-        //else{
             theLevelFormObject.areaDescription = [NSString stringWithFormat: @"%@ %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
-        //}
     }
     else if (pickerView == stratumPicker){
         theLevelFormObject.stratum = [NSString stringWithFormat:@"%@ %@", [self.stratumArray objectAtIndex:[pickerView selectedRowInComponent:0]], [self.stratumAppendArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
     }
     
-    
     else if (pickerView == screenSizePicker){
         theLevelFormObject.screenSize = [self.screenSizeArray objectAtIndex:[pickerView selectedRowInComponent:0]];
     }
     else if (pickerView == excavationPicker){
-        //if ([[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-        //    excavationInterval.text = @"OTHER";
-        //}
-        //else{
             theLevelFormObject.excavationInterval= [self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]];
-        //}
-    }
+    }       
     
 }
 

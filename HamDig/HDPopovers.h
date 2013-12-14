@@ -15,5 +15,7 @@
     IBOutlet UIPickerView *screenSizePicker;
     
     IBOutlet UIPickerView *stratumPicker;
+    IBOutlet UIDatePicker *datePicker;
+    
 }
 @end

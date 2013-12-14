@@ -225,7 +225,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="view" destination="3AG-eP-s6E" id="UNZ-bw-NSU"/>
+                        <outlet property="datePicker" destination="3AG-eP-s6E" id="9Sv-s4-Ehu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uWj-YF-bbv" userLabel="First Responder" sceneMemberID="firstResponder"/>
