@@ -142,7 +142,7 @@ POPOVER STUFF - now with saving when popover closes!
         // prepopulating here
         stratum.text = [currentDict objectForKey:@"stratum"];
         stratumLevel.text = [currentDict objectForKey:@"stratumLevel"];
-        //datePicker.date = [currentDict objectForKey:@"date"];
+        //dateField.text = [currentDict objectForKey:@"date"];
         level.text = [currentDict objectForKey:@"level"];
         totalLevels.text = [currentDict objectForKey:@"totalLevels"];
         areaDescription.text = [currentDict objectForKey:@"areaDescription"];
@@ -163,9 +163,29 @@ POPOVER STUFF - now with saving when popover closes!
             self.excavatorLoc += 35;
             excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
         }
+        // prepopulating the date
+        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+        [format setDateFormat:@"yyyy-MM-dd"];
+        NSDate *date = [[NSDate alloc] init];
+        NSString *dateStr = [currentDict objectForKey:@"date"];
+        date = [format dateFromString: dateStr];
+        NSLog(@"date: %@", date);
+        //NSDate *today = [[NSDate alloc] init];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterLongStyle];
+        NSString *stringFromDate = [formatter stringFromDate:date];
+        dateField.text = stringFromDate;
+        
     }
     else{
         self.excavators = [[NSMutableArray alloc] init];
+        NSDate *today = [[NSDate alloc] init];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterLongStyle];
+        NSString *stringFromDate = [formatter stringFromDate:today];
+        dateField.text = stringFromDate;
+        
+
     }
     // for use when calling/dismissing keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -200,13 +220,13 @@ POPOVER STUFF - now with saving when popover closes!
     self.datePopover = [[UIPopoverController alloc] initWithContentViewController:dateContent];
     self.datePopover.delegate = self;
     
-    // wonder if this works?
+/*    // sets dateField to current date
     NSDate *today = [[NSDate alloc] init];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterLongStyle];
     NSString *stringFromDate = [formatter stringFromDate:today];
     dateField.text = stringFromDate;
-
+*/
 
 }
 
@@ -230,7 +250,7 @@ POPOVER STUFF - now with saving when popover closes!
     theLevelFormObject.stratumLevel = stratumLevel.text;
 
     theLevelFormObject.date = (NSString*)datePicker.date;
-   
+ //   theLevelFormObject.date = dateField.text;
         
         
     theLevelFormObject.level = level.text;
@@ -264,12 +284,16 @@ POPOVER STUFF - now with saving when popover closes!
         [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text   forKey:@"excavationInterval"];
         [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
     
+   //     [theLevelFormObject.theNewLevelForm setObject:dateField.text forKey:@"date"];
+        
         // date to string -SR
+        
         NSDate *d = datePicker.date;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *stringFromDate = [formatter stringFromDate:d];
         [theLevelFormObject.theNewLevelForm setObject:stringFromDate forKey:@"date"];
+         
     }
     
     else{
@@ -295,12 +319,16 @@ POPOVER STUFF - now with saving when popover closes!
         [currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
         [currentDict setObject:screenSize.text forKey:@"screenSize"];
         
+    //    [theLevelFormObject.theNewLevelForm setObject:dateField.text forKey:@"date"];
+        
         // date to string -SR
+        
         NSDate *d = datePicker.date;
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *stringFromDate = [formatter stringFromDate:d];
         [currentDict setObject:stringFromDate forKey:@"date"];
+         
     }
 
     // used by Jen's keyboard stuff
