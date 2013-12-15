@@ -34,6 +34,7 @@
 
 @property bool areaFlag;
 @property bool intervalFlag;
+@property (nonatomic, strong) NSMutableDictionary * currentDict;
 
 @end
 
@@ -65,43 +66,43 @@ POPOVER STUFF - now with saving when popover closes!
  */
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     if (self.lastTappedButton == areaDescription){
-        if ([theLevelFormObject.areaDescription  isEqualToString: @"OTHER"]){
+        if ([[self.currentDict objectForKey:@"areaDescription"]  isEqualToString: @"OTHER"]){
             self.areaFlag = 1;
             [areaDescription becomeFirstResponder];
         }
         else
-            areaDescription.text = theLevelFormObject.areaDescription;
+            areaDescription.text = [self.currentDict objectForKey:@"areaDescription"];
     }
     else if (self.lastTappedButton == excavationInterval){
-        if ([theLevelFormObject.excavationInterval isEqualToString:@"OTHER"]){
+        if ([[self.currentDict objectForKey:@"excavationInterval"] isEqualToString:@"OTHER"]){
             self.intervalFlag =1;
             [excavationInterval becomeFirstResponder];
         }
         else
-            excavationInterval.text = theLevelFormObject.excavationInterval;
+            excavationInterval.text = [self.currentDict objectForKey:@"excavationInterval"];
     }
-    screenSize.text = theLevelFormObject.screenSize;
-    stratum.text = theLevelFormObject.stratum;
+    else if (self.lastTappedButton == dateField){
+        NSDateFormatter *toDateForm = [[NSDateFormatter alloc] init];
+        [toDateForm setDateFormat:@"yyyy'-'MM'-'dd"];
+        NSString *dateStr = [self.currentDict objectForKey:@"date"];
+        NSDate *date = [toDateForm dateFromString: dateStr];
+        NSLog(@"date: %@", date);
+        
+        // formating the date to read nicely [monthName, day, year]
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterLongStyle];
+        NSString *stringFromDate = [formatter stringFromDate:date];
+        dateField.text = stringFromDate;
+    }
+    else if (self.lastTappedButton == stratum){
+        stratum.text = [self.currentDict objectForKey:@"stratum"];
+    }
+    screenSize.text = [self.currentDict objectForKey:@"screenSize"];
     NSLog(@"Dismissed Popover");
 
-    NSDateFormatter *toDateForm = [[NSDateFormatter alloc] init];
-    [toDateForm setDateFormat:@"yyyy'-'MM'-'dd"];
-    NSString *dateStr = theLevelFormObject.date;
-    NSDate *date = [toDateForm dateFromString: dateStr];
-    NSLog(@"date: %@", date);
-    
-    // formating the date to read nicely [monthName, day, year]
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterLongStyle];
-    NSString *stringFromDate = [formatter stringFromDate:date];
-    dateField.text = stringFromDate;
-
-    
     self.lastTappedButton = nil;
-    
-    
 }
 
 // four different showPopovers for the four different windows
@@ -143,33 +144,43 @@ POPOVER STUFF - now with saving when popover closes!
     // I know this is a mess but I'll clean this up later!! This was just a rushed example          -ES
     
     [super viewDidLoad];
+    NSLog(@"LOAD");
    
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//    if (appDelegate.currentlyEditing){
+//        int i = appDelegate.currentDictIndex;
+//        self.currentDict = [appDelegate.allForms objectAtIndex:i];
+//    }
+//    else{
+//        self.currentDict = theLevelFormObject.theNewLevelForm;
+//    }
+    
     if (appDelegate.currentlyEditing) {
         NSLog(@"Editing flag is on");
         int i = appDelegate.currentDictIndex;
-        NSMutableDictionary *currentDict = [appDelegate.allForms objectAtIndex:i];
+        self.currentDict = [appDelegate.allForms objectAtIndex:i];
         // save the form's title
-        NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
+        NSString *currentTitle = [self.currentDict objectForKey:@"formTitle"];
         //NSLog(@"Editing form with");
         NSLog(@"Editing: %@", currentTitle);
         
         // prepopulating here
-        stratum.text = [currentDict objectForKey:@"stratum"];
-        stratumLevel.text = [currentDict objectForKey:@"stratumLevel"];
+        stratum.text = [self.currentDict objectForKey:@"stratum"];
+        stratumLevel.text = [self.currentDict objectForKey:@"stratumLevel"];
         
-        level.text = [currentDict objectForKey:@"level"];
-        totalLevels.text = [currentDict objectForKey:@"totalLevels"];
-        areaDescription.text = [currentDict objectForKey:@"areaDescription"];
-        unitEasting.text = [currentDict objectForKey:@"unitEasting"];
-        unitNorthing.text = [currentDict objectForKey:@"unitNorthing"];
-        unitSizeX.text = [currentDict objectForKey:@"unitSizeX"];
-        unitSizeY.text = [currentDict objectForKey:@"unitSizeY"];
-        verticalDatumID.text = [currentDict objectForKey:@"verticalDatumID"];
-        datumStringElevation.text = [currentDict objectForKey:@"datumStringElevation"];
-        excavationInterval.text = [currentDict objectForKey:@"excavationInterval"];
-        screenSize.text = [currentDict objectForKey:@"screenSize"];
-        self.excavators = [currentDict objectForKey:@"excavators"];
+        level.text = [self.currentDict objectForKey:@"level"];
+        totalLevels.text = [self.currentDict objectForKey:@"totalLevels"];
+        areaDescription.text = [self.currentDict objectForKey:@"areaDescription"];
+        unitEasting.text = [self.currentDict objectForKey:@"unitEasting"];
+        unitNorthing.text = [self.currentDict objectForKey:@"unitNorthing"];
+        unitSizeX.text = [self.currentDict objectForKey:@"unitSizeX"];
+        unitSizeY.text = [self.currentDict objectForKey:@"unitSizeY"];
+        verticalDatumID.text = [self.currentDict objectForKey:@"verticalDatumID"];
+        datumStringElevation.text = [self.currentDict objectForKey:@"datumStringElevation"];
+        excavationInterval.text = [self.currentDict objectForKey:@"excavationInterval"];
+        screenSize.text = [self.currentDict objectForKey:@"screenSize"];
+        self.excavators = [self.currentDict objectForKey:@"excavators"];
         self.excavatorLoc = 0;
         excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc + 35);
         for (int i=0; i<[self.excavators count]; i++) {
@@ -182,21 +193,22 @@ POPOVER STUFF - now with saving when popover closes!
         NSDateFormatter *format = [[NSDateFormatter alloc] init];
         [format setDateFormat:@"yyyy-MM-dd"];
         NSDate *date = [[NSDate alloc] init];
-        NSString *dateStr = [currentDict objectForKey:@"date"];
+        NSString *dateStr = [self.currentDict objectForKey:@"date"];
         date = [format dateFromString: dateStr];
         NSLog(@"date: %@", date);
         // formating the date to read nicely [monthName, day, year]
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterLongStyle];
         NSString *stringFromDate = [formatter stringFromDate:date];
+        
         dateField.text = stringFromDate;
-        
-        
-        
     }
-    else{
-        HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
 
+
+    else{
+//        HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+        
+        self.currentDict = theLevelFormObject.theNewLevelForm;
         self.excavators = [[NSMutableArray alloc] init];
         
         //prepopulate date field with current date
@@ -210,8 +222,9 @@ POPOVER STUFF - now with saving when popover closes!
         NSDateFormatter *dictForm = [[NSDateFormatter alloc] init];
         [dictForm setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *dictDate = [dictForm stringFromDate:today];
-        theLevelFormObject.date= dictDate;
-        
+        //theLevelFormObject.date= dictDate;
+        [self.currentDict setObject:dictDate forKey:@"date"];
+
 
         
 
@@ -259,18 +272,18 @@ POPOVER STUFF - now with saving when popover closes!
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
-    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-        
-    theLevelFormObject.stratumLevel = stratumLevel.text;
-    theLevelFormObject.level = level.text;
-    theLevelFormObject.totalLevels = totalLevels.text;
-    theLevelFormObject.unitEasting = unitEasting.text;
-    theLevelFormObject.unitNorthing = unitNorthing.text;
-    theLevelFormObject.unitSizeX = unitSizeX.text;
-    theLevelFormObject.unitSizeY = unitSizeY.text;
-    theLevelFormObject.verticalDatumID = verticalDatumID.text;
-    theLevelFormObject.datumStringElevation = datumStringElevation.text;
+//    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+//    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//        
+//    theLevelFormObject.stratumLevel = stratumLevel.text;
+//    theLevelFormObject.level = level.text;
+//    theLevelFormObject.totalLevels = totalLevels.text;
+//    theLevelFormObject.unitEasting = unitEasting.text;
+//    theLevelFormObject.unitNorthing = unitNorthing.text;
+//    theLevelFormObject.unitSizeX = unitSizeX.text;
+//    theLevelFormObject.unitSizeY = unitSizeY.text;
+//    theLevelFormObject.verticalDatumID = verticalDatumID.text;
+//    theLevelFormObject.datumStringElevation = datumStringElevation.text;
     
     if (textField == areaDescription)
         self.areaFlag = 0;
@@ -278,58 +291,53 @@ POPOVER STUFF - now with saving when popover closes!
         self.intervalFlag = 0;
     
     // Fill dictionary for each form...
-    if (!appDelegate.currentlyEditing){
-        [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
-        [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
-        [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
-        [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
-        [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
-        [theLevelFormObject.theNewLevelForm setObject:unitEasting.text forKey:@"unitEasting"];
-        [theLevelFormObject.theNewLevelForm setObject:unitNorthing.text forKey:@"unitNorthing"];
-        [theLevelFormObject.theNewLevelForm setObject:unitSizeX.text forKey:@"unitSizeX"];
-        [theLevelFormObject.theNewLevelForm setObject:unitSizeY.text forKey:@"unitSizeY"];
-        [theLevelFormObject.theNewLevelForm setObject:verticalDatumID.text forKey:@"verticalDatumID"];
-        [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
-        [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text   forKey:@"excavationInterval"];
-        [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
-
-        // this big ugly thing gets the date from the dateField and converts it into the format for the dictionary -JB
-        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-        [format setDateFormat:@"MMM dd, yyyy"];
-        NSDate *date = [[NSDate alloc] init];
-        date = [format dateFromString: dateField.text];
-        // formating the date for the dictionary
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
-        NSString *stringFromDate = [formatter stringFromDate:date];
-        NSLog(@"%@ date put in dictionary", stringFromDate);
-        [theLevelFormObject.theNewLevelForm setObject:stringFromDate forKey:@"date"];
-
-    }
-    
-    else{
-        int i = appDelegate.currentDictIndex;
-        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
-        [currentDict setObject:stratum.text forKey:@"stratum"];
-        [currentDict setObject:stratumLevel.text forKey:@"stratumLevel"];
-        // HERE: date picker not working for prepopulating
-        // not sure how to prepopulate datePicker, any thoughts?     -ES
-        
-        //[currentDict setObject:(NSString*)datePicker.date forKey:@"date"];
-        
-        
-        [currentDict setObject:level.text forKey:@"level"];
-        [currentDict setObject:totalLevels.text forKey:@"totalLevels"];
-        [currentDict setObject:areaDescription.text forKey:@"areaDescription"];
-        [currentDict setObject:unitEasting.text forKey:@"unitEasting"];
-        [currentDict setObject:unitNorthing.text forKey:@"unitNorthing"];
-        [currentDict setObject:unitSizeX.text forKey:@"unitSizeX"];
-        [currentDict setObject:unitSizeY.text forKey:@"unitSizeY"];
+//    if (!appDelegate.currentlyEditing){
+//        
+//        [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
+//        [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
+//        [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
+//        [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
+//        [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
+//        [theLevelFormObject.theNewLevelForm setObject:unitEasting.text forKey:@"unitEasting"];
+//        [theLevelFormObject.theNewLevelForm setObject:unitNorthing.text forKey:@"unitNorthing"];
+//        [theLevelFormObject.theNewLevelForm setObject:unitSizeX.text forKey:@"unitSizeX"];
+//        [theLevelFormObject.theNewLevelForm setObject:unitSizeY.text forKey:@"unitSizeY"];
+//        [theLevelFormObject.theNewLevelForm setObject:verticalDatumID.text forKey:@"verticalDatumID"];
+//        [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
+//        [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text   forKey:@"excavationInterval"];
+//        [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
+//
+//        // this big ugly thing gets the date from the dateField and converts it into the format for the dictionary -JB
+//        NSDateFormatter *format = [[NSDateFormatter alloc] init];
+//        [format setDateFormat:@"MMM dd, yyyy"];
+//        NSDate *date = [[NSDate alloc] init];
+//        date = [format dateFromString: dateField.text];
+//        // formating the date for the dictionary
+//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//        [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
+//        NSString *stringFromDate = [formatter stringFromDate:date];
+//        NSLog(@"%@ date put in dictionary", stringFromDate);
+//        [theLevelFormObject.theNewLevelForm setObject:stringFromDate forKey:@"date"];
+//
+//    }
+//    
+//    else{
+//        int i = appDelegate.currentDictIndex;
+//        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        [self.currentDict setObject:stratum.text forKey:@"stratum"];
+        [self.currentDict setObject:stratumLevel.text forKey:@"stratumLevel"];
+        [self.currentDict setObject:level.text forKey:@"level"];
+        [self.currentDict setObject:totalLevels.text forKey:@"totalLevels"];
+        [self.currentDict setObject:areaDescription.text forKey:@"areaDescription"];
+        [self.currentDict setObject:unitEasting.text forKey:@"unitEasting"];
+        [self.currentDict setObject:unitNorthing.text forKey:@"unitNorthing"];
+        [self.currentDict setObject:unitSizeX.text forKey:@"unitSizeX"];
+        [self.currentDict setObject:unitSizeY.text forKey:@"unitSizeY"];
         // HERE: still need to prepopulate excavators       -ES
-        [currentDict setObject:verticalDatumID.text forKey:@"verticalDatumID"];
-        [currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
-        [currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
-        [currentDict setObject:screenSize.text forKey:@"screenSize"];
+        [self.currentDict setObject:verticalDatumID.text forKey:@"verticalDatumID"];
+        [self.currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
+        [self.currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
+        [self.currentDict setObject:screenSize.text forKey:@"screenSize"];
 
         // this big ugly thing gets the date from the dateField and converts it into the format for the dictionary -JB        
         NSDateFormatter *format = [[NSDateFormatter alloc] init];
@@ -340,7 +348,9 @@ POPOVER STUFF - now with saving when popover closes!
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *stringFromDate = [formatter stringFromDate:date];
-        [theLevelFormObject.theNewLevelForm setObject:stringFromDate forKey:@"date"];    }
+        [self.currentDict setObject:stringFromDate forKey:@"date"];
+
+//}
 
     // used by Jen's keyboard stuff
     self.activeField = nil;
@@ -355,12 +365,15 @@ POPOVER STUFF - now with saving when popover closes!
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+   // HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     NSLog(@"%i", self.areaFlag);
-    if (textField == areaDescription && [theLevelFormObject.areaDescription isEqualToString:@"OTHER"] && self.areaFlag == 1) {
+    NSString * areaText = [self.currentDict objectForKey:@"areaDescription"];
+    NSString * intervalText = [self.currentDict objectForKey:@"excavationInterval"];
+
+    if (textField == areaDescription && [areaText isEqualToString:@"OTHER"] && self.areaFlag == 1) {
         self.intervalFlag = 0;
     }
-    else if (textField == excavationInterval && [theLevelFormObject.excavationInterval isEqualToString:@"OTHER"] && self.intervalFlag == 1){
+    else if (textField == excavationInterval && [intervalText isEqualToString:@"OTHER"] && self.intervalFlag == 1){
         self.intervalFlag = 0;
     }
     else if (textField == areaDescription || textField == screenSize || textField == excavationInterval || textField == stratum || textField == dateField){
