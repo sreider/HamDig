@@ -136,18 +136,13 @@
     // performs the same segue as the "New Form" button on the Main Menu
     //      Needed to add an identifier to the segue in storyboard under attributes inspector
     [self performSegueWithIdentifier:@"newFormSegue" sender:self];
-
-//    [self presentViewController:myController animated:YES completion:Nil];
     
 }
 
 -(void)deleteButtonClick:(UIButton*)sender
 {
-    //[(UIButton *)[self.scrollView viewWithTag:sender.tag] setBackgroundColor:[UIColor cyanColor]];
-    
-    // to get the global flag currentlyEditing and set it to true
+
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-//    appDelegate.currentlyEditing = ;
     
     // save the index of the dict
     appDelegate.currentDictIndex = sender.tag - 1;
@@ -155,9 +150,6 @@
     
     NSLog(@"dict index: %d", i);
     
-    //NSMutableArray * formsToDelete = [NSMutableArray array];
-    //NSMutableDictionary * formToDelete = [NSMutableDictionary dictionary];
-    //[formsToDelete addObject:formsToDelete];
     
     int arraySize = appDelegate.allForms.count;
     
@@ -176,33 +168,45 @@
     else{
         NSLog(@"everything has been deleted");
     }
-    NSLog(@"size of allforms is now: %d", appDelegate.allForms.count);
+
     
-//    for (int k = 0; k<arraySize; k++) {
-  //      [[self.formTitles objectAtIndex:k] removeFromSuperview];
-    //    [[self.editButtons objectAtIndex:k] removeFromSuperview];
-      //  [[self.deleteButtons objectAtIndex:k] removeFromSuperview];
-    //}
+    // update array size because items have now been removed
+    arraySize = appDelegate.allForms.count;
     
-//    int x = -1;
-  //  for (int j = 0; j<arraySize; j++) {
-    //    for (int k = 0; k<3; k++) {
-            
-      //  }
-    //}
+    // reset all the tag for edit and delete buttons
+    for (int k = 0; k<arraySize; k++) {
+        // tags are always 1 more than the index
+        [[self.editButtons objectAtIndex:k] setTag:k+1];
+        [[self.deleteButtons objectAtIndex:k] setTag:k+1];
+        
+        UILabel *currentTitle = [self.formTitles objectAtIndex:k];
+        //[currentTitle setTextColor: [UIColor redColor]];
+        NSLog(@"%@", [currentTitle text]);
+    }
     
-  
+    for (int j = i; j<arraySize; j++) {
+        // move the form title up
+        UILabel *currentTitle = [self.formTitles objectAtIndex:j];
+        //[currentTitle setTextColor: [UIColor redColor]];
+        //NSLog(@"%@", [currentTitle text]);
+        CGRect textFieldFrame = currentTitle.frame;
+        textFieldFrame.origin.y -= 100;
+        currentTitle.frame = textFieldFrame;
+        
+        // move edit buttons up
+        UIButton *currentEditButton = [self.editButtons objectAtIndex:j];
+        CGRect editButtonFrame = currentEditButton.frame;
+        editButtonFrame.origin.y -= 100;
+        currentEditButton.frame = editButtonFrame;
+        
+        // move delete buttons up
+        UIButton *currentDeleteButton = [self.deleteButtons objectAtIndex:j];
+        CGRect deleteButtonFrame = currentDeleteButton.frame;
+        deleteButtonFrame.origin.y -= 100;
+        currentDeleteButton.frame = deleteButtonFrame;
+    }
+
     
-    //[self viewDidLoad];
-    
-    // save a deep copy of the dictionary to use when user clicks menu      -ES
-    //NSMutableDictionary * cp = [appDelegate.allForms objectAtIndex:i];
-    //appDelegate.dictCopy = [NSMutableDictionary dictionaryWithDictionary:cp];
-    
-    
-    // performs the same segue as the "New Form" button on the Main Menu
-    //      Needed to add an identifier to the segue in storyboard under attributes inspector
-    //[self performSegueWithIdentifier:@"newFormSegue" sender:self];
     
 }
 
