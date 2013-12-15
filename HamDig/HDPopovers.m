@@ -159,6 +159,21 @@
     [self.currentDict setObject:stringFromDate forKey:@"date"];
 }
 
+
+
+
+- (IBAction)dismissDelete:(id)sender {
+    [sender popoverControllerShouldDismissPopover:self];
+    
+}
+
+- (IBAction)deleteForm:(id)sender {
+    
+}
+
+
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
