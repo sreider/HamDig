@@ -48,18 +48,6 @@
 	return theLevelFormObject;
 }
 
-- (IBAction)saveForm:(id)sender {
-    
-    /* I think this should be moved to a new view controller file for the
-     real save button that shows up on the popover. The save buttons on the
-     provenience form and others just opens up the popover. Shouldn't the real
-     work be done in that popover? */
-    
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    
-    [theLevelFormObject save];
-}
-
 /*
 POPOVER STUFF - now with saving when popover closes!
  */

@@ -153,7 +153,8 @@
     // save a deep copy of the dictionary to use when user clicks menu      -ES
     NSMutableDictionary * cp = [appDelegate.allForms objectAtIndex:i];
     appDelegate.dictCopy = [NSMutableDictionary dictionaryWithDictionary:cp];
-    
+
+
     
     // performs the same segue as the "New Form" button on the Main Menu
     //      Needed to add an identifier to the segue in storyboard under attributes inspector

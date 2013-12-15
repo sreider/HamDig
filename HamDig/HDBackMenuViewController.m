@@ -37,9 +37,8 @@
     if (appDelegate.currentlyEditing){
         appDelegate.currentlyEditing = FALSE;
         int i = appDelegate.currentDictIndex;
-        NSMutableDictionary *currentDict = [appDelegate.allForms objectAtIndex:i];
-        currentDict = appDelegate.dictCopy;
-        [appDelegate.allForms setObject:currentDict atIndexedSubscript:i];
+
+        [appDelegate.allForms setObject:appDelegate.dictCopy atIndexedSubscript:i];
     }
 }
 

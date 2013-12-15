@@ -163,7 +163,7 @@
 
 
 - (IBAction)dismissDelete:(id)sender {
-    [sender popoverControllerShouldDismissPopover:self];
+    //[sender popoverControllerShouldDismissPopover:self];
     
 }
 

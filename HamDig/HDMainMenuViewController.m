@@ -69,11 +69,7 @@
     [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"features"];
     [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"samples"];
     [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"excavators"];
-    theLevelFormObject.excavators = [[NSMutableArray alloc] init];
-    theLevelFormObject.artifacts = [[NSMutableArray alloc] init];
-    theLevelFormObject.samples = [[NSMutableArray alloc] init];
-    theLevelFormObject.features = [[NSMutableArray alloc] init];
- 
+
     [super viewDidLoad];
 }
 
