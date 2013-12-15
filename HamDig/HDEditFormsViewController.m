@@ -11,6 +11,7 @@
 #import "HDAppDelegateProtocol.h"
 #import "HDAppDelegate.h"
 #import "HDTabFormViewController.h"
+#include "HDPopovers.h"
 
 @interface HDEditFormsViewController ()
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
@@ -18,6 +19,8 @@
 @property NSMutableArray *editButtons;
 @property NSMutableArray *formTitles;
 @property NSMutableArray *deleteButtons;
+
+@property (nonatomic, strong) UIPopoverController *deleteConformation;
 
 @end
 
@@ -92,11 +95,16 @@
         // background color
         deleteForm.backgroundColor = [UIColor purpleColor];
         // title
-        [deleteForm setTitle:@"Delete ME!" forState:UIControlStateNormal];
+        [deleteForm setTitle:@"Delete" forState:UIControlStateNormal];
         // reference to button is index + 1     (because 0 defaults to the viewController so we have to start at 1)   -ES
         // this means the index of the button is one more than it's corresponding index for the form/dictionary
         deleteForm.tag = i+1;
         // add button action to each button
+        
+        
+        /// CALL POPOVER - COMMENTED OUT BECAUSE BROKENNN
+//        [deleteForm addTarget:self action:@selector(showPopover:) forControlEvents:UIControlEventTouchUpInside];
+        
         [deleteForm addTarget:self action:@selector(deleteButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:deleteForm];
 
@@ -107,12 +115,18 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    HDPopovers *confirm = [self.storyboard instantiateViewControllerWithIdentifier:@"deleteConfirm"];
+    self.deleteConformation = [[UIPopoverController alloc] initWithContentViewController:confirm];
+    self.deleteConformation.delegate = self;
+    
     // set up scroll view to see all forms
     CGFloat contentHeight = numForms*100 + 100;
     CGSize scrollContent = CGSizeMake(self.scrollView.contentSize.width, contentHeight);
     [self.scrollView setContentSize:scrollContent];
 
 }
+
+
 
 -(void)editButtonClick:(UIButton*)sender
 {
@@ -209,6 +223,15 @@
     
     
 }
+
+
+///// Popover window for confirming delete -JB /////
+- (void)showPopover:(UIButton*)sender {
+    UIButton *tappedButton = (UIButton *) sender;
+    [self.deleteConformation presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+
 
 - (void)didReceiveMemoryWarning
 {

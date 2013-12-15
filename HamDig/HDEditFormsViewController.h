@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HDEditFormsViewController : UIViewController
+@interface HDEditFormsViewController : UIViewController <UIPopoverControllerDelegate, UIScrollViewDelegate>
 //@property (strong, nonatomic) IBOutlet UITextField *testField;
 @property (strong, nonatomic) NSString *tester;
 
