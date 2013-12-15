@@ -18,6 +18,7 @@
 @property NSMutableArray *editButtons;
 @property NSMutableArray *formTitles;
 @property NSMutableArray *deleteButtons;
+@property NSMutableArray *boxes;
 
 @end
 
@@ -55,6 +56,7 @@
     self.deleteButtons = [[NSMutableArray alloc] init];
     self.formTitles = [[NSMutableArray alloc] init];
     self.editButtons = [[NSMutableArray alloc] init];
+    self.boxes = [[NSMutableArray alloc] init];
     
     // loops through array and gets info from each dict         -ES
     for (int i = 0; i<numForms;i++){
@@ -65,12 +67,18 @@
         // display title
         NSLog(@"current title: %@", currentTitle);
         
+        //Displays a box around each form object
+        UIView *box = [[UIView alloc] initWithFrame:CGRectMake(25, 35 + (i *100), 700, 75)];
+        box.backgroundColor = [UIColor brownColor];
+        [self.scrollView addSubview:box];
+        [self.boxes addObject:box];
+        box.tag = i+1;
+        
         // display an edit button ...
-        UIButton *clickToEdit = [[UIButton alloc] initWithFrame:CGRectMake(25, 100 + (i * 100), 100, 50)];
-        // background color
-        clickToEdit.backgroundColor = [UIColor blueColor];
+        UIButton *clickToEdit = [[UIButton alloc] initWithFrame:CGRectMake(25, 35 + (i * 100), 100, 75)];
+
         // title
-        [clickToEdit setTitle:@"click to edit" forState:UIControlStateNormal];
+        [clickToEdit setTitle:@"Edit Form" forState:UIControlStateNormal];
         // reference to button is index + 1     (because 0 defaults to the viewController so we have to start at 1)   -ES
         // this means the index of the button is one more than it's corresponding index for the form/dictionary
         clickToEdit.tag = i+1;
@@ -82,17 +90,17 @@
         
         
         // ... along with the title of each form
-        UILabel *formDisplay = [[UILabel alloc] initWithFrame:CGRectMake(200, 100 + (i * 100), 500, 50)];
+        UILabel *formDisplay = [[UILabel alloc] initWithFrame:CGRectMake(200, 50 + (i * 100), 500, 50)];
         formDisplay.text = currentTitle;
         [self.scrollView addSubview:formDisplay];
 
         [self.formTitles addObject:formDisplay];
         
-        UIButton * deleteForm = [[UIButton alloc] initWithFrame:CGRectMake(600, 100 + (i * 100), 100, 50)];
+        UIButton * deleteForm = [[UIButton alloc] initWithFrame:CGRectMake(600, 35 + (i * 100), 100, 75)];
         // background color
-        deleteForm.backgroundColor = [UIColor purpleColor];
+       // deleteForm.backgroundColor = [UIColor brownColor] ;
         // title
-        [deleteForm setTitle:@"Delete ME!" forState:UIControlStateNormal];
+        [deleteForm setTitle:@"Delete Form" forState:UIControlStateNormal];
         // reference to button is index + 1     (because 0 defaults to the viewController so we have to start at 1)   -ES
         // this means the index of the button is one more than it's corresponding index for the form/dictionary
         deleteForm.tag = i+1;
@@ -118,7 +126,7 @@
 {
     
     // example action that turns each button green
-    [(UIButton *)[self.scrollView viewWithTag:sender.tag] setBackgroundColor:[UIColor greenColor]];
+    //[(UIButton *)[self.scrollView viewWithTag:sender.tag] setBackgroundColor:[UIColor greenColor]];
     
     // to get the global flag currentlyEditing and set it to true
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -150,6 +158,7 @@
 //    appDelegate.currentlyEditing = ;
     
     // save the index of the dict
+    //This doesn't work if you delete from the middle of the array.... -LW
     appDelegate.currentDictIndex = sender.tag - 1;
     int i = appDelegate.currentDictIndex;
     
@@ -161,17 +170,19 @@
     
     int arraySize = appDelegate.allForms.count;
     
-    if (arraySize != 0) {
+    if (arraySize > 0) {
         [appDelegate.allForms removeObjectAtIndex:i];
         [sender removeFromSuperview];
         
         [[self.formTitles objectAtIndex:i] removeFromSuperview];
         [[self.editButtons objectAtIndex:i] removeFromSuperview];
         [[self.deleteButtons objectAtIndex:i] removeFromSuperview];
+        [[self.boxes objectAtIndex:i] removeFromSuperview];
         
         [self.formTitles removeObjectAtIndex:i];
         [self.editButtons removeObjectAtIndex:i];
         [self.deleteButtons removeObjectAtIndex:i];
+        [self.boxes removeObjectAtIndex:i];
     }
     else{
         NSLog(@"everything has been deleted");

@@ -17,7 +17,7 @@
 
 // excavators
 @property int excavatorLoc;
-@property NSMutableArray *excavators;
+@property (nonatomic, strong) NSMutableArray *excavators;
 
 // control scroll view for moving view up when keyboard is called
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
@@ -29,7 +29,6 @@
 @property (nonatomic, strong) UIPopoverController *screenSizePopover;
 @property (nonatomic, strong) UIPopoverController *stratumPopover;
 @property (nonatomic, strong) UIPopoverController *datePopover;
-
 @property (nonatomic, strong) id lastTappedButton;
 
 @property bool areaFlag;
@@ -148,13 +147,6 @@ POPOVER STUFF - now with saving when popover closes!
    
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-//    if (appDelegate.currentlyEditing){
-//        int i = appDelegate.currentDictIndex;
-//        self.currentDict = [appDelegate.allForms objectAtIndex:i];
-//    }
-//    else{
-//        self.currentDict = theLevelFormObject.theNewLevelForm;
-//    }
     
     if (appDelegate.currentlyEditing) {
         NSLog(@"Editing flag is on");
@@ -205,10 +197,7 @@ POPOVER STUFF - now with saving when popover closes!
         dateField.text = stringFromDate;
     }
 
-
     else{
-//        HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-        
         self.currentDict = theLevelFormObject.theNewLevelForm;
         self.excavators = [[NSMutableArray alloc] init];
         
@@ -223,13 +212,9 @@ POPOVER STUFF - now with saving when popover closes!
         NSDateFormatter *dictForm = [[NSDateFormatter alloc] init];
         [dictForm setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *dictDate = [dictForm stringFromDate:today];
-        //theLevelFormObject.date= dictDate;
         [self.currentDict setObject:dictDate forKey:@"date"];
-
-
-        
-
     }
+
     // for use when calling/dismissing keyboard
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -240,9 +225,8 @@ POPOVER STUFF - now with saving when popover closes!
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     
-/*
-    Popover instantiation... Basically this creates the popover view somewhat programatically so that it can do stuff when its dismissed
- */
+    //Popover instantiation... Basically this creates the popover view somewhat programatically so that it can do stuff when its dismissed
+ 
     HDPopovers *areaContent = [self.storyboard instantiateViewControllerWithIdentifier:@"areaPopover"];
     self.areaPopover = [[UIPopoverController alloc] initWithContentViewController:areaContent];
     self.areaPopover.delegate = self;
@@ -273,86 +257,37 @@ POPOVER STUFF - now with saving when popover closes!
 - (void)textFieldDidEndEditing:(UITextField *)textField
 //When you finish editing a text field, saves the current values on the page.
 {
-//    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-//    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-//        
-//    theLevelFormObject.stratumLevel = stratumLevel.text;
-//    theLevelFormObject.level = level.text;
-//    theLevelFormObject.totalLevels = totalLevels.text;
-//    theLevelFormObject.unitEasting = unitEasting.text;
-//    theLevelFormObject.unitNorthing = unitNorthing.text;
-//    theLevelFormObject.unitSizeX = unitSizeX.text;
-//    theLevelFormObject.unitSizeY = unitSizeY.text;
-//    theLevelFormObject.verticalDatumID = verticalDatumID.text;
-//    theLevelFormObject.datumStringElevation = datumStringElevation.text;
-    
     if (textField == areaDescription)
         self.areaFlag = 0;
     else if (textField == excavationInterval)
         self.intervalFlag = 0;
     
-    // Fill dictionary for each form...
-//    if (!appDelegate.currentlyEditing){
-//        
-//        [theLevelFormObject.theNewLevelForm setObject:stratum.text forKey:@"stratum"];
-//        [theLevelFormObject.theNewLevelForm setObject:stratumLevel.text forKey:@"stratumLevel"];
-//        [theLevelFormObject.theNewLevelForm setObject:level.text forKey:@"level"];
-//        [theLevelFormObject.theNewLevelForm setObject:totalLevels.text forKey:@"totalLevels"];
-//        [theLevelFormObject.theNewLevelForm setObject:areaDescription.text forKey:@"areaDescription"];
-//        [theLevelFormObject.theNewLevelForm setObject:unitEasting.text forKey:@"unitEasting"];
-//        [theLevelFormObject.theNewLevelForm setObject:unitNorthing.text forKey:@"unitNorthing"];
-//        [theLevelFormObject.theNewLevelForm setObject:unitSizeX.text forKey:@"unitSizeX"];
-//        [theLevelFormObject.theNewLevelForm setObject:unitSizeY.text forKey:@"unitSizeY"];
-//        [theLevelFormObject.theNewLevelForm setObject:verticalDatumID.text forKey:@"verticalDatumID"];
-//        [theLevelFormObject.theNewLevelForm setObject:datumStringElevation.text forKey:@"datumStringElevation"];
-//        [theLevelFormObject.theNewLevelForm setObject:excavationInterval.text   forKey:@"excavationInterval"];
-//        [theLevelFormObject.theNewLevelForm setObject:screenSize.text forKey:@"screenSize"];
-//
-//        // this big ugly thing gets the date from the dateField and converts it into the format for the dictionary -JB
-//        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-//        [format setDateFormat:@"MMM dd, yyyy"];
-//        NSDate *date = [[NSDate alloc] init];
-//        date = [format dateFromString: dateField.text];
-//        // formating the date for the dictionary
-//        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//        [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
-//        NSString *stringFromDate = [formatter stringFromDate:date];
-//        NSLog(@"%@ date put in dictionary", stringFromDate);
-//        [theLevelFormObject.theNewLevelForm setObject:stringFromDate forKey:@"date"];
-//
-//    }
-//    
-//    else{
-//        int i = appDelegate.currentDictIndex;
-//        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
-        [self.currentDict setObject:stratum.text forKey:@"stratum"];
-        [self.currentDict setObject:stratumLevel.text forKey:@"stratumLevel"];
+    [self.currentDict setObject:stratum.text forKey:@"stratum"];
+    [self.currentDict setObject:stratumLevel.text forKey:@"stratumLevel"];
     [self.currentDict setObject:digName.text forKey:@"digName"];
-        [self.currentDict setObject:level.text forKey:@"level"];
-        [self.currentDict setObject:totalLevels.text forKey:@"totalLevels"];
-        [self.currentDict setObject:areaDescription.text forKey:@"areaDescription"];
-        [self.currentDict setObject:unitEasting.text forKey:@"unitEasting"];
-        [self.currentDict setObject:unitNorthing.text forKey:@"unitNorthing"];
-        [self.currentDict setObject:unitSizeX.text forKey:@"unitSizeX"];
-        [self.currentDict setObject:unitSizeY.text forKey:@"unitSizeY"];
+    [self.currentDict setObject:level.text forKey:@"level"];
+    [self.currentDict setObject:totalLevels.text forKey:@"totalLevels"];
+    [self.currentDict setObject:areaDescription.text forKey:@"areaDescription"];
+    [self.currentDict setObject:unitEasting.text forKey:@"unitEasting"];
+    [self.currentDict setObject:unitNorthing.text forKey:@"unitNorthing"];
+    [self.currentDict setObject:unitSizeX.text forKey:@"unitSizeX"];
+    [self.currentDict setObject:unitSizeY.text forKey:@"unitSizeY"];
         // HERE: still need to prepopulate excavators       -ES
-        [self.currentDict setObject:verticalDatumID.text forKey:@"verticalDatumID"];
-        [self.currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
-        [self.currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
-        [self.currentDict setObject:screenSize.text forKey:@"screenSize"];
+    [self.currentDict setObject:verticalDatumID.text forKey:@"verticalDatumID"];
+    [self.currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
+    [self.currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
+    [self.currentDict setObject:screenSize.text forKey:@"screenSize"];
 
-        // this big ugly thing gets the date from the dateField and converts it into the format for the dictionary -JB        
-        NSDateFormatter *format = [[NSDateFormatter alloc] init];
-        [format setDateFormat:@"MMM dd, yyyy"];
-        NSDate *date = [[NSDate alloc] init];
-        date = [format dateFromString: dateField.text];
-        // formating the date for the dictionary
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
-        NSString *stringFromDate = [formatter stringFromDate:date];
-        [self.currentDict setObject:stringFromDate forKey:@"date"];
-
-//}
+    // this big ugly thing gets the date from the dateField and converts it into the format for the dictionary -JB
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    [format setDateFormat:@"MMM dd, yyyy"];
+    NSDate *date = [[NSDate alloc] init];
+    date = [format dateFromString: dateField.text];
+    // formating the date for the dictionary
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
+    NSString *stringFromDate = [formatter stringFromDate:date];
+    [self.currentDict setObject:stringFromDate forKey:@"date"];
 
     // used by Jen's keyboard stuff
     self.activeField = nil;
@@ -367,8 +302,6 @@ POPOVER STUFF - now with saving when popover closes!
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-   // HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    NSLog(@"%i", self.areaFlag);
     NSString * areaText = [self.currentDict objectForKey:@"areaDescription"];
     NSString * intervalText = [self.currentDict objectForKey:@"excavationInterval"];
 
@@ -385,11 +318,9 @@ POPOVER STUFF - now with saving when popover closes!
     self.activeField = textField;
 }
 
-
 ///////////////////Excavators/////////////////////
-- (IBAction)addExcavator:(id)sender {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    
+- (IBAction)addExcavator:(id)sender
+{
     UITextField *excavator = [[UITextField alloc] initWithFrame:CGRectMake(2,self.excavatorLoc,200,30)];
     [excavator setBorderStyle:UITextBorderStyleRoundedRect];
     [excavatorsView addSubview:excavator];
@@ -402,21 +333,18 @@ POPOVER STUFF - now with saving when popover closes!
     
     [del addTarget:self
             action:@selector(deleteExcavator:)
-  forControlEvents:UIControlEventTouchUpInside];
+            forControlEvents:UIControlEventTouchUpInside];
     NSArray *exc = [NSArray arrayWithObjects: excavator, del, nil];
     
     [self.excavators addObject: exc];
-    [theLevelFormObject.excavators addObject:exc];
+    [self.currentDict setObject:self.excavators forKey:@"excavators"];
     self.excavatorLoc += 35;
     
     excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
-    
-    
 }
 
 -(IBAction)deleteExcavator:(id)sender
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     int x = -1;
     for (int i=0; i<[self.excavators count]; i++) {
         if ([[self.excavators objectAtIndex:i] objectAtIndex:1] == sender) {
@@ -425,9 +353,10 @@ POPOVER STUFF - now with saving when popover closes!
                 [[[self.excavators objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
             self.excavatorLoc -= 35;
             excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc);
+           
             //Remove artifact info from list
             [self.excavators removeObjectAtIndex:i];
-            [theLevelFormObject.excavators removeObjectAtIndex:i];
+            [self.currentDict setObject:self.excavators forKey:@"excavators"];
             x = i;
         }
     }
@@ -456,12 +385,10 @@ POPOVER STUFF - now with saving when popover closes!
     self.scrollView.scrollIndicatorInsets = contentInsets;
     
     // If active text field is hidden by keyboard, scroll it so it's visible
-    
     CGRect aRect = self.view.frame;
     aRect.size.height -= kbSize.height;
     CGPoint origin = self.activeField.frame.origin;
     origin.y -= self.scrollView.contentOffset.y;
-    //origin.y += self.activeField.frame.size.height;
     
     if (!CGRectContainsPoint(aRect, origin)) {
         [self.scrollView scrollRectToVisible:self.activeField.frame animated:YES];

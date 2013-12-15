@@ -16,15 +16,20 @@
 
 @property (nonatomic, strong) UIPopoverController *barButtonItemPopover;
 @property (nonatomic, strong) UIPopoverController *detailViewPopover;
-@property (nonatomic, strong) id lastTappedButton;
 @property (nonatomic, strong) UIPopoverController *masterPopoverController;
+
+@property (nonatomic, strong) id lastTappedButton;
 
 @property int artifactLoc;
 @property int featureLoc;
 @property int sampleLoc;
-@property NSMutableArray *artifacts;
-@property NSMutableArray *features;
-@property NSMutableArray *samples;
+
+@property (nonatomic, strong) NSMutableArray *artifacts;
+@property (nonatomic, strong) NSMutableArray *features;
+@property (nonatomic, strong) NSMutableArray *samples;
+
+@property (nonatomic, strong) NSMutableDictionary * currentDict;
+
 @end
 
 @implementation HDCulturalMaterialsViewController
@@ -42,25 +47,52 @@
     [super viewDidLoad];
     
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     
+    if (appDelegate.currentlyEditing) {
+        int i = appDelegate.currentDictIndex;
+        self.currentDict = [appDelegate.allForms objectAtIndex:i];
+    }
+    else
+        self.currentDict = theLevelFormObject.theNewLevelForm;
+
+    self.artifacts = [self.currentDict objectForKey:@"artifacts"];
+    self.features = [self.currentDict objectForKey:@"features"];
+    self.samples = [self.currentDict objectForKey:@"samples"];
+    NSLog(@"%i", [self.artifacts count]);
+    
+    NSLog(@"%@", self.artifacts);
     //Locations for initial addition of cultural materials to page -LW
-    self.artifactLoc = 150;
-    self.featureLoc = 130;
-    self.sampleLoc = 150;
+    self.artifactLoc = 0;
+    self.featureLoc = 0;
+    self.sampleLoc = 0;
     
-    self.artifacts = [[NSMutableArray alloc] init];
-    self.samples = [[NSMutableArray alloc] init];
-    self.features = [[NSMutableArray alloc] init];
+    artifactsScroll.contentSize = CGSizeMake(768, self.artifactLoc);
+    featuresScroll.contentSize = CGSizeMake(400, self.featureLoc);
+    samplesScroll.contentSize = CGSizeMake(768, self.sampleLoc);
     
     //To add data from the current level form object to page -LW
-    for (int i=0; i<[theLevelFormObject.artifacts count]; i++)
-        self.artifactLoc = [self addArtifactOrSample:self.artifactLoc :@"artifact" :false :i :artifactView :theLevelFormObject.artifacts];
+    for (int i=0; i<[self.artifacts count]; i++){
+        for (int j=0; j<[self.artifacts[i] count]; j++) {
+            [artifactsScroll addSubview:[[self.artifacts objectAtIndex:i] objectAtIndex:j]];
+            self.artifactLoc += 50;
+            artifactsScroll.contentSize = CGSizeMake(768, self.artifactLoc);
+        }
+    }
     
-    for (int i=0; i<[theLevelFormObject.features  count]; i++)
-        [self addFeat:false :i];
-    
-    for (int i=0; i<[theLevelFormObject.samples count]; i++)
-        self.sampleLoc = [self addArtifactOrSample:self.sampleLoc :@"sample" :false :i :sampleView :theLevelFormObject.samples];
+    for (int i=0; i<[self.features count]; i++)
+        for (int j=0; j<[self.features[i] count]; j++) {
+            [featuresScroll addSubview:[[self.features objectAtIndex:i] objectAtIndex:j]];
+            self.featureLoc += 50;
+            featuresScroll.contentSize = CGSizeMake(400, self.featureLoc);
+        }
+
+    for (int i=0; i<[self.samples count]; i++)
+        for (int j=0; j<[self.samples[i] count]; j++) {
+            [samplesScroll addSubview:[[self.samples objectAtIndex:i] objectAtIndex:j]];
+            self.sampleLoc += 50;
+            samplesScroll.contentSize = CGSizeMake(768, self.sampleLoc);
+        }
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -74,6 +106,7 @@
 {
     self.lastTappedButton = nil;
     NSLog(@"Dismiss popover");
+
 }
 
 - (IBAction)showPopover:(id)sender
@@ -91,24 +124,26 @@
 }
 
 //Checks if the given array is the array the edited text field is in -LW
--(void)checkList:(UITextField*)textField :(NSMutableArray*)ary :(NSMutableArray*)lfAry :(int)numObj
+-(void)checkList:(UITextField*)textField :(NSMutableArray*)ary :(int)numObj
 {
+    NSLog(@"check list");
     for (int i=0; i < [ary count]; i++)
         for (int j=0; j<numObj; j++)
             if ([[ary objectAtIndex:i] objectAtIndex:j] == textField) {
-                UITextField *txt =[[lfAry objectAtIndex:i] objectAtIndex:j];
+                UITextField *txt =[[ary objectAtIndex:i] objectAtIndex:j];
                 txt.text = textField.text;
             }
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-
     //Save value in correct list
-    [self checkList:textField :self.artifacts :theLevelFormObject.artifacts :4];
-    [self checkList:textField :self.samples :theLevelFormObject.samples :4];
-    [self checkList:textField :self.features :theLevelFormObject.features :1];
+    [self checkList:textField :self.artifacts :4];
+    [self checkList:textField :self.samples :4];
+    [self checkList:textField :self.features :1];
+    [self.currentDict setObject:self.artifacts forKey:@"artifacts"];
+    [self.currentDict setObject:self.samples forKey:@"samples"];
+    [self.currentDict setObject:self.features forKey:@"features"];
 }
 
 
@@ -117,9 +152,8 @@
 //Also populates preexisting material's textfields.  -LW
 ////////////////////////
 
-- (int) addArtifactOrSample:(int)loc :(NSString*)artOrSam :(BOOL)new :(int)index :(UIView*)viewX :(NSMutableArray*) lfAry
+- (int) addArtifactOrSample:(int)loc :(NSString*)artOrSam  :(int)index :(UIView*)viewX
 {
-
     UITextField *type = [[UITextField alloc] initWithFrame:CGRectMake(50,loc,250,30)];
     UITextField *easting = [[UITextField alloc] initWithFrame:CGRectMake(320, loc, 80, 30)];
     UITextField *northing = [[UITextField alloc] initWithFrame:CGRectMake(420, loc, 80, 30)];
@@ -129,6 +163,10 @@
     [easting setBorderStyle:UITextBorderStyleRoundedRect];
     [northing setBorderStyle:UITextBorderStyleRoundedRect];
     [depth setBorderStyle:UITextBorderStyleRoundedRect];
+
+    [easting setKeyboardType: UIKeyboardTypeNumberPad];
+    [northing setKeyboardType: UIKeyboardTypeNumberPad];
+    [depth setKeyboardType: UIKeyboardTypeNumberPad];
     
     //Adds fields to the coresponding popover view
     [viewX addSubview:type];
@@ -149,36 +187,29 @@
     [viewX addSubview:del];
    
     NSArray *material = [NSArray arrayWithObjects: type, easting, northing, depth, del, nil];
-    
+ 
     //adds the delete action to the delete button.
     if ([artOrSam  isEqual: @"artifact"]){
         [del addTarget:self
                 action:@selector(deleteArtifact:)
                 forControlEvents:UIControlEventTouchUpInside];
-        [self.artifacts addObject: material];
+        artifactsScroll.contentSize = CGSizeMake(768, self.artifactLoc + 50);
+        [self.artifacts addObject:material];
+        [self.currentDict setObject:self.artifacts forKey:@"artifacts"];
     }
     else {
         [del addTarget:self
                 action:@selector(deleteSample:)
                 forControlEvents:UIControlEventTouchUpInside];
+        samplesScroll.contentSize = CGSizeMake(768, self.sampleLoc + 50);
         [self.samples addObject:material];
-    }
-    
-    if (new)  //new material is not is level form
-        [lfAry addObject:material];
-    else{    //populate the text field with data from the existing form
-        type.text = [[[lfAry objectAtIndex:index] objectAtIndex:0] text];
-        easting.text = [[[lfAry objectAtIndex:index] objectAtIndex:1] text];
-        northing.text = [[[lfAry objectAtIndex:index] objectAtIndex:2] text];
-        depth.text = [[[lfAry objectAtIndex:index] objectAtIndex:3] text];
+        [self.currentDict setObject:self.samples forKey:@"samples"];
     }
     return loc += 50;
 }
 
 -(void) addFeat:(BOOL)new :(int)index
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    
     UITextField *type = [[UITextField alloc] initWithFrame:CGRectMake(30, self.featureLoc, 250, 30)];
     [type setBorderStyle:UITextBorderStyleRoundedRect];
     
@@ -188,21 +219,19 @@
          forState:UIControlStateNormal];
     [del addTarget:self
             action:@selector(deleteFeature:)
-  forControlEvents:UIControlEventTouchUpInside];
+            forControlEvents:UIControlEventTouchUpInside];
     
     NSArray *material = [NSArray arrayWithObjects: type, del, nil];
     [self.features addObject:material];
-    if (new)
-        [theLevelFormObject.features addObject:material];
-    else
-        type.text = [[[theLevelFormObject.features objectAtIndex:index] objectAtIndex:0] text];
-    
-    [featureView addSubview:type];
-    [featureView addSubview:del];
+    [self.currentDict setObject:self.features forKey:@"features"];
+
+    [featuresScroll addSubview:type];
+    [featuresScroll addSubview:del];
     
     type.delegate = self;
     
     self.featureLoc += 50;
+    featuresScroll.contentSize = CGSizeMake(400, self.featureLoc);
 }
 
 //////////////////
@@ -212,16 +241,12 @@
 
 - (IBAction)addArtifact:(id)sender
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    
-    self.artifactLoc = [self addArtifactOrSample :self.artifactLoc :@"artifact" :true :-1 :artifactView :theLevelFormObject.artifacts];
+   self.artifactLoc = [self addArtifactOrSample :self.artifactLoc :@"artifact" :-1 :artifactsScroll];
 }
 
 - (IBAction)addSample:(id)sender
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    
-    self.sampleLoc = [self addArtifactOrSample:self.sampleLoc:@"sample" :true :-1 :sampleView :theLevelFormObject.samples];
+    self.sampleLoc = [self addArtifactOrSample:self.sampleLoc:@"sample" :-1 :samplesScroll];
 }
 
 - (IBAction)addFeature:(id)sender
@@ -234,21 +259,26 @@
 ////////////////////////////////
 //Deletes previously added material -LW
 ////////////////////////////////
+//cnt is the number of fields in the row of the material
 
-- (int) deleteMaterial:(id)sender :(NSMutableArray*)ary :(NSMutableArray*)lfAry :(int)loc :(int)cnt
+- (int) deleteMaterial:(id)sender :(NSMutableArray*)ary  :(int)loc :(int)cnt
 {
- 
+    NSLog(@"deleting material");
     int x = -1;
     for (int i=0; i<[ary count]; i++) {
         if ([[ary objectAtIndex:i] objectAtIndex:cnt - 1] == sender) {
+            NSLog(@"sender?");
+
             //Remove graphics from window
             for (int j = 0; j < cnt; j++)
                 [[[ary objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
             loc -= 50;
-
+            NSLog(@"%@", ary);
             //Remove artifact info from list
             [ary removeObjectAtIndex:i];
-            [lfAry removeObjectAtIndex:i];
+            NSLog(@"%@", ary);
+
+ //           [lfAry removeObjectAtIndex:i];
             x = i;
         }
     }
@@ -271,19 +301,23 @@
 
 - (void)deleteArtifact:(id)sender
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    self.artifactLoc = [self deleteMaterial :sender :self.artifacts :theLevelFormObject.artifacts :self.artifactLoc :5];
+    NSLog(@"artifact deletion");
+    self.artifactLoc = [self deleteMaterial :sender :self.artifacts :self.artifactLoc :5];
+    artifactsScroll.contentSize = CGSizeMake(768, self.artifactLoc);
+    [self.currentDict setObject:self.artifacts forKey:@"artifacts"];
 }
 
 - (void)deleteFeature:(id)sender
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    self.featureLoc = [self deleteMaterial :sender :self.features :theLevelFormObject.features :self.featureLoc :2];
+    self.featureLoc = [self deleteMaterial :sender :self.features  :self.featureLoc :2];
+    featuresScroll.contentSize = CGSizeMake(400, self.featureLoc);
+    [self.currentDict setObject:self.features forKey:@"features"];
 }
 
 - (void)deleteSample:(id)sender
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    self.sampleLoc = [self deleteMaterial :sender :self.samples :theLevelFormObject.samples :self.sampleLoc :5];
+    self.sampleLoc = [self deleteMaterial :sender :self.samples :self.sampleLoc :5];
+    samplesScroll.contentSize = CGSizeMake(768, self.sampleLoc);
+    [self.currentDict setObject:self.samples forKey:@"samples"];
 }
 @end

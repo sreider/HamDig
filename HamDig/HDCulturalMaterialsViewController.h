@@ -18,6 +18,9 @@
     IBOutlet UIButton *artifactsButton;
     IBOutlet UIButton *featuresButton;
     IBOutlet UIButton *samplesButton;
+    IBOutlet UIScrollView *artifactsScroll;
+    IBOutlet UIScrollView *featuresScroll;
+    IBOutlet UIScrollView *samplesScroll;
 }
 
 
