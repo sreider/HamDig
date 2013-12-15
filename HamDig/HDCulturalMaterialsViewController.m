@@ -62,6 +62,9 @@
     self.artifactLoc = 0;
     self.featureLoc = 0;
     self.sampleLoc = 0;
+    artifactsScroll.userInteractionEnabled = YES;
+    samplesScroll.userInteractionEnabled = YES;
+    featuresScroll.userInteractionEnabled = YES;
     
     artifactsScroll.contentSize = CGSizeMake(768, self.artifactLoc);
     featuresScroll.contentSize = CGSizeMake(400, self.featureLoc);

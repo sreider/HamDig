@@ -29,9 +29,6 @@
 	// Do any additional setup after loading the view.
 }
 - (IBAction)changeFlag:(id)sender {
-    /*
-     This means the u
-    */
 
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appDelegate.currentlyEditing){

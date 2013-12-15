@@ -93,8 +93,12 @@
     
     NSLog(@"Save button!");
     
+    
+    
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    
     
     // add the dictionary to the global array           -ES
     // only if user is not editing

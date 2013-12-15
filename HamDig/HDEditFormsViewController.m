@@ -133,10 +133,6 @@
 
 -(void)editButtonClick:(UIButton*)sender
 {
-    
-    // example action that turns each button green
-    //[(UIButton *)[self.scrollView viewWithTag:sender.tag] setBackgroundColor:[UIColor greenColor]];
-    
     // to get the global flag currentlyEditing and set it to true
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.currentlyEditing = TRUE;
@@ -146,15 +142,24 @@
     int i = appDelegate.currentDictIndex;
 
     // save a deep copy of the dictionary to use when user clicks menu      -ES
-    NSMutableDictionary * cp = [appDelegate.allForms objectAtIndex:i];
-    appDelegate.dictCopy = [NSMutableDictionary dictionaryWithDictionary:cp];
-
-
+    NSMutableDictionary * cp =[appDelegate.allForms objectAtIndex:i];
     
+    NSMutableArray * artCp =[cp objectForKey:@"artifacts"];
+    NSMutableArray *newArtCp =  [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:artCp]];
+    NSMutableArray * sampleCp =[cp objectForKey:@"samples"];
+    NSMutableArray *newSampleCp =  [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:sampleCp]];
+    NSMutableArray * featCp =[cp objectForKey:@"features"];
+    NSMutableArray *newFeatCp =  [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:featCp]];
+    NSMutableArray * excCp =[cp objectForKey:@"excavators"];
+    NSMutableArray *newExcCp =  [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:excCp]];
+    appDelegate.dictCopy = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:cp]];
+    [appDelegate.dictCopy setObject:newArtCp forKey:@"artifacts"];
+    [appDelegate.dictCopy setObject:newSampleCp forKey:@"samples"];
+    [appDelegate.dictCopy setObject:newFeatCp forKey:@"features"];
+    [appDelegate.dictCopy setObject:newExcCp forKey:@"excavators"];
     // performs the same segue as the "New Form" button on the Main Menu
     //      Needed to add an identifier to the segue in storyboard under attributes inspector
     [self performSegueWithIdentifier:@"newFormSegue" sender:self];
-    
 }
 
 -(void)deleteButtonClick:(UIButton*)sender
@@ -163,12 +168,8 @@
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     // save the index of the dict
-    //This doesn't work if you delete from the middle of the array.... -LW
     appDelegate.currentDictIndex = sender.tag - 1;
     int i = appDelegate.currentDictIndex;
-    
-    NSLog(@"dict index: %d", i);
-    
     
     int arraySize = appDelegate.allForms.count;
     
@@ -190,7 +191,6 @@
         NSLog(@"everything has been deleted");
     }
 
-    
     // update array size because items have now been removed
     arraySize = appDelegate.allForms.count;
     
@@ -201,15 +201,12 @@
         [[self.deleteButtons objectAtIndex:k] setTag:k+1];
         
         UILabel *currentTitle = [self.formTitles objectAtIndex:k];
-        //[currentTitle setTextColor: [UIColor redColor]];
         NSLog(@"%@", [currentTitle text]);
     }
     
     for (int j = i; j<arraySize; j++) {
         // move the form title up
         UILabel *currentTitle = [self.formTitles objectAtIndex:j];
-        //[currentTitle setTextColor: [UIColor redColor]];
-        //NSLog(@"%@", [currentTitle text]);
         CGRect textFieldFrame = currentTitle.frame;
         textFieldFrame.origin.y -= 100;
         currentTitle.frame = textFieldFrame;
