@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="IyE-ME-f2T">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="IyE-ME-f2T">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
@@ -28,19 +28,6 @@
                                     <segue destination="d2p-wz-znm" kind="modal" id="VqD-DI-ezV"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="AQa-OP-YXS">
-                                <rect key="frame" x="313" y="468" width="142" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Pull Data">
-                                            <attributes>
-                                                <font key="NSFont" size="24" name="HelveticaNeue-Light"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="03R-xT-qpB">
                                 <rect key="frame" x="339" y="345" width="90" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -58,7 +45,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="MqV-9h-hCJ">
-                                <rect key="frame" x="315" y="527" width="138" height="38"/>
+                                <rect key="frame" x="315" y="466" width="138" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
@@ -82,7 +69,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.91916582661290325" green="0.79227570564516125" blue="0.49766885080645162" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="eQh-kp-RV1"/>
                 </viewController>
@@ -120,7 +107,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" id="eVc-v4-guR">
                                 <rect key="frame" x="0.0" y="114" width="768" height="910"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.79215686269999996" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentInset" minX="0.0" minY="20" maxX="0.0" maxY="10"/>
                                 <connections>
                                     <outlet property="delegate" destination="iMc-EH-bRr" id="2kq-Tg-Hqv"/>
@@ -151,6 +138,7 @@
                             <pickerView contentMode="scaleToFill" id="Iuv-f9-1eh">
                                 <rect key="frame" x="0.0" y="0.0" width="370" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="NID-Sf-5ob" id="DVc-qZ-1Zx"/>
                                 </connections>
@@ -178,6 +166,7 @@
                             <pickerView contentMode="scaleToFill" id="GJW-EQ-HTH">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="Ear-lW-WL4" id="W1o-dk-Rxj"/>
                                 </connections>
@@ -205,6 +194,7 @@
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="3AG-eP-s6E">
                                 <rect key="frame" x="-33" y="0.0" width="340" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <date key="date" timeIntervalSinceReferenceDate="408735911.26958001">
                                     <!--2013-12-14 17:45:11 +0000-->
                                 </date>
@@ -256,6 +246,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <pickerView contentMode="scaleToFill" id="eRl-zF-rzk">
                                 <rect key="frame" x="0.0" y="0.0" width="250" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="M2D-mG-Wgb" id="VIT-Pb-2S3"/>
                                 </connections>
@@ -298,7 +289,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Al-2i-Xnf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -333,19 +324,17 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rkG-XX-iPQ">
-                                <rect key="frame" x="176" y="171" width="40" height="30"/>
+                                <rect key="frame" x="179" y="171" width="40" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Save">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.79215686269999996" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="save:" destination="gXY-nq-swH" eventType="touchUpInside" id="a2L-FI-4qs"/>
                                     <segue destination="IyE-ME-f2T" kind="modal" id="HHm-aJ-DsM"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                         <rect key="contentStretch" x="0.0" y="0.0" width="0.49999999999999961" height="0.49999999999999961"/>
                     </view>
                     <navigationItem key="navigationItem" id="i7f-aE-YCv"/>
@@ -612,13 +601,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="YLl-Ae-hBQ">
                                         <rect key="frame" x="305" y="579" width="280" height="140"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <color key="backgroundColor" red="0.84328294839999995" green="0.82455818820000004" blue="0.84191593330000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.82456527217741937" green="0.73481602822580649" blue="0.58486643145161288" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="delegate" destination="5kN-2r-fNm" id="Ifc-o8-RaR"/>
                                         </connections>
                                     </scrollView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="0yy-cZ-NWF">
-                                        <rect key="frame" x="258" y="106" width="254" height="30"/>
+                                        <rect key="frame" x="308" y="273" width="153" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -627,7 +616,30 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <outlet property="delegate" destination="5kN-2r-fNm" id="TQp-q1-jDS"/>
                                         </connections>
                                     </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dOi-YD-XNN">
+                                        <rect key="frame" x="364" y="235" width="41" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="bWT-91-44n">
+                                        <rect key="frame" x="282" y="162" width="204" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="5kN-2r-fNm" id="Jk6-xn-Uaz"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dig Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="znJ-5q-MTi">
+                                        <rect key="frame" x="344" y="119" width="81" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
+                                <color key="backgroundColor" red="0.91764705882352937" green="0.792156862745098" blue="0.49803921568627452" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="5kN-2r-fNm" id="szc-wu-zOG"/>
                                 </connections>
@@ -669,6 +681,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="areaDescription" destination="ckF-cm-DKT" id="V3L-tH-zbm"/>
                         <outlet property="dateField" destination="0yy-cZ-NWF" id="eEV-5B-AJA"/>
                         <outlet property="datumStringElevation" destination="hfd-2j-2JD" id="m6V-8d-xcH"/>
+                        <outlet property="digName" destination="bWT-91-44n" id="lfb-Sh-rbJ"/>
                         <outlet property="excavationInterval" destination="WzJ-3J-pYd" id="nch-E2-D25"/>
                         <outlet property="excavatorsView" destination="YLl-Ae-hBQ" id="xwi-SV-6Na"/>
                         <outlet property="level" destination="k2I-Cu-3CR" id="fEp-P0-aCs"/>
@@ -699,6 +712,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <pickerView contentMode="scaleToFill" id="jHr-W1-NwR">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="JhA-NS-BBD" id="C5f-9z-CZb"/>
                                 </connections>
@@ -756,7 +770,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.91764705879999997" green="0.79215686269999996" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="II. Plan Drawing" id="Kah-ye-uoT"/>
                 </viewController>
@@ -844,7 +858,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.91764705879999997" green="0.79215686269999996" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="III. Cultural Materials" id="iH9-Oy-dOV"/>
                     <toolbarItems/>
@@ -914,7 +928,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -963,7 +977,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1030,7 +1044,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1080,7 +1094,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="nd4-iQ-nuN">
                                         <rect key="frame" x="44" y="693" width="681" height="230"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" red="0.90259850543478259" green="0.90259850543478259" blue="0.90259850543478259" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <connections>
@@ -1090,7 +1104,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="pPQ-2O-9mJ">
                                         <rect key="frame" x="44" y="411" width="681" height="230"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.90259850539999997" green="0.90259850539999997" blue="0.90259850539999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <connections>
@@ -1100,7 +1114,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="Rcg-Dy-64D">
                                         <rect key="frame" x="44" y="129" width="681" height="230"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.90259850539999997" green="0.90259850539999997" blue="0.90259850539999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.82456527219999998" green="0.73481602820000003" blue="0.58486643149999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <connections>
@@ -1127,6 +1141,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <color key="backgroundColor" red="0.91764705879999997" green="0.79215686269999996" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="zDr-k8-2a5" id="4E5-ti-sN3"/>
                                 </connections>
@@ -1177,9 +1192,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PRV-sN-gIh"/>
+        <segue reference="HHm-aJ-DsM"/>
+        <segue reference="N8L-3Y-ga4"/>
         <segue reference="Tf0-Yq-3kh"/>
-        <segue reference="NAf-mZ-6b8"/>
-        <segue reference="XW0-LE-3l7"/>
+        <segue reference="txO-fJ-UCI"/>
     </inferredMetricsTieBreakers>
 </document>

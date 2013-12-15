@@ -20,6 +20,8 @@
 
 @property (strong, nonatomic) NSArray *stratumArray;
 @property (strong, nonatomic) NSArray *stratumAppendArray;
+@property (nonatomic, strong) NSMutableDictionary * currentDict;
+
 
 @end
 
@@ -40,8 +42,16 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    //HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+
+    if (appDelegate.currentlyEditing){
+        int i = appDelegate.currentDictIndex;
+        self.currentDict = [appDelegate.allForms objectAtIndex:i];
+    }
+    else{
+        self.currentDict = theLevelFormObject.theNewLevelForm;
+    }
     self.areaNumArray = [[NSArray alloc] initWithObjects: @" ", @"1", @"2", @"3", @"4", @"5", @"6", nil];
     self.areaTypeArray = [[NSArray alloc] initWithObjects: @" ", @"Extramural", @"Housepit", @"Midden", @"--OTHER--", nil];
     self.screenSizeArray = [[NSArray alloc] initWithObjects: @" ", @"1/8 inch", @"1/4 inch", @"1/2 inch", @"2 mm", @"4 mm", @"6 mm", nil];
@@ -113,45 +123,41 @@
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     if (pickerView == areaPicker){
         if ([[self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]] isEqual: @"--OTHER--"]){
-            theLevelFormObject.areaDescription = @"OTHER";
+            [self.currentDict setObject:@"OTHER" forKey:@"areaDescription"];
         }
        else{
-            theLevelFormObject.areaDescription = [NSString stringWithFormat: @"%@ %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
+           [self.currentDict setObject:[NSString stringWithFormat: @"%@ %@", [self.areaTypeArray objectAtIndex:[pickerView selectedRowInComponent:0]],[self.areaNumArray objectAtIndex:[pickerView selectedRowInComponent:1]]] forKey:@"areaDescription"];
         }
     }
     else if (pickerView == stratumPicker){
-        theLevelFormObject.stratum = [NSString stringWithFormat:@"%@ %@", [self.stratumArray objectAtIndex:[pickerView selectedRowInComponent:0]], [self.stratumAppendArray objectAtIndex:[pickerView selectedRowInComponent:1]]];
+        [self.currentDict setObject:[NSString stringWithFormat:@"%@ %@", [self.stratumArray objectAtIndex:[pickerView selectedRowInComponent:0]], [self.stratumAppendArray objectAtIndex:[pickerView selectedRowInComponent:1]]] forKey:@"stratum"];
     }
     
     else if (pickerView == screenSizePicker){
-        theLevelFormObject.screenSize = [self.screenSizeArray objectAtIndex:[pickerView selectedRowInComponent:0]];
+        [self.currentDict setObject:[self.screenSizeArray objectAtIndex:[pickerView selectedRowInComponent:0]] forKey:@"screenSize"];
+
     }
     else if (pickerView == excavationPicker){
         if ([[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]  isEqual: @"--OTHER--"]){
-            theLevelFormObject.excavationInterval = @"OTHER";
+            [self.currentDict setObject:@"OTHER"   forKey:@"excavationInterval"];
         }
         else{
-            theLevelFormObject.excavationInterval= [self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]];
+            [self.currentDict setObject:[self.excavationIntervalArray objectAtIndex:[pickerView selectedRowInComponent:0]]   forKey:@"excavationInterval"];
         }
     
     }
 
 }
 
-- (IBAction)dateSet:(id)sender {
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+- (IBAction)dateSet:(id)sender
+{
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
     NSString *stringFromDate = [formatter stringFromDate:datePicker.date];
-    theLevelFormObject.date = stringFromDate;
-
-    
+    [self.currentDict setObject:stringFromDate forKey:@"date"];
 }
-
-
 
 - (void)didReceiveMemoryWarning
 {

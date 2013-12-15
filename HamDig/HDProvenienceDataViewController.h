@@ -25,7 +25,7 @@
     IBOutlet UITextField *excavationInterval;
     IBOutlet UITextField *screenSize;
     IBOutlet UIScrollView *excavatorsView;
-    
+    IBOutlet UITextField *digName;
     IBOutlet UITextField *dateField;
     
 

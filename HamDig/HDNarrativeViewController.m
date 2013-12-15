@@ -15,6 +15,7 @@
 @interface HDNarrativeViewController ()
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UITextView *activeField; //is set when a textView becomes first responder
+@property (nonatomic, strong) NSMutableDictionary * currentDict;
 
 @end
 
@@ -37,24 +38,24 @@
 //}
 
 - (IBAction)saveAction:(UIBarButtonItem *)sender {
-    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    theLevelFormObject.excavationDescription = excavationDescription.text;
-    theLevelFormObject.sedimentDescription = sedimentDescription.text;
-    theLevelFormObject.otherNarrative = otherNarrative.text;
-
-    if (appDelegate.currentlyEditing){
-        int i = appDelegate.currentDictIndex;
-        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
-        [currentDict setObject:excavationDescription.text forKey:@"excavationDescription"];
-        [currentDict setObject:sedimentDescription.text forKey:@"sedimentDescription"];
-        [currentDict setObject:otherNarrative.text forKey:@"otherNarrative"];
-    }
-    else {
-        [theLevelFormObject.theNewLevelForm setObject:excavationDescription.text forKey:@"excavationDescription"];
-        [theLevelFormObject.theNewLevelForm setObject:sedimentDescription.text forKey:@"sedimentDescription"];
-        [theLevelFormObject.theNewLevelForm setObject:otherNarrative.text forKey:@"otherNarrative"];
-    }
+//    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+//    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//    theLevelFormObject.excavationDescription = excavationDescription.text;
+//    theLevelFormObject.sedimentDescription = sedimentDescription.text;
+//    theLevelFormObject.otherNarrative = otherNarrative.text;
+//
+//    if (appDelegate.currentlyEditing){
+//        int i = appDelegate.currentDictIndex;
+//        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        [self.currentDict setObject:excavationDescription.text forKey:@"excavationDescription"];
+        [self.currentDict setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+        [self.currentDict setObject:otherNarrative.text forKey:@"otherNarrative"];
+//    }
+//    else {
+//        [theLevelFormObject.theNewLevelForm setObject:excavationDescription.text forKey:@"excavationDescription"];
+//        [theLevelFormObject.theNewLevelForm setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+//        [theLevelFormObject.theNewLevelForm setObject:otherNarrative.text forKey:@"otherNarrative"];
+//    }
 
 
 
@@ -62,16 +63,30 @@
 
 - (void)viewDidLoad
 {
-    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (appDelegate.currentlyEditing) {
-        NSLog(@"Editing flag is on");
-        int i = appDelegate.currentDictIndex;
-        NSMutableDictionary *currentDict = [appDelegate.allForms objectAtIndex:i];
-        excavationDescription.text = [currentDict objectForKey:@"excavationDescription"];
-        sedimentDescription.text = [currentDict objectForKey:@"sedimentDescription"];
-        otherNarrative.text = [currentDict objectForKey:@"otherNarrative"];
     
+    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+    
+    if (appDelegate.currentlyEditing){
+        int i = appDelegate.currentDictIndex;
+        self.currentDict = [appDelegate.allForms objectAtIndex:i];
+        excavationDescription.text = [self.currentDict objectForKey:@"excavationDescription"];
+        sedimentDescription.text = [self.currentDict objectForKey:@"sedimentDescription"];
+        otherNarrative.text = [self.currentDict objectForKey:@"otherNarrative"];
     }
+    else{
+        self.currentDict = theLevelFormObject.theNewLevelForm;
+    }
+//    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+//    if (appDelegate.currentlyEditing) {
+//        NSLog(@"Editing flag is on");
+//        int i = appDelegate.currentDictIndex;
+//        NSMutableDictionary *currentDict = [appDelegate.allForms objectAtIndex:i];
+//        excavationDescription.text = [currentDict objectForKey:@"excavationDescription"];
+//        sedimentDescription.text = [currentDict objectForKey:@"sedimentDescription"];
+//        otherNarrative.text = [currentDict objectForKey:@"otherNarrative"];
+//    
+  //  }
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
@@ -106,28 +121,28 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 // when you finish editing a field, save the current values on the page.
 {
-    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
-    self.activeField = nil;
-    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
-    
-    theLevelFormObject.excavationDescription = excavationDescription.text;
-    theLevelFormObject.sedimentDescription = sedimentDescription.text;
-    theLevelFormObject.otherNarrative = otherNarrative.text;
-    
-    // save objects to the dictionary
-    if (appDelegate.currentlyEditing){
-        int i = appDelegate.currentDictIndex;
-        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
-        [currentDict setObject:excavationDescription.text forKey:@"excavationDescription"];
-        [currentDict setObject:sedimentDescription.text forKey:@"sedimentDescription"];
-        [currentDict setObject:otherNarrative.text forKey:@"otherNarrative"];
-    }
-    else {
-        [theLevelFormObject.theNewLevelForm setObject:excavationDescription.text forKey:@"excavationDescription"];
-        [theLevelFormObject.theNewLevelForm setObject:sedimentDescription.text forKey:@"sedimentDescription"];
-        [theLevelFormObject.theNewLevelForm setObject:otherNarrative.text forKey:@"otherNarrative"];
-    }
-    
+//    HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
+//    self.activeField = nil;
+//    HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
+//    
+//    theLevelFormObject.excavationDescription = excavationDescription.text;
+//    theLevelFormObject.sedimentDescription = sedimentDescription.text;
+//    theLevelFormObject.otherNarrative = otherNarrative.text;
+//    
+//    // save objects to the dictionary
+//    if (appDelegate.currentlyEditing){
+//        int i = appDelegate.currentDictIndex;
+//        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
+        [self.currentDict setObject:excavationDescription.text forKey:@"excavationDescription"];
+        [self.currentDict setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+        [self.currentDict setObject:otherNarrative.text forKey:@"otherNarrative"];
+//    }
+//    else {
+//        [theLevelFormObject.theNewLevelForm setObject:excavationDescription.text forKey:@"excavationDescription"];
+//        [theLevelFormObject.theNewLevelForm setObject:sedimentDescription.text forKey:@"sedimentDescription"];
+//        [theLevelFormObject.theNewLevelForm setObject:otherNarrative.text forKey:@"otherNarrative"];
+//    }
+//    
     //NSLog(@"excavationDescription: %@", [theLevelFormObject.theNewLevelForm objectForKey:@"excavationDescription"]);
     
 }

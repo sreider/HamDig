@@ -9,6 +9,7 @@
 #import "HDCulturalMaterialsViewController.h"
 #import "HDLevelFormObject.h"
 #import "HDAppDelegateProtocol.h"
+#import "HDAppDelegate.h"
 #import "HDPopovers.h"
 
 @interface HDCulturalMaterialsViewController ()
