@@ -15,7 +15,6 @@
 
 @interface HDViewControllerSavingAppDelegate : NSObject <UIApplicationDelegate, HDAppDelegateProtocol>
 {
-    
     UINavigationController *navigationController;
     HDLevelFormObject* theLevelFormObject;
     IBOutlet HDNarrativeViewController* theNarrativeViewController;

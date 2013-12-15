@@ -12,7 +12,6 @@
 {
     IBOutlet UITextField *stratum;
     IBOutlet UITextField *stratumLevel;
-
     IBOutlet UITextField *level;
     IBOutlet UITextField *totalLevels;
     IBOutlet UITextField *areaDescription;
@@ -27,9 +26,8 @@
     IBOutlet UIScrollView *excavatorsView;
     IBOutlet UITextField *digName;
     IBOutlet UITextField *dateField;
-    
-
 }
+
 - (IBAction)addExcavator:(id)sender;
 
 @end

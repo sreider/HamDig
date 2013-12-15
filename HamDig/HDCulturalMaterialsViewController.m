@@ -49,19 +49,15 @@
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    if (appDelegate.currentlyEditing) {
-        int i = appDelegate.currentDictIndex;
-        self.currentDict = [appDelegate.allForms objectAtIndex:i];
-    }
+    if (appDelegate.currentlyEditing)
+        self.currentDict = [appDelegate.allForms objectAtIndex:appDelegate.currentDictIndex];
     else
         self.currentDict = theLevelFormObject.theNewLevelForm;
 
     self.artifacts = [self.currentDict objectForKey:@"artifacts"];
     self.features = [self.currentDict objectForKey:@"features"];
     self.samples = [self.currentDict objectForKey:@"samples"];
-    NSLog(@"%i", [self.artifacts count]);
-    
-    NSLog(@"%@", self.artifacts);
+ 
     //Locations for initial addition of cultural materials to page -LW
     self.artifactLoc = 0;
     self.featureLoc = 0;
@@ -71,22 +67,19 @@
     featuresScroll.contentSize = CGSizeMake(400, self.featureLoc);
     samplesScroll.contentSize = CGSizeMake(768, self.sampleLoc);
     
-    //To add data from the current level form object to page -LW
-    for (int i=0; i<[self.artifacts count]; i++){
+    //To add existing cultural materials from the current level form object to page -LW
+    for (int i=0; i<[self.artifacts count]; i++)
         for (int j=0; j<[self.artifacts[i] count]; j++) {
             [artifactsScroll addSubview:[[self.artifacts objectAtIndex:i] objectAtIndex:j]];
             self.artifactLoc += 50;
             artifactsScroll.contentSize = CGSizeMake(768, self.artifactLoc);
         }
-    }
-    
     for (int i=0; i<[self.features count]; i++)
         for (int j=0; j<[self.features[i] count]; j++) {
             [featuresScroll addSubview:[[self.features objectAtIndex:i] objectAtIndex:j]];
             self.featureLoc += 50;
             featuresScroll.contentSize = CGSizeMake(400, self.featureLoc);
         }
-
     for (int i=0; i<[self.samples count]; i++)
         for (int j=0; j<[self.samples[i] count]; j++) {
             [samplesScroll addSubview:[[self.samples objectAtIndex:i] objectAtIndex:j]];
@@ -101,12 +94,9 @@
    [artifactsButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
-//Popover stuff from Jen
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     self.lastTappedButton = nil;
-    NSLog(@"Dismiss popover");
-
 }
 
 - (IBAction)showPopover:(id)sender
@@ -114,7 +104,6 @@
     UIButton *tappedButton = (UIButton *)sender;
     [self.detailViewPopover presentPopoverFromRect:tappedButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     self.lastTappedButton = sender;
-
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField
@@ -126,7 +115,6 @@
 //Checks if the given array is the array the edited text field is in -LW
 -(void)checkList:(UITextField*)textField :(NSMutableArray*)ary :(int)numObj
 {
-    NSLog(@"check list");
     for (int i=0; i < [ary count]; i++)
         for (int j=0; j<numObj; j++)
             if ([[ary objectAtIndex:i] objectAtIndex:j] == textField) {
@@ -141,6 +129,7 @@
     [self checkList:textField :self.artifacts :4];
     [self checkList:textField :self.samples :4];
     [self checkList:textField :self.features :1];
+    
     [self.currentDict setObject:self.artifacts forKey:@"artifacts"];
     [self.currentDict setObject:self.samples forKey:@"samples"];
     [self.currentDict setObject:self.features forKey:@"features"];
@@ -253,33 +242,26 @@
 {
     //Graphically adds a row to the Feature page -LW
     [self addFeat:true :-1];
-    
 }
 
 ////////////////////////////////
 //Deletes previously added material -LW
 ////////////////////////////////
 //cnt is the number of fields in the row of the material
-
 - (int) deleteMaterial:(id)sender :(NSMutableArray*)ary  :(int)loc :(int)cnt
 {
     NSLog(@"deleting material");
     int x = -1;
     for (int i=0; i<[ary count]; i++) {
         if ([[ary objectAtIndex:i] objectAtIndex:cnt - 1] == sender) {
-            NSLog(@"sender?");
-
-            //Remove graphics from window
+             //Remove graphics from window
             for (int j = 0; j < cnt; j++)
                 [[[ary objectAtIndex:i] objectAtIndex:j] removeFromSuperview];
             loc -= 50;
-            NSLog(@"%@", ary);
+ 
             //Remove artifact info from list
             [ary removeObjectAtIndex:i];
-            NSLog(@"%@", ary);
-
- //           [lfAry removeObjectAtIndex:i];
-            x = i;
+             x = i;
         }
     }
    //Moves each following material entry up;
@@ -298,10 +280,8 @@
 //Methods that are attached to the "delete" button for each type of material
 //All call the deleteMaterial method with identifying parameters -LW
 ////////////////
-
 - (void)deleteArtifact:(id)sender
 {
-    NSLog(@"artifact deletion");
     self.artifactLoc = [self deleteMaterial :sender :self.artifacts :self.artifactLoc :5];
     artifactsScroll.contentSize = CGSizeMake(768, self.artifactLoc);
     [self.currentDict setObject:self.artifacts forKey:@"artifacts"];

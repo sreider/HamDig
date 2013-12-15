@@ -39,7 +39,6 @@
 
 @implementation HDProvenienceDataViewController
 
-
 - (HDLevelFormObject*) theLevelFormObject;
 {
 	id<HDAppDelegateProtocol> theDelegate = (id<HDAppDelegateProtocol>) [UIApplication sharedApplication].delegate;
@@ -75,7 +74,6 @@ POPOVER STUFF - now with saving when popover closes!
         [toDateForm setDateFormat:@"yyyy'-'MM'-'dd"];
         NSString *dateStr = [self.currentDict objectForKey:@"date"];
         NSDate *date = [toDateForm dateFromString: dateStr];
-        NSLog(@"date: %@", date);
         
         // formating the date to read nicely [monthName, day, year]
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -83,12 +81,11 @@ POPOVER STUFF - now with saving when popover closes!
         NSString *stringFromDate = [formatter stringFromDate:date];
         dateField.text = stringFromDate;
     }
-    else if (self.lastTappedButton == stratum){
+    else if (self.lastTappedButton == stratum)
         stratum.text = [self.currentDict objectForKey:@"stratum"];
-    }
+ 
     screenSize.text = [self.currentDict objectForKey:@"screenSize"];
-    NSLog(@"Dismissed Popover");
-
+ 
     self.lastTappedButton = nil;
 }
 
@@ -123,27 +120,16 @@ POPOVER STUFF - now with saving when popover closes!
     self.lastTappedButton = sender;
 }
 
-
-
-
 - (void)viewDidLoad
 {
-    // I know this is a mess but I'll clean this up later!! This was just a rushed example          -ES
-    
     [super viewDidLoad];
-    NSLog(@"LOAD");
    
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     HDLevelFormObject* theLevelFormObject = [self theLevelFormObject];
     
     if (appDelegate.currentlyEditing) {
-        NSLog(@"Editing flag is on");
         int i = appDelegate.currentDictIndex;
         self.currentDict = [appDelegate.allForms objectAtIndex:i];
-        // save the form's title
-        NSString *currentTitle = [self.currentDict objectForKey:@"formTitle"];
-        //NSLog(@"Editing form with");
-        NSLog(@"Editing: %@", currentTitle);
         
         // prepopulating here
         stratum.text = [self.currentDict objectForKey:@"stratum"];
@@ -161,6 +147,7 @@ POPOVER STUFF - now with saving when popover closes!
         excavationInterval.text = [self.currentDict objectForKey:@"excavationInterval"];
         screenSize.text = [self.currentDict objectForKey:@"screenSize"];
         
+        //Prepopulate the excavators view with all previously existing excavators
         self.excavators = [self.currentDict objectForKey:@"excavators"];
         self.excavatorLoc = 0;
         excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc + 35);
@@ -177,14 +164,13 @@ POPOVER STUFF - now with saving when popover closes!
         NSString *dateStr = [self.currentDict objectForKey:@"date"];
         date = [format dateFromString: dateStr];
         NSLog(@"date: %@", date);
+        
         // formating the date to read nicely [monthName, day, year]
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterLongStyle];
         NSString *stringFromDate = [formatter stringFromDate:date];
-        
         dateField.text = stringFromDate;
     }
-
     else{
         self.currentDict = theLevelFormObject.theNewLevelForm;
         self.excavators = [[NSMutableArray alloc] init];
@@ -214,7 +200,6 @@ POPOVER STUFF - now with saving when popover closes!
                                                object:nil];
     
     //Popover instantiation... Basically this creates the popover view somewhat programatically so that it can do stuff when its dismissed
- 
     HDPopovers *areaContent = [self.storyboard instantiateViewControllerWithIdentifier:@"areaPopover"];
     self.areaPopover = [[UIPopoverController alloc] initWithContentViewController:areaContent];
     self.areaPopover.delegate = self;
@@ -260,17 +245,17 @@ POPOVER STUFF - now with saving when popover closes!
     [self.currentDict setObject:unitNorthing.text forKey:@"unitNorthing"];
     [self.currentDict setObject:unitSizeX.text forKey:@"unitSizeX"];
     [self.currentDict setObject:unitSizeY.text forKey:@"unitSizeY"];
-        // HERE: still need to prepopulate excavators       -ES
     [self.currentDict setObject:verticalDatumID.text forKey:@"verticalDatumID"];
     [self.currentDict setObject:datumStringElevation.text forKey:@"datumStringElevation"];
     [self.currentDict setObject:excavationInterval.text   forKey:@"excavationInterval"];
     [self.currentDict setObject:screenSize.text forKey:@"screenSize"];
 
-    // this big ugly thing gets the date from the dateField and converts it into the format for the dictionary -JB
+    //gets the date from the dateField and converts it into the format for the dictionary -JB
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"MMM dd, yyyy"];
     NSDate *date = [[NSDate alloc] init];
     date = [format dateFromString: dateField.text];
+
     // formating the date for the dictionary
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy'-'MM'-'dd"];
@@ -360,7 +345,6 @@ POPOVER STUFF - now with saving when popover closes!
 }
 
 //////// SCROLL WINDOW ABOVE KEYBOARD /////////////
-
 - (void)keyboardWillShow:(NSNotification*)aNotification
 {
     NSDictionary* info = [aNotification userInfo];

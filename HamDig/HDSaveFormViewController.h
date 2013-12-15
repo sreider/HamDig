@@ -16,12 +16,6 @@
 
 - (IBAction)save:(UIButton *)sender;
 
-//- (IBAction)save;
-//- (IBAction)addExcavator:(UIButton *)sender;
-
-
-//- (IBAction)saveForm:(id)sender;
-
 @end
 
 

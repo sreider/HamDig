@@ -15,24 +15,18 @@
 NSMutableArray *allForms;
 
 
-/* this is now our global flag to check whether the user is currently editing a form
- or not.
- Turned on: when the user clicks a "Click to edit" button on the Edit Forms page
- Turned off: when the user goes back to the main menu (when the Main Menu page loads)
- Used for: only prepopulating the fields of forms when flag is on
- 
- -ES
- */
+//this is now our global flag to check whether the user is currently editing a form
+// or not.
+// Turned on: when the user clicks a "Click to edit" button on the Edit Forms page
+// Turned off: when the user goes back to the main menu (when the Main Menu page loads)
+// Used for: only prepopulating the fields of forms when flag is on
+// -ES
 BOOL currentlyEditing;
 
-/*
- This is the global variable for the index that keeps track of which form the user
- is currently editing. It is one less than the tag of the button corresponding to the
- form displayed on Edit Forms
- 
- -ES
- */
-
+// This is the global variable for the index that keeps track of which form the user
+// is currently editing. It is one less than the tag of the button corresponding to the
+// form displayed on Edit Forms
+// -ES
 int currentDictIndex;
 
 // to keep a copy if user wants to go back to old version without saving   -ES
@@ -46,7 +40,6 @@ NSMutableDictionary * dictCopy;
 @synthesize theNarrativeViewController;
 @synthesize theCulturalMaterialsViewController;
 @synthesize thePlanDrawingController;
-
 @synthesize allForms;
 
 -(void) pushOtherViews;
@@ -54,12 +47,10 @@ NSMutableDictionary * dictCopy;
 	[navigationController pushViewController: theNarrativeViewController animated:TRUE];
     [navigationController pushViewController: theCulturalMaterialsViewController animated:TRUE];
     [navigationController pushViewController: thePlanDrawingViewController animated:TRUE];
-    
 }
 
 -(BOOL) getSavedState;
 {
-    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSLog(@"Documents Directory: %@", documentsDirectory);

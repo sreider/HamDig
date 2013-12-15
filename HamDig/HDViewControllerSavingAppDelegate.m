@@ -28,7 +28,6 @@
 	[navigationController pushViewController: theNarrativeViewController animated:TRUE];
     [navigationController pushViewController: theCulturalMaterialsViewController animated:TRUE];
     [navigationController pushViewController: thePlanDrawingViewController animated:TRUE];
-	
 }
 
 #pragma mark -
@@ -56,12 +55,10 @@
 
 - (void)dealloc
 {
-	
 	self.theLevelFormObject = nil;
 	self.theNarrativeViewController = nil;
     self.theCulturalMaterialsViewController = nil;
     self.thePlanDrawingViewController = nil;
-
 }
 
 

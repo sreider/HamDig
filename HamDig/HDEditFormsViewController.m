@@ -67,8 +67,6 @@
         NSMutableDictionary *currentDict = [appDelegate.allForms objectAtIndex:i];
         // save the form's title
         NSString *currentTitle = [currentDict objectForKey:@"formTitle"];
-        // display title
-        NSLog(@"current title: %@", currentTitle);
         
         //Displays a box around each form object
         UIView *box = [[UIView alloc] initWithFrame:CGRectMake(25, 35 + (i *100), 700, 75)];
@@ -88,15 +86,12 @@
         // add button action to each button
         [clickToEdit addTarget:self action:@selector(editButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:clickToEdit];
-        
         [self.editButtons addObject:clickToEdit];
-        
         
         // ... along with the title of each form
         UILabel *formDisplay = [[UILabel alloc] initWithFrame:CGRectMake(200, 50 + (i * 100), 500, 50)];
         formDisplay.text = currentTitle;
         [self.scrollView addSubview:formDisplay];
-
         [self.formTitles addObject:formDisplay];
         
         UIButton * deleteForm = [[UIButton alloc] initWithFrame:CGRectMake(600, 35 + (i * 100), 100, 75)];

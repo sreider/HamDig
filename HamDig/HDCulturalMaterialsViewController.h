@@ -18,15 +18,14 @@
     IBOutlet UIButton *artifactsButton;
     IBOutlet UIButton *featuresButton;
     IBOutlet UIButton *samplesButton;
+    
     IBOutlet UIScrollView *artifactsScroll;
     IBOutlet UIScrollView *featuresScroll;
     IBOutlet UIScrollView *samplesScroll;
 }
 
-
 - (IBAction)addArtifact:(id)sender;
 - (IBAction)addFeature:(id)sender;
 - (IBAction)addSample:(id)sender;
-
 
 @end
