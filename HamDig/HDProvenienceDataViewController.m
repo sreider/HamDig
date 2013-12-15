@@ -168,7 +168,7 @@ POPOVER STUFF - now with saving when popover closes!
         // prepopulating here
         stratum.text = [self.currentDict objectForKey:@"stratum"];
         stratumLevel.text = [self.currentDict objectForKey:@"stratumLevel"];
-        
+        digName.text = [self.currentDict objectForKey:@"digName"];
         level.text = [self.currentDict objectForKey:@"level"];
         totalLevels.text = [self.currentDict objectForKey:@"totalLevels"];
         areaDescription.text = [self.currentDict objectForKey:@"areaDescription"];
@@ -180,6 +180,7 @@ POPOVER STUFF - now with saving when popover closes!
         datumStringElevation.text = [self.currentDict objectForKey:@"datumStringElevation"];
         excavationInterval.text = [self.currentDict objectForKey:@"excavationInterval"];
         screenSize.text = [self.currentDict objectForKey:@"screenSize"];
+        
         self.excavators = [self.currentDict objectForKey:@"excavators"];
         self.excavatorLoc = 0;
         excavatorsView.contentSize = CGSizeMake(280, self.excavatorLoc + 35);
@@ -326,6 +327,7 @@ POPOVER STUFF - now with saving when popover closes!
 //        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
         [self.currentDict setObject:stratum.text forKey:@"stratum"];
         [self.currentDict setObject:stratumLevel.text forKey:@"stratumLevel"];
+    [self.currentDict setObject:digName.text forKey:@"digName"];
         [self.currentDict setObject:level.text forKey:@"level"];
         [self.currentDict setObject:totalLevels.text forKey:@"totalLevels"];
         [self.currentDict setObject:areaDescription.text forKey:@"areaDescription"];
