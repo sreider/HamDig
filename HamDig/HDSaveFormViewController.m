@@ -57,15 +57,22 @@
     }
     
     NSMutableString *form = [NSMutableString string];
-    [form appendString: [self.currentDict objectForKey:@"digName"]];
-    [form appendString: @" - "];
-    [form appendString: [self.currentDict objectForKey:@"unitNorthing"]];
-    [form appendString: @" - "];
-    [form appendString: [self.currentDict objectForKey:@"unitEasting"]];
-    [form appendString: @" - "];
-    [form appendString: [self.currentDict objectForKey:@"stratum"]];
-    [form appendString: @" - "];
-    [form appendString: [self.currentDict objectForKey:@"level"]];
+    // safety check to make sure the values in the dictionary have been initialized
+    if ([self.currentDict objectForKey:@"digName"] == nil){
+        [form appendString: @"?"];
+    }
+    else {
+        [form appendString: [self.currentDict objectForKey:@"digName"]];
+        [form appendString: @" - "];
+        [form appendString: [self.currentDict objectForKey:@"unitNorthing"]];
+        [form appendString: @" - "];
+        [form appendString: [self.currentDict objectForKey:@"unitEasting"]];
+        [form appendString: @" - "];
+        [form appendString: [self.currentDict objectForKey:@"stratum"]];
+        [form appendString: @" - "];
+        [form appendString: [self.currentDict objectForKey:@"level"]];
+    }
+    
     NSLog(@"%@", form);
     formTitle.text = form;
     
