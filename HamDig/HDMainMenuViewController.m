@@ -108,7 +108,7 @@
         
         NSString * areaDescription = [form objectForKey:@"areaDescription"];
         NSString * date = [form objectForKey:@"date"];
-        NSString * formTitle = [form objectForKey:@"formTitle"];
+     //   NSString * formTitle = [form objectForKey:@"formTitle"];
         NSString * screenSize = [form objectForKey:@"screenSize"];
         //    NSString * stratumLevel = [form objectForKey:@"stratumLevel"];
         NSString * totalLevels = [form objectForKey:@"totalLevels"];
@@ -211,7 +211,6 @@
         
         
     }
-    
     
     
     
