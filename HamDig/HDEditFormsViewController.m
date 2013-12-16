@@ -211,6 +211,12 @@
         textFieldFrame.origin.y -= 100;
         currentTitle.frame = textFieldFrame;
         
+        // move the box up
+        UIView *currentBox = [self.boxes objectAtIndex:j];
+        CGRect boxFrame = currentBox.frame;
+        boxFrame.origin.y -= 100;
+        currentBox.frame = boxFrame;
+        
         // move edit buttons up
         UIButton *currentEditButton = [self.editButtons objectAtIndex:j];
         CGRect editButtonFrame = currentEditButton.frame;
