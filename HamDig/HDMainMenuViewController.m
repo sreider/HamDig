@@ -19,7 +19,7 @@
 /* This form is for the main menu.
  
  ES
-*/
+ */
 
 @interface HDMainMenuViewController ()
 
@@ -47,7 +47,7 @@
 
 - (void)viewDidLoad
 {
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,12 +69,12 @@
     [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"features"];
     [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"samples"];
     [theLevelFormObject.theNewLevelForm setObject:[[NSMutableArray alloc] init] forKey:@"excavators"];
-
+    
     [super viewDidLoad];
 }
 
 - (IBAction)exportData:(id)sender {
-
+    
     // Still working on this... SR
     
     
@@ -88,20 +88,134 @@
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     
+    NSMutableString *outputString = [NSMutableString string];
+    
+    for (NSDictionary* form in appDelegate.allForms)
+    {
+        NSLog(@"form: %@", form);
+        
+        NSString * digName = [form objectForKey:@"digName"];
+        NSString * northing = [form objectForKey:@"unitNorthing"];
+        NSString * easting = [form objectForKey:@"unitEasting"];
+        NSString * unitSizeW = [form objectForKey:@"unitSizeX"];
+        NSString * unitSizeH = [form objectForKey:@"unitSizeY"];
+        NSString * stratum = [form objectForKey:@"stratum"];
+        NSString * level = [form objectForKey:@"level"];
+        NSString * verticalDatumID = [form objectForKey:@"verticalDatumID"];
+        NSString * datumStringElevation = [form objectForKey:@"datumStringElevation"];
+        NSString * excavationInterval = [form objectForKey:@"excavationInterval"];
+        
+        
+        NSString * areaDescription = [form objectForKey:@"areaDescription"];
+        NSString * date = [form objectForKey:@"date"];
+        NSString * formTitle = [form objectForKey:@"formTitle"];
+        NSString * screenSize = [form objectForKey:@"screenSize"];
+        //    NSString * stratumLevel = [form objectForKey:@"stratumLevel"];
+        NSString * totalLevels = [form objectForKey:@"totalLevels"];
+        NSString * sedimentDescription = [form objectForKey:@"sedimentDescription"];
+        NSString * excavationDescription = [form objectForKey:@"excavationDescription"];
+        NSString * otherNarrative = [form objectForKey:@"otherNarrative"];
+        
+        
+        
+        
+        NSMutableString *artifacts = [NSMutableString string];
+        NSMutableString *envSamples = [NSMutableString string];
+        NSMutableString *assocFeatures = [NSMutableString string];
+        NSMutableString *excavators = [NSMutableString string];
+        
+        
+        
+        NSMutableArray * artifactsArray = [form objectForKey:@"artifacts"];
+        NSMutableArray * samplesArray = [form objectForKey:@"samples"];
+        NSMutableArray * featuresArray = [form objectForKey:@"features"];
+        NSMutableArray * excavatorsArray = [form objectForKey:@"excavators"];
+        
+        [artifacts appendString: @"["];
+        for (NSArray * artifactArray in artifactsArray){
+            if (artifactArray != artifactsArray[0]){
+                [artifacts appendString: @", "];
+            }
+            
+            UITextField * field0 = artifactArray[0];
+            NSString * artType = field0.text;
+            
+            UITextField * field1 = artifactArray[1];
+            NSString * artEasting = field1.text;
+            
+            UITextField * field2 = artifactArray[2];
+            NSString * artNorthing = field2.text;
+            
+            UITextField * field3 = artifactArray[3];
+            NSString * artDepth = field3.text;
+            
+            [artifacts appendString: [NSString stringWithFormat:@"ArtifactType=%@,Northing=%@,Easting=%@,Depth=%@", artType, artNorthing, artEasting, artDepth]];
+        }
+        [artifacts appendString: @"]"];
+        
+        
+        [envSamples appendString: @"["];
+        for (NSArray * sampleArray in samplesArray){
+            
+            if (sampleArray != samplesArray[0]){
+                [envSamples appendString: @", "];
+            }
+            
+            UITextField * field0 = sampleArray[0];
+            NSString * samType = field0.text;
+            
+            UITextField * field1 = sampleArray[1];
+            NSString * samEasting = field1.text;
+            
+            UITextField * field2 = sampleArray[2];
+            NSString * samNorthing = field2.text;
+            
+            UITextField * field3 = sampleArray[3];
+            NSString * samDepth = field3.text;
+            
+            
+            [envSamples appendString: [NSString stringWithFormat:@"SampleType=%@,Northing=%@,Easting=%@,Depth=%@", samType, samNorthing, samEasting, samDepth]];
+        }
+        [envSamples appendString: @"]"];
+        
+        
+        [assocFeatures appendString: @"["];
+        for (NSArray * featureArray in featuresArray){
+            
+            if (featureArray != featuresArray[0]){
+                [assocFeatures appendString: @", "];
+            }
+            
+            UITextField * field = featureArray[0];
+            [assocFeatures appendString: [NSString stringWithFormat: @"Type=%@", field.text]];
+        }
+        [assocFeatures appendString: @"]"];
+        
+        
+        [excavators appendString: @"["];
+        for (NSArray * excavatorArray in excavatorsArray){
+            if (excavatorArray != excavatorsArray[0]){
+                [excavators appendString: @", "];
+            }
+            
+            UITextField * field = excavatorArray[0];
+            [excavators appendString: field.text];
+        }
+        [excavators appendString: @"]"];
+        
+        
+        
+        
+        
+        [outputString appendString: [NSString stringWithFormat:@"Name=%@|Northing=%@|Easting=%@|UnitSizeW=%@|UnitSizeH=%@|Stratum=%@|Level=%@|Excavators=%@|VerticalDatumID=%@|DatumStringElevation=%@|ExcavationInterval=%@|AreaDescription=%@|Date=%@|FormTitle=%@|ScreenSize=%@|TotalLevels=%@|Artifact=%@|AssocFeatures=%@|EnvSamples=%@|Sediment=%@|Excavation=%@|Other=%@|~", digName, northing, easting, unitSizeW, unitSizeH, stratum, level, excavators, verticalDatumID, datumStringElevation, excavationInterval, areaDescription, date,formTitle,screenSize, totalLevels, artifacts, assocFeatures, envSamples, sedimentDescription, excavationDescription, otherNarrative]];
+        
+        
+    }
     
     
-    NSString * digName = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"formTitle"];
-    NSString * northing = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"unitNorthing"];
-    NSString * easting = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"unitEasting"];
-    NSString * stratum = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"stratum"];
-    NSString * level = [[appDelegate.allForms objectAtIndex:0] objectForKey:@"stratumLevel"];
-    
-    
-    NSString *outputString = [NSString stringWithFormat:@"Name=%@;Northing=%@;Easting=%@;UnitSizeW=.98;UnitSizeH=.99;Stratum=%@;Level=%@;Excavators=[Test];VerticalDatumID=A;DatumStringElevation=1.0;ExcavationInterval=1", digName, northing, easting, stratum, level ];
     
     
     
-   
     
     NSLog(@"Output String: %@", outputString);
     
@@ -126,12 +240,12 @@
         // an error occurred
         
         NSLog(@"Error writing file at %@\n%@", appFile, [error localizedFailureReason]);
-    
+        
     }
     else {
         NSLog(@"Successfully wrote file!");
     }
-
+    
 }
 
 
