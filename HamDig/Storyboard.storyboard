@@ -703,7 +703,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ADB-qS-Mgg">
                                                 <rect key="frame" x="16" y="7" width="38" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
                                                 <state key="normal" title="Menu"/>
                                                 <connections>
                                                     <segue destination="jXN-9k-YNS" kind="popover" popoverAnchorView="ADB-qS-Mgg" id="XW0-LE-3l7">
@@ -1267,7 +1267,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
     <inferredMetricsTieBreakers>
         <segue reference="XW0-LE-3l7"/>
         <segue reference="Tf0-Yq-3kh"/>
-        <segue reference="PRV-sN-gIh"/>
+        <segue reference="HHm-aJ-DsM"/>
         <segue reference="NAf-mZ-6b8"/>
     </inferredMetricsTieBreakers>
 </document>
