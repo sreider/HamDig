@@ -14,6 +14,7 @@
 
 
 @interface HDSaveFormViewController ()
+@property (nonatomic, strong) NSMutableDictionary * currentDict;
 
 @end
 
@@ -42,11 +43,32 @@
 {
     HDAppDelegate *appDelegate = (HDAppDelegate *)[[UIApplication sharedApplication] delegate];
     // if editing, prepopulate the form title
+    
+    /* prepopulates the form title using this format
+        digName - northing - easting - stratum - level
+     */
     if (appDelegate.currentlyEditing){
         int i = appDelegate.currentDictIndex;
-        NSMutableDictionary * currentDict = [appDelegate.allForms objectAtIndex:i];
-        formTitle.text = [currentDict objectForKey:@"formTitle"];
+        self.currentDict = [appDelegate.allForms objectAtIndex:i];
+        //formTitle.text = [self.currentDict objectForKey:@"formTitle"];
     }
+    else{
+        self.currentDict = appDelegate.theLevelFormObject.theNewLevelForm;
+    }
+    
+    NSMutableString *form = [NSMutableString string];
+    [form appendString: [self.currentDict objectForKey:@"digName"]];
+    [form appendString: @" - "];
+    [form appendString: [self.currentDict objectForKey:@"unitNorthing"]];
+    [form appendString: @" - "];
+    [form appendString: [self.currentDict objectForKey:@"unitEasting"]];
+    [form appendString: @" - "];
+    [form appendString: [self.currentDict objectForKey:@"stratum"]];
+    [form appendString: @" - "];
+    [form appendString: [self.currentDict objectForKey:@"level"]];
+    NSLog(@"%@", form);
+    formTitle.text = form;
+    
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
