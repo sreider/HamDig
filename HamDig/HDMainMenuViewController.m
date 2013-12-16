@@ -207,7 +207,7 @@
         
         
         
-        [outputString appendString: [NSString stringWithFormat:@"Name=%@|Northing=%@|Easting=%@|UnitSizeW=%@|UnitSizeH=%@|Stratum=%@|Level=%@|Excavators=%@|VerticalDatumID=%@|DatumStringElevation=%@|ExcavationInterval=%@|AreaDescription=%@|Date=%@|FormTitle=%@|ScreenSize=%@|TotalLevels=%@|Artifact=%@|AssocFeatures=%@|EnvSamples=%@|Sediment=%@|Excavation=%@|Other=%@|~", digName, northing, easting, unitSizeW, unitSizeH, stratum, level, excavators, verticalDatumID, datumStringElevation, excavationInterval, areaDescription, date,formTitle,screenSize, totalLevels, artifacts, assocFeatures, envSamples, sedimentDescription, excavationDescription, otherNarrative]];
+        [outputString appendString: [NSString stringWithFormat:@"Name=%@|Northing=%@|Easting=%@|UnitSizeW=%@|UnitSizeH=%@|Stratum=%@|Level=%@|Excavators=%@|VerticalDatumID=%@|DatumStringElevation=%@|ExcavationInterval=%@|AreaDescription=%@|Date=%@|ScreenSize=%@|TotalLevels=%@|Artifact=%@|AssocFeatures=%@|EnvSamples=%@|Sediment=%@|Excavation=%@|Other=%@|~", digName, northing, easting, unitSizeW, unitSizeH, stratum, level, excavators, verticalDatumID, datumStringElevation, excavationInterval, areaDescription, date, screenSize, totalLevels, artifacts, assocFeatures, envSamples, sedimentDescription, excavationDescription, otherNarrative]];
         
         
     }
