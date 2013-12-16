@@ -1,0 +1,882 @@
+<?php
+$dbName = 'hamdigDB';
+
+function set_db() {
+  db_set_active('hamdigDB');
+}
+
+function hamdig_block_info() {
+  $blocks['testBlock'] = array(
+			       'info' => 'hello world'
+			       );
+  
+  $blocks['otherBlock'] = array(
+				'info' => 'this is the other block'
+				);
+  
+  return $blocks;
+}
+
+function hamdig_block_view($delta = '') {
+  $block = array();
+  
+  switch ($delta) {
+  case 'testBlock':
+    $block['subject'] = t('Title goes here');
+    $block['content'] = "Hello World!";
+    break;
+  case 'otherBlock':
+    $block['subject'] = t('Creating another block');
+    $block['content'] = "Other block";
+    break;
+  }
+  
+  return $block;
+}
+
+function hamdig_menu() {
+  $items = array();
+  
+  $items['upload'] = array(
+			   'title' => 'Upload Level Forms',
+			   'type' => MENU_NORMAL_ITEM,
+			   'page callback' => 'drupal_get_form',
+			   'page arguments' => array('hamdig_upload_form'),
+			   'access arguments' => array('access content')
+			   );
+
+  $items['edit'] = array(
+			 'title' => 'Edit Level Forms',
+			 'type' => MENU_NORMAL_ITEM,
+			 'page callback' => 'drupal_get_form',
+			 'page arguments' => array('hamdig_edit_form'),
+			 'access arguments' => array('access content')
+			 );
+  
+  $items['find'] = array(
+			 'title' => 'Select a Dig',
+			 'type' => MENU_NORMAL_ITEM,
+			 'page callback' => 'hamdig_dig_search',
+			 'access arguments' => array('access content')
+			 );  
+
+  $items['find/unit'] = array(
+			   'title' => 'Select a Unit',
+			   'type' => MENU_NORMAL_ITEM,
+			   'page callback' => 'hamdig_unit_search',
+			   'access arguments' => array('access content')
+			   );
+
+  $items['find/level'] = array(
+			   'title' => 'Select a Level',
+			   'type' => MENU_NORMAL_ITEM,
+			   'page callback' => 'hamdig_level_search',
+			   'access arguments' => array('access content')
+			   );
+  
+  $items['viewform'] = array(
+			     'title' => 'View Form',
+			     'type' => MENU_CALLBACK,
+			     'page callback' => 'hamdig_view_form',
+			     'access arguments' => array('access content')
+			     );
+  return $items;
+}
+
+/*
+ * Returns whether or not an attribute is read-only
+ */
+function is_read_only($attribute) {
+  return in_array($attribute, array('Dig_ID', 'Unit_ID', 'Level_ID', 'Name', 
+				    'Northing', 'Easting', 'Stratum', 
+				    'Level'));
+}
+
+// Needs to different from is_read_only to allow editing of northing, easting
+function is_cm_read_only($attribute) {
+  return in_array($attribute, array('Level_ID', 'Dig_ID', 'Artifact_ID', 
+				    'Feature_ID', 'Sample_ID'));
+}
+
+// Returns whether or not an attribute is part of the unit table
+function is_unit_attrib($attribute) {
+  return in_array($attribute, array('Northing', 'Easting', 'UnitSizeW', 
+				    'UnitSizeH', 'Dig_ID'));
+}
+
+function is_level_attrib($attribute) {
+  return in_array($attribute, array('Stratum', 'Level', 'Excavators', 
+				    'VerticalDatumID', 'DatumStringElevation',
+				    'ExcavationInterval', 'Unit_ID'));
+}
+
+/*
+ * When receiving an edit form, cultural attribute names will be something like
+ * Artifact 1 ArtifactType. This function returns just the needed attribute
+ * name.
+ */
+function get_base_cm_attrib($attribute) {
+  $split_array = explode(" ", $attribute);
+  // The attribute name is the last thing
+  return $split_array[count($split_array) - 1];
+}
+
+function get_cm_number($attribute) {
+  $split_array = explode(" ", $attribute);
+  // The attribute name is the second to last thing
+  return $split_array[count($split_array) - 2];
+}
+
+// Determines whether or not an attribute from the edit form is an artifact 
+// attribute
+function is_artifact_attrib($attribute) {
+  $exploded = explode(" ", $attribute);
+  return $exploded[0] == 'Artifact';
+}
+
+function is_assoc_feature_attrib($attribute) {
+  $exploded = explode(" ", $attribute);
+  return $exploded[0] == 'Associated';
+}
+
+function is_env_sample_attrib($attribute) {
+  $exploded = explode(" ", $attribute);
+  return $exploded[0] == 'Environmental';
+}
+
+/*
+ * Function that generates a form for editing a form. Makes a query for 
+ * the level 
+ */
+function hamdig_edit_form($form, &$form_state, $level) {
+  $levelForm = hamdig_get_level($level);
+  
+  foreach ($levelForm as $key => $value) {
+    // Deal with all the cultural materials
+    if (in_array($key, array('Artifacts', 'Associated Features', 'Environmental Samples'))) {
+      foreach ($value as $num=>$cultMat) {
+	foreach($cultMat as $field=>$cmValue) {
+	  /*
+	   * NEW STUFF, DOESNT WORK
+	   */
+	  $fullKey = rtrim($key, 's').' '.($num + 1).' '.$field;
+	  $form[$fullKey] = array(
+			'#name' => $fullKey,
+			'#type' => 'textfield',
+			'#title' => $fullKey,
+			'#default_value' => $cmValue
+			);
+	  if (is_cm_read_only($field)) {
+	    $form[$fullKey]['#disabled'] = TRUE;
+	  }
+	}
+      }
+      continue;
+    }
+
+    // Remove the brackets from arrays, will be put back in submit
+    $value = ltrim($value, '[');
+    $value = rtrim($value, ']');
+
+    /*
+     * OLD STUFF, DOES WORK
+     */
+    $form[$key] = array(
+			'#name' => $key,
+			'#type' => 'textfield',
+			'#title' => $key,
+			'#default_value' => $value
+			);
+
+    // Keys to records (IDs, Northing, Easting, etc) should not be changed
+    if (is_read_only($key)) {
+      $form[$key]['#disabled'] = TRUE;
+    }
+  }
+  
+  $form['submit'] = array(
+			  '#type' => 'submit',
+			  '#value' => t('Submit')
+			  );
+
+  return $form;
+}
+
+// Add a key value pair to the update SQL query
+function add_key_value($key, $value, $resultString) {
+  // Attributes to put brackets around
+  $listAttribs = array('Excavators');
+
+  $resultString .= $key."='";
+  
+  if (in_array($key, $listAttribs)) {
+    $resultString .= '[';
+  }
+  $resultString .= $value;
+  if (in_array($key, $listAttribs)) {
+    $resultString .= ']';
+  }
+  $resultString .= "', ";
+
+  return $resultString;
+}
+
+function hamdig_edit_form_submit($form, $form_state) {
+  $unitString = '';
+  $levelString = '';
+  dd($form_state['values']);
+
+  $artifactStrings = array();
+  $envSampleStrings = array();
+  $assocFeatureStrings = array();
+
+  foreach ($form_state['values'] as $key => $value) {
+    /* 
+     * the submit button attribute is the first of the values not a part of 
+     * the form, i.e. the first attribute which should not be uploaded
+     */
+    if ($key == 'submit') break;
+
+    if (is_read_only($key)) continue;
+
+    if (is_unit_attrib($key))
+      $unitString = add_key_value($key, $value, $unitString);
+
+    if (is_level_attrib($key))
+      $levelString = add_key_value($key, $value, $levelString);
+    
+    if (is_artifact_attrib($key)) {
+      $cmNumber = get_cm_number($key);
+      if (!array_key_exists($cmNumber, $artifactStrings))
+	$artifactStrings[$cmNumber] = '';
+      $artifactStrings[$cmNumber] = add_key_value(get_base_cm_attrib($key),
+						  $value,
+						  $artifactStrings[$cmNumber]);
+    }
+
+    if (is_env_sample_attrib($key)) {
+      $cmNumber = get_cm_number($key);
+      if (!array_key_exists($cmNumber, $envSampleStrings))
+	$envSampleStrings[$cmNumber] = '';
+      $envSampleStrings[$cmNumber] = add_key_value(get_base_cm_attrib($key),
+						   $value,
+						   $envSampleStrings[$cmNumber]);
+    }
+    
+    if (is_assoc_feature_attrib($key)) {
+      $cmNumber = get_cm_number($key);
+      if (!array_key_exists($cmNumber, $assocFeatureStrings))
+	$assocFeatureStrings[$cmNumber] = '';
+      $assocFeatureStrings[$cmNumber] = add_key_value(get_base_cm_attrib($key), $value, $assocFeatureStrings[$cmNumber]);
+    }
+    
+  }
+
+  set_db();
+  // Remove trailing characters
+  $levelString = rtrim($levelString, ', ');
+  $unitString = rtrim($unitString, ', ');
+
+  foreach ($artifactStrings as $index=>$str) {
+    $str = rtrim($str, ', ');
+    $artifactSQL = "UPDATE Artifact SET ".$str." WHERE Artifact_ID='".$form_state['values']['Artifact '.$index.' Artifact_ID']."'";
+    dd($artifactSQL);
+    db_query($artifactSQL);
+  }
+
+  foreach ($assocFeatureStrings as $index=>$str) {
+    $str = rtrim($str, ', ');
+    $assocFeatureSQL = "UPDATE AssocFeatures SET ".$str." WHERE Feature_ID='".$form_state['values']['Associated Feature '.$index.' Feature_ID']."'";
+    dd($assocFeatureSQL);
+    db_query($assocFeatureSQL);
+  }
+
+  foreach ($envSampleStrings as $index=>$str) {
+    $str = rtrim($str, ', ');
+    $envSampleSQL = "UPDATE EnvSamples SET ".$str." WHERE Sample_ID='".$form_state['values']['Environmental Sample '.$index.' Sample_ID']."'";
+    dd($envSampleSQL);
+    db_query($envSampleSQL);
+  }
+
+  $unitSql = "UPDATE Unit SET ".$unitString." WHERE Unit_ID='".$form_state['values']['Unit_ID']."'";
+
+  $levelSql = "UPDATE Level SET ".$levelString." WHERE Level_ID='".$form_state['values']['Level_ID']."'";
+
+  db_query($unitSql);
+  db_query($levelSql);
+
+  db_set_active();
+}
+
+function hamdig_edit_form_validate($form, $form_state) {
+  return TRUE;
+}
+
+/*
+ * Function to create an upload form with one field, Filename, and a submit 
+ * button. See the Drupal Form API Reference and the Form generation guide for
+ * more details.
+ */
+
+function hamdig_upload_form($form, &$form_state, $filename = 'test') {
+  $form['Filename'] = array(
+			    '#name' => 'files[formfile]',
+			    '#type' => 'managed_file',
+			    '#title' => 'Filename',
+			    '#description' => 'Select the file from the Hamdig iPad app',
+			    '#upload_location' => 'public://levelforms/'
+			    );
+
+  $form['submit'] = array(
+			  '#type' => 'submit',
+			  '#value' => t('Submit')
+			  );
+
+  return $form;
+}
+
+/*
+ * Validation function for the submitted form, not yet implemented
+ */
+
+function hamdig_upload_form_validate($form, &$form_state) {
+  $filename = $form_state['values']['Filename'];
+  if (false) form_set_error('Filename', 'Oh no');
+}
+
+function hamdig_upload_form_submit($form, &$form_state) {
+  $file = file_load($form_state['values']['Filename']);
+
+  drupal_set_message(t('The form was submitted with filename '
+		       .$file->filename));
+
+  $file->status = FILE_STATUS_PERMANENT;
+  file_save($file);
+  dd($file);
+  
+  $filepath = drupal_realpath($file->uri);
+  $file_contents = file_get_contents($filepath);
+  $values = hamdig_parse_upload($file_contents);
+  hamdig_commit_upload($values);
+  /* dd('-------- Begin File Contents -----------'); */
+  /* dd($file_contents); */
+  /* dd('-------- End File Contents -----------'); */
+}
+
+function parse_cultural_material_list($list) {
+  dd('Parsing cultural material list');
+  $result = array();
+  // Start after first [
+  $i = 1;  
+  $numCM = 0;
+
+  $internal = array();
+
+  while ($i < strlen($list) and $list[$i] != ']') {
+    $key = "";
+    $value = "";
+  
+    while ($list[$i] != '=') {
+      $key .= $list[$i];
+      $i += 1;
+    }
+
+    // Skip =
+    $i += 1;
+    
+    // Read value
+    while($list[$i] != ',' and $list[$i] != ']' and $i < strlen($list)) {
+      $value .= $list[$i];
+      $i += 1;
+    }
+
+    // Skip ,
+    $i += 1;
+
+    $internal[$key] = $value;
+
+    /*
+     * Depth and Type will be last in the cultural material list (depending on
+     * which kind of cultural material it is). When it is seen, commit the 
+     * current cultural material array to the array of cultural materials
+     */
+    if ($key == 'Depth' or $key == 'Type') {
+      $result[$numCM] = $internal;
+      $internal = array();
+      $numCM += 1;
+    }
+  }
+
+  return $result;
+}
+
+/*
+ * Function to parse the uploaded file. File format is 
+ * <key>=<value>;<key>=<value>..., with arrays notated as 
+ * <arykey>=[<elt1>,<elt2>]...
+ * Separate level forms are separated with a $
+ * Parses each dig as an array, then loops through the array and uploads each
+ * key value pair to the DB
+ */
+
+function hamdig_parse_upload($level_form) {
+  $form = array();
+  $i = 0;
+
+  $inner = array();
+
+  while ($i < strlen($level_form)) {
+    // $ indicates a new level form
+    //    if ($level_form[$i] == '$')
+    // $i += 1;
+    $key = "";
+    $value = "";
+
+    // Read key
+    while($level_form[$i] != '=') {
+      $key .= $level_form[$i];
+      $i += 1;
+    }
+
+    // Skip =
+    $i += 1;
+    
+    // Read value
+    while($level_form[$i] != ';' and $i < strlen($level_form)) {
+      $value .= $level_form[$i];
+      $i += 1;
+    }
+
+    // Skip ;
+    $i += 1;
+    
+    dd('key: '.$key.'.');
+
+    // Done with Dig, put the inner array into the form
+    if ($key == 'Northing') {
+      $form['Dig'] = $inner;
+      $inner = array();
+    }
+
+    if ($key == 'Stratum') {
+      $form['Unit'] = $inner;
+      $inner = array();
+    }
+
+    if ($key == 'Artifact') {
+      dd('Creating level');
+      $form['Level'] = $inner;
+      $inner = array();
+    }
+
+    if (in_array($key, array('Artifact', 'AssocFeatures', 'EnvSamples'))) {
+      $form[$key] = parse_cultural_material_list($value);
+      continue;
+    }
+
+      
+    // Insert into array
+    $inner[$key] = $value;
+  }
+
+  return $form;
+}
+
+function hamdig_multi_upload($section, $uploadArray, $digID, $levelID) {
+  dd('-------------- multi upload -----------------');
+  foreach ($uploadArray as $index => $record) {
+    $query = "SELECT * FROM ".$section." WHERE ";
+    $insertKeys = "";
+    $insertValues = "'";
+    
+    // Build query to determine if the record already exists
+    foreach ($record as $key => $value) {
+      $query .= $key." = '".$value."' AND ";
+      $insertKeys .= $key.", ";
+      $insertValues .= $value."', '";
+    }
+
+    $query .= "Dig_ID = '".$digID."' AND Level_ID = '".$levelID."'";
+    $insertKeys .= 'Dig_ID, Level_ID';
+    $insertValues .= $digID."', '".$levelID."'";
+
+    dd($query);
+    $result = db_query($query);
+    if (!$result->fetchAssoc()) {
+      dd("No ".$section." defined, creating new");
+
+      // Find the spec number if applicable and add it to the values to insert
+      if ($section == 'Artifact' or $section == 'EnvSamples') {
+	$specNumQuery = "SELECT max(SpecNum) + 1 AS SpecNum FROM ".$section." WHERE Dig_ID = '".$digID."'";
+	dd($specNumQuery);
+	$result = db_query($specNumQuery)->fetchAssoc();
+	$insertKeys .= ', SpecNum';
+	$specNum = $result['SpecNum'];	
+	if ($specNum == NULL) $specNum = 1;
+	dd('SpecNum: '.$specNum);
+	$insertValues .= ", '".$specNum."'";
+      }
+
+      // Find feature number
+      else {
+	$featureNumQuery = "SELECT max(FeatureNum) + 1 AS FeatureNum FROM ".$section." WHERE Dig_ID = '".$digID."'";
+	dd($featureNumQuery);
+	$result = db_query($featureNumQuery)->fetchAssoc();
+	$insertKeys .= ', FeatureNum';
+	$featureNum = $result['FeatureNum'];	
+	if ($featureNum == NULL) $featureNum = 1;
+	dd('FeatureNum: '.$featureNum);
+	$insertValues .= ", '".$featureNum."'";
+      }
+
+      db_query("INSERT INTO ".$section." (".$insertKeys.") VALUES (".$insertValues.")");
+    }
+
+    else {
+      dd($section." already defined");
+    }
+  }
+  dd('-------------- end multi upload ----------------');
+}
+
+function hamdig_commit_upload($upload_array) {
+  set_db();
+
+  // for storage of dig, unit, and level IDs
+  $digID = "";
+  $unitID = "";
+  $levelID = "";
+
+  // loop through Dig, Unit, Level...
+  foreach ($upload_array as $section => $ary) {
+    // Artifact, AssocFeatures, EnvSamples are significantly different
+    if (in_array($section, array('Artifact', 'AssocFeatures', 'EnvSamples'))) {
+      hamdig_multi_upload($section, $ary, $digID, $levelID);
+      continue;
+    }
+
+    $query = "SELECT * FROM ".$section." WHERE ";
+    $insertKeys = "";
+    $insertValues = "";
+
+    // build query string to determine 
+    foreach ($ary as $key => $value) {
+      $query = $query.$key." = '".$value."' AND ";
+      $insertKeys = $insertKeys.$key.", ";
+      $insertValues = $insertValues."'".$value."', ";
+    }
+    
+    /*
+     * If this pass through the loop is the unit, use the digID from the dig 
+     * pass in the unit query
+     */
+    if ($section == "Unit") {
+      $query = $query."Dig_ID = ".$digID;
+      $insertKeys = $insertKeys. "Dig_ID";
+      $insertValues = $insertValues.$digID;
+    }
+
+    // Use Unit_ID for the level query
+    if ($section == "Level") {
+      $query = $query."Unit_ID = ".$unitID;
+      $insertKeys = $insertKeys. "Unit_ID";
+      $insertValues = $insertValues.$unitID;
+    }
+
+    $query = rtrim($query, "AND ");
+    $insertKeys = rtrim($insertKeys, ", ");
+    $insertValues = rtrim($insertValues, ", ");
+
+    // Determine if record already exists, enter it if it does not
+    dd($query);
+    $sectionResult = db_query($query);
+    if (!$sectionResult->fetchAssoc()) {
+      dd("No ".$section." defined, creating new");
+      dd("INSERT INTO ".$section." (".$insertKeys.") VALUES (".$insertValues.")");
+      db_query("INSERT INTO ".$section." (".$insertKeys.") VALUES (".$insertValues.")");
+    }
+
+    else {
+      dd($section." already defined");
+    }
+
+    // Get Dig_ID for subsequent sections
+    if ($section == "Dig") {
+      $result = db_query($query)->fetchAssoc();
+      $digID = $result['Dig_ID'];
+    }
+
+    // Get Unit_ID
+    if ($section == "Unit") {
+      $result = db_query($query)->fetchAssoc();
+      $unitID = $result['Unit_ID'];
+    }
+
+    // Get Level_ID
+    if ($section == "Level") {
+      $result = db_query($query)->fetchAssoc();
+      $levelID = $result['Level_ID'];
+    }
+  }
+
+  db_set_active();
+}
+
+function hamdig_display_args($arg1, $arg2) {
+  return '<string>' . $arg1 . ' ' . $arg2 . '</string>';
+}
+
+/*
+ * Function to get all level form info from database, returned in one array.
+ */
+
+function hamdig_get_level($levelID) {
+  set_db();
+  
+  $levelSQL = "SELECT * from Level where Level_ID = " . $levelID;
+  $levelResult = db_query($levelSQL);
+  if (!$levelResult) {
+    $levelError = true;
+    $level = array("Level_ID" => -1);
+  }
+  else {
+    $level = $levelResult->fetchAssoc();
+  }
+
+  $artifactSQL = "SELECT * FROM Artifact WHERE Level_ID = ".$levelID;
+  dd('ppqq');
+  dd($level);
+  dd($artifactSQL);
+  $artifactResult = db_query($artifactSQL);
+
+  $assocFeaturesSQL = "SELECT * FROM AssocFeatures WHERE Level_ID = ".$levelID;
+  $assocFeaturesResult = db_query($assocFeaturesSQL);
+
+  $envSamplesSQL = "SELECT * FROM EnvSamples WHERE Level_ID = ".$levelID;
+  $envSamplesResult = db_query($envSamplesSQL);
+
+  $unitSQL = "SELECT * FROM Unit where Unit_ID = " . $level['Unit_ID'];
+  $unitResult = db_query($unitSQL);
+  if (!$unitResult) {
+    $unitError = true;
+    $unit = array("Unit_ID" => -1);
+  }  
+  else {
+    $unit = $unitResult->fetchAssoc();
+  }
+
+  $digSQL = "SELECT * FROM Dig WHERE Dig_ID = " . $unit['Dig_ID'];
+  $digResult = db_query($digSQL);
+  if (!$digResult) {
+    $digError = true;
+    $dig = array("Dig_ID" => -1);
+  }
+  else {
+    $dig = $digResult->fetchAssoc();
+  }
+
+  $result = array();
+
+  // put each dig attribute into the array
+  foreach ($dig as $key => $value) {
+    $result[$key] = $value;
+  }
+
+  // put each unit attribute in the array
+  foreach ($unit as $key => $value) {
+    $result[$key] = $value;
+  }
+
+  // each level attribute
+  foreach ($level as $key => $value) {
+    $result[$key] = $value;
+  }
+
+  $result['Artifacts'] = array();
+  // get each attribute from each record
+  foreach ($artifactResult as $artifact) {
+    $inner['Artifact_ID'] = $artifact->Artifact_ID;
+    $inner['Level_ID'] = $artifact->Level_ID;
+    $inner['Dig_ID'] = $artifact->Dig_ID;
+    $inner['SpecNum'] = $artifact->SpecNum;
+    $inner['ArtifactType'] = $artifact->ArtifactType;
+    $inner['Northing'] = $artifact->Northing;
+    $inner['Easting'] = $artifact->Easting;
+    $inner['Depth'] = $artifact->Depth;
+
+    array_push($result['Artifacts'], $inner);
+    $inner = array();
+  }
+
+  $result['Associated Features'] = array();
+  // get each attribute from each feature record
+  foreach ($assocFeaturesResult as $assocFeature) {
+    $inner['Feature_ID'] = $assocFeature->Feature_ID;
+    $inner['Level_ID'] = $assocFeature->Level_ID;
+    $inner['Dig_ID'] = $assocFeature->Dig_ID;
+    $inner['FeatureNum'] = $assocFeature->FeatureNum;
+    $inner['Type'] = $assocFeature->Type;
+
+    array_push($result['Associated Features'], $inner);
+    $inner = array();
+  }
+
+
+  $result['Environmental Samples'] = array();
+  // get each attribute from each environmental sample record
+  foreach ($envSamplesResult as $envSamples) {
+    $inner['Sample_ID'] = $envSamples->Sample_ID;
+    $inner['Level_ID'] = $envSamples->Level_ID;
+    $inner['Dig_ID'] = $envSamples->Dig_ID;
+    $inner['SpecNum'] = $envSamples->SpecNum;
+    $inner['Northing'] = $envSamples->Northing;
+    $inner['Easting'] = $envSamples->Easting;
+    $inner['Depth'] = $envSamples->Depth;
+
+    array_push($result['Environmental Samples'], $inner);
+    $inner = array();
+  }
+
+  db_set_active();
+  return $result;
+}
+
+/*
+ * Function to construct an html string of links to levels in the given unitID.
+ * Last step in the form search process, links go to the viewform page and give
+ * the levelID as a parameter.
+ */
+
+function hamdig_level_search($unitID) {
+  set_db();
+  $levels = db_query("SELECT * FROM Level WHERE Unit_ID = " . $unitID);
+  db_set_active();
+  
+  $result = "";
+  foreach ($levels as $level) {
+    $result .= l('Stratum: ' . $level->Stratum .
+		 '    Level: ' . $level->Level,
+		 'viewform/' . $level->Level_ID) . '<br>';
+  }
+
+  return $result;
+}
+
+/*
+ * Function to construct an html string of links to units in the given digID.
+ * Step 2 in the form search process.
+ */
+
+function hamdig_unit_search($digID) {
+  set_db();
+  $units = db_query("SELECT * FROM Unit WHERE Dig_ID = " . $digID);
+  db_set_active();
+
+  $result = "";
+  foreach ($units as $unit) {
+    $result .= l('Northing: ' . $unit->Northing . 
+		   '    Easting: ' . $unit->Easting, 
+		 'find/level/'.$unit->Unit_ID) . '<br>';
+  }
+
+  return $result;
+}
+
+/*
+ * Function to construct an html string of links to units in each dig.
+ * Invoked as the first thing in the 3-tiered form search system (select a dig,
+ * select a unit, select a level form).
+ */
+
+function hamdig_dig_search() {
+  set_db();
+  $digs = db_query("SELECT * FROM Dig");
+  db_set_active();
+
+  $result = "";
+  if (!$digs) {
+    $result = "error";
+    dd("no digs found");
+  }
+  else {
+    foreach ($digs as $dig) {
+      $result .= l(t($dig->Name), 'find/unit/'.$dig->Dig_ID) . '<br>';
+    }
+  }
+
+  return $result;
+}
+
+/*
+ * Invoked from hamdig_menu as a page callback with the Level_ID passed as a
+ * parameter through callback arguments
+ * FUNCTION DETAILS:
+ * db_query takes a SQL query string and returns an object which can be 
+ * iterated over, fetching records using fetchAssoc(). The HTML string is then
+ * built and returned
+ */
+
+function hamdig_view_form($level) {
+  $levelForm = hamdig_get_level($level);
+
+  dd($levelForm);
+
+  $multiples = array('Artifacts', 'Associated Features', 'Environmental Samples');
+
+  $result = "";
+  foreach ($levelForm as $key => $value) {
+    if (!in_array($key, $multiples)) { 
+      $result = $result . $key . ": " . $value . "<br>";
+    }
+  }
+
+  $result .= '<br>';
+
+  foreach ($multiples as $section) {
+    $result.='<b>'.$section.':</b><br>';
+
+    // Check to see if there are any of this type of cultural material
+    if (empty($levelForm[$section])) {
+      $result.='  No '.$section.' in this level.<br>';
+    }
+    
+    else {
+      // Each cultural material array
+      foreach ($levelForm[$section] as $num=>$ary) {
+	$result .= rtrim($section, 's').' '.($num+1).':<br>';
+	// Each attribute of the cultural material
+	foreach ($ary as $attrib=>$value) {
+	  $result .= '  '.$attrib.': '.$value.'<br>';
+	}
+	$result .='<br>';
+      }
+    }
+  }
+
+  $result .= '<br><br>'.l('<font size="16">Edit this form</font>', 'edit/'.$levelForm['Level_ID'], array('html' => TRUE));
+
+  return "<string>". $result . "</string>";
+}
+
+/*
+ * Test function to query and create a page
+ */
+function hamdig_testpage() {
+  db_set_active('hamdigDB');
+  $result = "";
+  $sql = "SELECT * from Dig";
+  $dbresult = db_query($sql, array(), array('target' => 'hamdigDB'));
+  if ($dbresult) {
+    while ($level = $dbresult->fetchAssoc()) {
+      $result .= 'Name: ';
+      $result .= $level['Name'];
+      $result .= "<br>";
+      $result .= 'Dig ID: ';
+      $result .= $level['Dig_ID'];
+      $result .= "<br>";
+    }
+  }
+
+  db_set_active();
+  return "<string>". $result . "</string>";
+}
